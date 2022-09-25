@@ -40,6 +40,8 @@ namespace GameOfPulpit.src
         {
             Image image = new Bitmap(_images[index]);
             _pictureBox.BackgroundImage = image;
+
+            SoundManager.StartAudio("MainMenu");
         }
 
         public void SetLanguage()

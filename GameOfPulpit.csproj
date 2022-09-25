@@ -37,6 +37,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\..\..\Windows\Microsoft.NET\DirectX for Managed Code\1.0.2902.0\Microsoft.DirectX.AudioVideoPlayback.dll</HintPath>
     </Reference>
+    <Reference Include="PresentationCore" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -48,6 +49,7 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Form1.cs">
@@ -59,6 +61,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="src\MainMenu.cs" />
+    <Compile Include="src\SoundManager.cs" />
     <Compile Include="src\VideoLoader.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
@@ -143,6 +146,144 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\rus\Menu\StartMenu.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\Sounds\Attack1.mp3" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\Sounds\Attack2.mp3" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\Sounds\Attack3.mp3" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\Sounds\Brandon.mp3" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\Sounds\DyingPlayer1.mp3" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\Sounds\DyingPlayer2.mp3" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\Sounds\FinalBoss.mp3" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\Sounds\FindLatter.mp3" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\Sounds\Green.mp3" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\Sounds\Guardsman.mp3" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\Sounds\ImporveGun.mp3" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\Sounds\MainMenu.mp3" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\Sounds\Money.mp3" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\Sounds\Outlaw.mp3" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\Sounds\PickItems.mp3" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\Sounds\PlayerCastle.mp3" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\Sounds\SeeWolf.mp3" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\Sounds\StartFight.mp3" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\Sounds\Titles.mp3" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\Sounds\Triss.mp3" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\Sounds\UseHealth.mp3" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\Sounds\Vasukov.mp3" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\Sounds\WolfAttack.mp3" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\Sounds\Attack1.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\Sounds\Attack2.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\Sounds\Attack3.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\Sounds\Brandon.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\Sounds\DyingPlayer1.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\Sounds\DyingPlayer2.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\Sounds\FinalBoss.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\Sounds\FindLatter.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\Sounds\Green.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\Sounds\Guardsman.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\Sounds\ImporveGun.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\Sounds\MainMenu.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\Sounds\Money.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\Sounds\Outlaw.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\Sounds\PickItems.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\Sounds\PlayerCastle.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\Sounds\SeeWolf.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\Sounds\StartFight.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\Sounds\Titles.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\Sounds\Triss.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\Sounds\UseHealth.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\Sounds\Vasukov.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\Sounds\WolfAttack.wav" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

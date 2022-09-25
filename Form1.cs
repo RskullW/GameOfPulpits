@@ -22,10 +22,15 @@ namespace GameOfPulpit
 
         public Form1()
         {
-            InitializeComponent();
-            Initialize();
+            Awake();
         }
 
+        private void Awake()
+        {
+            InitializeComponent();
+            Initialize();
+            InitializeManagers();
+        }
         private void Initialize()
         {
 
@@ -39,9 +44,13 @@ namespace GameOfPulpit
             StartVideo();
 
             _mainMenu = new src.MainMenu(pictureBox1);
-            
-
         }
+
+        private void InitializeManagers()
+        {
+            SoundManager.Awake();
+        }
+
         public void FinishDraw(Bitmap bitmap) {
             pictureBox1.Image = bitmap;
         }
