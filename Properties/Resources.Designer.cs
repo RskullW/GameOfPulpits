@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace GameOfPulpit.Properties {
+namespace GameOfPulpits.Properties {
     using System;
     
     
@@ -22,7 +22,7 @@ namespace GameOfPulpit.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources {
+    public class Resources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,10 +36,10 @@ namespace GameOfPulpit.Properties {
         ///   Возвращает кэшированный экземпляр ResourceManager, использованный этим классом.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("GameOfPulpit.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("GameOfPulpits.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -51,7 +51,7 @@ namespace GameOfPulpit.Properties {
         ///   обращений к ресурсу с помощью этого класса ресурса со строгой типизацией.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -63,7 +63,7 @@ namespace GameOfPulpit.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.IO.UnmanagedMemoryStream, аналогичного System.IO.MemoryStream.
         /// </summary>
-        internal static System.IO.UnmanagedMemoryStream Attack1 {
+        public static System.IO.UnmanagedMemoryStream Attack1 {
             get {
                 return ResourceManager.GetStream("Attack1", resourceCulture);
             }
@@ -72,7 +72,7 @@ namespace GameOfPulpit.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.IO.UnmanagedMemoryStream, аналогичного System.IO.MemoryStream.
         /// </summary>
-        internal static System.IO.UnmanagedMemoryStream Attack2 {
+        public static System.IO.UnmanagedMemoryStream Attack2 {
             get {
                 return ResourceManager.GetStream("Attack2", resourceCulture);
             }
@@ -81,7 +81,7 @@ namespace GameOfPulpit.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.IO.UnmanagedMemoryStream, аналогичного System.IO.MemoryStream.
         /// </summary>
-        internal static System.IO.UnmanagedMemoryStream Attack3 {
+        public static System.IO.UnmanagedMemoryStream Attack3 {
             get {
                 return ResourceManager.GetStream("Attack3", resourceCulture);
             }
@@ -90,7 +90,7 @@ namespace GameOfPulpit.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.IO.UnmanagedMemoryStream, аналогичного System.IO.MemoryStream.
         /// </summary>
-        internal static System.IO.UnmanagedMemoryStream Brandon {
+        public static System.IO.UnmanagedMemoryStream Brandon {
             get {
                 return ResourceManager.GetStream("Brandon", resourceCulture);
             }
@@ -99,7 +99,7 @@ namespace GameOfPulpit.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.IO.UnmanagedMemoryStream, аналогичного System.IO.MemoryStream.
         /// </summary>
-        internal static System.IO.UnmanagedMemoryStream DyingPlayer1 {
+        public static System.IO.UnmanagedMemoryStream DyingPlayer1 {
             get {
                 return ResourceManager.GetStream("DyingPlayer1", resourceCulture);
             }
@@ -108,7 +108,7 @@ namespace GameOfPulpit.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.IO.UnmanagedMemoryStream, аналогичного System.IO.MemoryStream.
         /// </summary>
-        internal static System.IO.UnmanagedMemoryStream DyingPlayer2 {
+        public static System.IO.UnmanagedMemoryStream DyingPlayer2 {
             get {
                 return ResourceManager.GetStream("DyingPlayer2", resourceCulture);
             }
@@ -117,7 +117,7 @@ namespace GameOfPulpit.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.IO.UnmanagedMemoryStream, аналогичного System.IO.MemoryStream.
         /// </summary>
-        internal static System.IO.UnmanagedMemoryStream FinalBoss {
+        public static System.IO.UnmanagedMemoryStream FinalBoss {
             get {
                 return ResourceManager.GetStream("FinalBoss", resourceCulture);
             }
@@ -126,7 +126,7 @@ namespace GameOfPulpit.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.IO.UnmanagedMemoryStream, аналогичного System.IO.MemoryStream.
         /// </summary>
-        internal static System.IO.UnmanagedMemoryStream FindLatter {
+        public static System.IO.UnmanagedMemoryStream FindLatter {
             get {
                 return ResourceManager.GetStream("FindLatter", resourceCulture);
             }
@@ -135,7 +135,7 @@ namespace GameOfPulpit.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.IO.UnmanagedMemoryStream, аналогичного System.IO.MemoryStream.
         /// </summary>
-        internal static System.IO.UnmanagedMemoryStream Green {
+        public static System.IO.UnmanagedMemoryStream Green {
             get {
                 return ResourceManager.GetStream("Green", resourceCulture);
             }
@@ -144,7 +144,7 @@ namespace GameOfPulpit.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.IO.UnmanagedMemoryStream, аналогичного System.IO.MemoryStream.
         /// </summary>
-        internal static System.IO.UnmanagedMemoryStream Guardsman {
+        public static System.IO.UnmanagedMemoryStream Guardsman {
             get {
                 return ResourceManager.GetStream("Guardsman", resourceCulture);
             }
@@ -153,7 +153,7 @@ namespace GameOfPulpit.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.IO.UnmanagedMemoryStream, аналогичного System.IO.MemoryStream.
         /// </summary>
-        internal static System.IO.UnmanagedMemoryStream ImporveGun {
+        public static System.IO.UnmanagedMemoryStream ImporveGun {
             get {
                 return ResourceManager.GetStream("ImporveGun", resourceCulture);
             }
@@ -162,36 +162,16 @@ namespace GameOfPulpit.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.IO.UnmanagedMemoryStream, аналогичного System.IO.MemoryStream.
         /// </summary>
-        internal static System.IO.UnmanagedMemoryStream MainMenu {
+        public static System.IO.UnmanagedMemoryStream MainMenu {
             get {
                 return ResourceManager.GetStream("MainMenu", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap MainMenuEng {
-            get {
-                object obj = ResourceManager.GetObject("MainMenuEng", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap MainMenuRus {
-            get {
-                object obj = ResourceManager.GetObject("MainMenuRus", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
         ///   Поиск локализованного ресурса типа System.IO.UnmanagedMemoryStream, аналогичного System.IO.MemoryStream.
         /// </summary>
-        internal static System.IO.UnmanagedMemoryStream Money {
+        public static System.IO.UnmanagedMemoryStream Money {
             get {
                 return ResourceManager.GetStream("Money", resourceCulture);
             }
@@ -200,36 +180,16 @@ namespace GameOfPulpit.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.IO.UnmanagedMemoryStream, аналогичного System.IO.MemoryStream.
         /// </summary>
-        internal static System.IO.UnmanagedMemoryStream Outlaw {
+        public static System.IO.UnmanagedMemoryStream Outlaw {
             get {
                 return ResourceManager.GetStream("Outlaw", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap PauseEng {
-            get {
-                object obj = ResourceManager.GetObject("PauseEng", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap PauseRus {
-            get {
-                object obj = ResourceManager.GetObject("PauseRus", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
         ///   Поиск локализованного ресурса типа System.IO.UnmanagedMemoryStream, аналогичного System.IO.MemoryStream.
         /// </summary>
-        internal static System.IO.UnmanagedMemoryStream PickItems {
+        public static System.IO.UnmanagedMemoryStream PickItems {
             get {
                 return ResourceManager.GetStream("PickItems", resourceCulture);
             }
@@ -238,7 +198,7 @@ namespace GameOfPulpit.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.IO.UnmanagedMemoryStream, аналогичного System.IO.MemoryStream.
         /// </summary>
-        internal static System.IO.UnmanagedMemoryStream PlayerCastle {
+        public static System.IO.UnmanagedMemoryStream PlayerCastle {
             get {
                 return ResourceManager.GetStream("PlayerCastle", resourceCulture);
             }
@@ -247,65 +207,25 @@ namespace GameOfPulpit.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.IO.UnmanagedMemoryStream, аналогичного System.IO.MemoryStream.
         /// </summary>
-        internal static System.IO.UnmanagedMemoryStream SeeWolf {
+        public static System.IO.UnmanagedMemoryStream SeeWolf {
             get {
                 return ResourceManager.GetStream("SeeWolf", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap SettingsEng {
-            get {
-                object obj = ResourceManager.GetObject("SettingsEng", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap SettingsRus {
-            get {
-                object obj = ResourceManager.GetObject("SettingsRus", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
         ///   Поиск локализованного ресурса типа System.IO.UnmanagedMemoryStream, аналогичного System.IO.MemoryStream.
         /// </summary>
-        internal static System.IO.UnmanagedMemoryStream StartFight {
+        public static System.IO.UnmanagedMemoryStream StartFight {
             get {
                 return ResourceManager.GetStream("StartFight", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap StartMenuEng {
-            get {
-                object obj = ResourceManager.GetObject("StartMenuEng", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap StartMenuRus {
-            get {
-                object obj = ResourceManager.GetObject("StartMenuRus", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
         ///   Поиск локализованного ресурса типа System.IO.UnmanagedMemoryStream, аналогичного System.IO.MemoryStream.
         /// </summary>
-        internal static System.IO.UnmanagedMemoryStream Titles {
+        public static System.IO.UnmanagedMemoryStream Titles {
             get {
                 return ResourceManager.GetStream("Titles", resourceCulture);
             }
@@ -314,7 +234,7 @@ namespace GameOfPulpit.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.IO.UnmanagedMemoryStream, аналогичного System.IO.MemoryStream.
         /// </summary>
-        internal static System.IO.UnmanagedMemoryStream Triss {
+        public static System.IO.UnmanagedMemoryStream Triss {
             get {
                 return ResourceManager.GetStream("Triss", resourceCulture);
             }
@@ -323,7 +243,7 @@ namespace GameOfPulpit.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.IO.UnmanagedMemoryStream, аналогичного System.IO.MemoryStream.
         /// </summary>
-        internal static System.IO.UnmanagedMemoryStream UseHealth {
+        public static System.IO.UnmanagedMemoryStream UseHealth {
             get {
                 return ResourceManager.GetStream("UseHealth", resourceCulture);
             }
@@ -332,7 +252,7 @@ namespace GameOfPulpit.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.IO.UnmanagedMemoryStream, аналогичного System.IO.MemoryStream.
         /// </summary>
-        internal static System.IO.UnmanagedMemoryStream Vasukov {
+        public static System.IO.UnmanagedMemoryStream Vasukov {
             get {
                 return ResourceManager.GetStream("Vasukov", resourceCulture);
             }
@@ -341,7 +261,7 @@ namespace GameOfPulpit.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.IO.UnmanagedMemoryStream, аналогичного System.IO.MemoryStream.
         /// </summary>
-        internal static System.IO.UnmanagedMemoryStream WolfAttack {
+        public static System.IO.UnmanagedMemoryStream WolfAttack {
             get {
                 return ResourceManager.GetStream("WolfAttack", resourceCulture);
             }

@@ -1,4 +1,5 @@
-
+/bin
+/obj
 bin/Debug/GameOfPulpit.exe
 bin/Debug/GameOfPulpit.pdb
 obj/Debug/DesignTimeResolveAssemblyReferencesInput.cache
