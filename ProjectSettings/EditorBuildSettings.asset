@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/DialogueKing.unity
     guid: 248b2fa5287ba174db87ce6b2b475bf0
+  - enabled: 1
+    path: Assets/Scenes/Castle Player.unity
+    guid: bd789bd38314a394fa2d06fee7c83ecb
   m_configObjects: {}

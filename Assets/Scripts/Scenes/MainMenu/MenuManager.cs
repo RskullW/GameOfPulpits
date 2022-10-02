@@ -104,4 +104,10 @@ public class MenuManager : MonoBehaviour
         _buttons["Set"].style.backgroundImage = new StyleBackground(ResourcesLoad.GetSprite("Set" + _language));
         _buttons["Back"].style.backgroundImage = new StyleBackground(ResourcesLoad.GetSprite("Back" + _language));
     }
+
+    public static void SetLanguage(Language language)
+    {
+        _language = language;
+    }
+    
 }
