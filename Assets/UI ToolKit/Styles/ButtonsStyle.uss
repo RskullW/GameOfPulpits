@@ -1,5 +1,5 @@
 .Buttons:hover {
-    background-image: url('project://database/Assets/Sprites/eng/Buttons/Start/start1.png?fileID=2800000&guid=dc8b73e90e5ebef4bbabab3f2d86b236&type=3#start1');
+    background-image: url('project://database/Assets/Resources/Sprites/eng/Buttons/start.png?fileID=2800000&guid=dc8b73e90e5ebef4bbabab3f2d86b236&type=3#start');
     margin-left: auto;
     margin-right: auto;
     margin-top: auto;
@@ -15,11 +15,11 @@
     padding-right: 73px;
     padding-top: 37px;
     padding-bottom: 37px;
-    -unity-background-image-tint-color: rgba(164, 164, 164, 255);
+    -unity-background-image-tint-color: rgb(164, 164, 164);
 }
 
 .Buttons:active {
-    background-image: url('project://database/Assets/Sprites/eng/Buttons/Start/start1.png?fileID=2800000&guid=dc8b73e90e5ebef4bbabab3f2d86b236&type=3#start1');
+    background-image: url('project://database/Assets/Resources/Sprites/eng/Buttons/start.png?fileID=2800000&guid=dc8b73e90e5ebef4bbabab3f2d86b236&type=3#start');
     margin-left: auto;
     margin-right: auto;
     margin-top: auto;
@@ -35,11 +35,11 @@
     padding-right: 73px;
     padding-top: 37px;
     padding-bottom: 37px;
-    -unity-background-image-tint-color: rgba(115, 115, 115, 255);
+    -unity-background-image-tint-color: rgb(115, 115, 115);
 }
 
 .Buttons {
-    background-image: url('project://database/Assets/Sprites/eng/Buttons/Start/start1.png?fileID=2800000&guid=dc8b73e90e5ebef4bbabab3f2d86b236&type=3#start1');
+    background-image: url('project://database/Assets/Resources/Sprites/eng/Buttons/start.png?fileID=2800000&guid=dc8b73e90e5ebef4bbabab3f2d86b236&type=3#start');
     margin-left: auto;
     margin-right: auto;
     margin-top: auto;
@@ -55,4 +55,63 @@
     padding-right: 73px;
     padding-top: 37px;
     padding-bottom: 37px;
+}
+
+.InterfaceButton {
+    width: 8%;
+    height: 163px;
+    border-top-left-radius: 157px;
+    border-bottom-left-radius: 157px;
+    border-top-right-radius: 157px;
+    border-bottom-right-radius: 157px;
+    border-left-color: rgba(255, 123, 18, 0.89);
+    border-right-color: rgba(255, 123, 18, 0.89);
+    border-top-color: rgba(255, 123, 18, 0.89);
+    border-bottom-color: rgba(255, 123, 18, 0.89);
+    background-color: rgba(168, 135, 51, 255);
+    border-left-width: 7px;
+    border-right-width: 7px;
+    border-top-width: 7px;
+    border-bottom-width: 7px;
+    background-image: resource('Sprites/ButtonsGame/Pause');
+}
+
+.InterfaceButton:hover {
+    width: 8%;
+    height: 163px;
+    border-top-left-radius: 157px;
+    border-bottom-left-radius: 157px;
+    border-top-right-radius: 157px;
+    border-bottom-right-radius: 157px;
+    border-left-color: rgba(214, 102, 13, 0.89);
+    border-right-color: rgba(214, 102, 13, 0.89);
+    border-top-color: rgba(214, 102, 13, 0.89);
+    border-bottom-color: rgba(214, 102, 13, 0.89);
+    background-color: rgb(130, 108, 36);
+    border-left-width: 7px;
+    border-right-width: 7px;
+    border-top-width: 7px;
+    border-bottom-width: 7px;
+    background-image: resource('Sprites/ButtonsGame/Pause');
+    -unity-background-image-tint-color: rgba(212, 212, 212, 255);
+}
+
+.InterfaceButton:active {
+    width: 8%;
+    height: 163px;
+    border-top-left-radius: 157px;
+    border-bottom-left-radius: 157px;
+    border-top-right-radius: 157px;
+    border-bottom-right-radius: 157px;
+    border-left-color: rgba(154, 71, 5, 0.89);
+    border-right-color: rgba(154, 71, 5, 0.89);
+    border-top-color: rgba(154, 71, 5, 0.89);
+    border-bottom-color: rgba(154, 71, 5, 0.89);
+    background-color: rgb(94, 78, 38);
+    border-left-width: 7px;
+    border-right-width: 7px;
+    border-top-width: 7px;
+    border-bottom-width: 7px;
+    background-image: resource('Sprites/ButtonsGame/Pause');
+    -unity-background-image-tint-color: rgba(159, 159, 159, 255);
 }

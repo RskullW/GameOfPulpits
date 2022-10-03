@@ -18,12 +18,14 @@ public class ResourcesLoad : MonoBehaviour
     private void LoadSprites()
     {
         _sprites["StartRus"] = Resources.Load<Sprite>("Sprites/rus/Buttons/start");
+        _sprites["ContinueRus"] = Resources.Load<Sprite>("Sprites/rus/Buttons/continue");
         _sprites["SettingsRus"] = Resources.Load<Sprite>("Sprites/rus/Buttons/settings");
         _sprites["SetRus"] = Resources.Load<Sprite>("Sprites/rus/Buttons/set");
         _sprites["ExitRus"] = Resources.Load<Sprite>("Sprites/rus/Buttons/exit");
         _sprites["BackRus"] = Resources.Load<Sprite>("Sprites/rus/Buttons/back");
         
         _sprites["StartEng"] = Resources.Load<Sprite>("Sprites/eng/Buttons/start");
+        _sprites["ContinueEng"] = Resources.Load<Sprite>("Sprites/eng/Buttons/continue");
         _sprites["SettingsEng"] = Resources.Load<Sprite>("Sprites/eng/Buttons/settings");
         _sprites["SetEng"] = Resources.Load<Sprite>("Sprites/eng/Buttons/set");
         _sprites["ExitEng"] = Resources.Load<Sprite>("Sprites/eng/Buttons/exit");

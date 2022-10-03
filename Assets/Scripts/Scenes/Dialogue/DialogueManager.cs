@@ -24,7 +24,6 @@ public class DialogueManager : MonoBehaviour
 
     private void Awake()
     {
-        MenuManager.SetLanguage(Language.Rus);
         foreach (var name in _nameLeft)
         {
             name.text = _dialogues[0].NameLeftEnglish;
@@ -111,7 +110,7 @@ public class DialogueManager : MonoBehaviour
                         SceneManager.LoadScene("Castle Player");
                         return;
                     }
-                    
+
                     HideText();
                     StartCoroutine(StartVisibleText());
                 }
@@ -155,7 +154,6 @@ public class DialogueManager : MonoBehaviour
             }
 
             textMeshPro.text = "";
-            Debug.Log(text);
             while (textMeshPro.text != text)
             {
                 textMeshPro.text += text[index++];
