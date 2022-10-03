@@ -22,6 +22,7 @@ public class ResourcesLoad : MonoBehaviour
         _sprites["SettingsRus"] = Resources.Load<Sprite>("Sprites/rus/Buttons/settings");
         _sprites["SetRus"] = Resources.Load<Sprite>("Sprites/rus/Buttons/set");
         _sprites["ExitRus"] = Resources.Load<Sprite>("Sprites/rus/Buttons/exit");
+        _sprites["DeleteRus"] = Resources.Load<Sprite>("Sprites/rus/Buttons/delete");
         _sprites["BackRus"] = Resources.Load<Sprite>("Sprites/rus/Buttons/back");
         
         _sprites["StartEng"] = Resources.Load<Sprite>("Sprites/eng/Buttons/start");
@@ -29,6 +30,7 @@ public class ResourcesLoad : MonoBehaviour
         _sprites["SettingsEng"] = Resources.Load<Sprite>("Sprites/eng/Buttons/settings");
         _sprites["SetEng"] = Resources.Load<Sprite>("Sprites/eng/Buttons/set");
         _sprites["ExitEng"] = Resources.Load<Sprite>("Sprites/eng/Buttons/exit");
+        _sprites["DeleteEng"] = Resources.Load<Sprite>("Sprites/eng/Buttons/delete");
         _sprites["BackEng"] = Resources.Load<Sprite>("Sprites/eng/Buttons/back");
     }
 

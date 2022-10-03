@@ -107,13 +107,16 @@ public class PlayerController : MonoBehaviour
     
     private void MovementLogic()
     {
-        float moveHorizontal = Input.GetAxis("Horizontal");
+        if (!_isAttack)
+        {
+            float moveHorizontal = Input.GetAxis("Horizontal");
 
-        float moveVertical = Input.GetAxis("Vertical");
+            float moveVertical = Input.GetAxis("Vertical");
 
-        Vector3 movement = new Vector3(moveHorizontal, moveVertical, 0.0f);
-        transform.Translate(movement * _playerSpeed * Time.fixedDeltaTime);
-        
+            Vector3 movement = new Vector3(moveHorizontal, moveVertical, 0.0f);
+            transform.Translate(movement * _playerSpeed * Time.fixedDeltaTime);
+        }
+
     }
     IEnumerator StartAttackTime()
     {

@@ -22,11 +22,16 @@ public class AudioManager : MonoBehaviour
             GetComponent<AudioSource>().mute = false;
     }
  
-    void Destroy()
+    public void Destroy()
     {
         SceneManager.sceneLoaded -= OnSceneLoaded;
+        Destroy(gameObject);
     }
-
+    
+    public static void StartMusic()
+    {
+        _audioSource.Play();
+    }
     public static void StopMusic()
     {
         _audioSource.Stop();
