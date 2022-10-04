@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,12 +7,26 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerController : MonoBehaviour
 {
+    public event Action OnSellerGun;
+    public event Action OnSellerMedic;
+    public event Action OnSellerItems;
+    public event Action OnMessageClick;
+    
     [SerializeField] private float _durationCooldown;
     [SerializeField] private float _playerSpeed;
+    [SerializeField] private float _damage;
+
     private Position _position;
     private Animator _animator;
     private Rigidbody _rigidbody;
+    
     private bool _isAttack;
+    private bool _isShowMessage;
+    
+    private bool _isSellerItems;
+    private bool _isSellerMedic;
+    private bool _isSellerGuns;
+
     
     void Start()
     {
@@ -20,8 +35,10 @@ public class PlayerController : MonoBehaviour
         
         _animator = GetComponent<Animator>();
         _rigidbody = GetComponent<Rigidbody>();
-    }
 
+        _isShowMessage = _isSellerGuns = _isSellerItems = _isSellerMedic = false;
+        
+    }
     void SetAnimations()
     {
         if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A))
@@ -103,8 +120,29 @@ public class PlayerController : MonoBehaviour
     {
         SetAnimations();
         MovementLogic();
+        InputLogic();
     }
-    
+
+    private void InputLogic()
+    {
+        if (_isShowMessage && Input.GetKey(KeyCode.E))
+        {
+            if (_isSellerGuns)
+            {
+                OnSellerGun?.Invoke();
+            }
+            
+            else if (_isSellerItems)
+            {
+                OnSellerItems?.Invoke();
+            }
+
+            else
+            {
+                OnSellerMedic?.Invoke();
+            }
+        }
+    }
     private void MovementLogic()
     {
         if (!_isAttack)
@@ -122,5 +160,45 @@ public class PlayerController : MonoBehaviour
     {
         yield return new WaitForSeconds(_durationCooldown);
         _isAttack = false;
+    }
+
+    private void OnTriggerStay(Collider collider)
+    {
+        if (collider.tag == "PointSeller")
+        {
+            if (!_isShowMessage)
+            {
+                if (collider.gameObject.name == "SellerMedic")
+                {
+                    _isSellerMedic = true;
+                }
+                
+                else if (collider.gameObject.name == "SellerGuns")
+                {
+                    _isSellerGuns = true;
+                }
+
+                else
+                {
+                    _isSellerItems = true;
+                }
+                _isShowMessage = true;
+                OnMessageClick?.Invoke();
+            }
+        }
+    }
+
+    private void OnTriggerExit(Collider collider)
+    {
+        Debug.Log("OUT");
+
+        if (collider.tag == "PointSeller")
+        {
+            if (_isShowMessage)
+            {
+                _isShowMessage = _isSellerGuns = _isSellerItems = _isSellerMedic = false;
+                OnMessageClick?.Invoke();
+            }
+        }
     }
 }

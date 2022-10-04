@@ -8,18 +8,24 @@ public class SaveManager : MonoBehaviour
     private static int _money;
     private static float _health;
     private static string _time = "0000";
+    private static int _levelGun;
+    private static int _amountOfGarbage;
     public static Vector3 PositionPlayer => _positionPlayer;
     public static int Money => _money;
     public static float Health => _health;
     public static string Time => _time;
+    public static int LevelGun => _levelGun;
+    public static int AmounOfGarbage => _amountOfGarbage;
     
-    public static void LoadData(Vector3 positionPlayer, int money, float health, string time)
+    public static void LoadData(Vector3 positionPlayer, int money, float health, string time, int levelGun, int amountOfGarbage)
     {
         _positionPlayer = positionPlayer;
         _money = money;
         _health = health;
         _time = time;
-
+        _amountOfGarbage = amountOfGarbage;
+        _levelGun = levelGun;
+        
         SaveGame();
     }
 
@@ -33,6 +39,10 @@ public class SaveManager : MonoBehaviour
         PlayerPrefs.SetFloat("Health", Health);
         PlayerPrefs.SetString("Time", Time);
         PlayerPrefs.SetInt("Language", (int)MenuManager.Language);
+        PlayerPrefs.SetInt("NumberMission", (int)Missions.NumberMissions);
+        
+        PlayerPrefs.SetInt("LevelGun", LevelGun);
+        PlayerPrefs.SetInt("AmountOfGarbage", AmounOfGarbage);
         
         Debug.Log("Game was saved");
     }
@@ -51,6 +61,10 @@ public class SaveManager : MonoBehaviour
         _positionPlayer.x = PlayerPrefs.GetFloat("PositionX");
         _positionPlayer.y = PlayerPrefs.GetFloat("PositionY");
         _positionPlayer.z = PlayerPrefs.GetFloat("PositionZ");
+        Missions.SetNumberMission((uint)PlayerPrefs.GetInt("NumberMission"));
+        
+        _levelGun = PlayerPrefs.GetInt("LevelGun");
+        _amountOfGarbage = PlayerPrefs.GetInt("AmountOfGarbage");
         
         return true;
     }
@@ -74,5 +88,6 @@ public class SaveManager : MonoBehaviour
         PlayerPrefs.DeleteKey("PositionY");
         PlayerPrefs.DeleteKey("PositionZ");
         PlayerPrefs.DeleteKey("Language");
+        PlayerPrefs.DeleteKey("NumberMission");
     }
 }

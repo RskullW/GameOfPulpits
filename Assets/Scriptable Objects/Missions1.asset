@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c885a3a02ddf4cbe85f499146fc99096, type: 3}
+  m_Name: Missions1
+  m_EditorClassIdentifier: 
+  _englishMissions:
+  - 'Question 1: - Number 1 - Number 2  Question 2: - Number 1 - Number 2 - Number
+    3'
+  _russianMissions:
+  - "\u0417\u0430\u0434\u0430\u043D\u0438\u0435 1: - \u041D\u043E\u043C\u0435\u0440
+    1 - \u041D\u043E\u043C\u0435\u0440 2  \u0417\u0430\u0434\u0430\u043D\u0438\u0435
+    2: - \u041D\u043E\u043C\u0435\u0440 1 - \u041D\u043E\u043C\u0435\u0440 2 - \u041D\u043E\u043C\u0435\u0440
+    3"
+  _englishQuest: MISSIONS
+  _russianQuest: "\u0417\u0410\u0414\u0410\u041D\u0418\u042F"
+  _fontAssetEnglish: {fileID: 11400000, guid: 0a6b1e7175467b641950d1165b9d7270, type: 2}
+  _fontAssetRussian: {fileID: 11400000, guid: c0731d50d8a43c74182e43ad904222a5, type: 2}
