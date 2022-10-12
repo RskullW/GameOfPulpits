@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
     public event Action OnSellerGun;
     public event Action OnSellerMedic;
     public event Action OnSellerItems;
+    public event Action OnCloseDialogWithSellers;
     public event Action OnMessageClick;
     
     [SerializeField] private float _durationCooldown;
@@ -26,6 +27,10 @@ public class PlayerController : MonoBehaviour
     private bool _isSellerItems;
     private bool _isSellerMedic;
     private bool _isSellerGuns;
+
+    private int _money;
+    private int _amountOfMedicine;
+    private bool _isActiveDialogue;
 
     
     void Start()
@@ -118,11 +123,59 @@ public class PlayerController : MonoBehaviour
     }
     void FixedUpdate()
     {
-        SetAnimations();
-        MovementLogic();
-        InputLogic();
+        if (!_isActiveDialogue)
+        {
+            SetAnimations();
+            MovementLogic();
+            InputLogic();
+        }
+
+        else
+        {
+            ProcessDialogClicks();
+        }
     }
 
+    private void ProcessDialogClicks()
+    {
+        if (!_isActiveDialogue) return;
+
+        if (_isSellerGuns)
+        {
+            
+        }
+            
+        else if (_isSellerItems)
+        {
+                
+        }
+            
+        else if (_isSellerMedic)
+        {
+            if (Input.GetKey(KeyCode.Alpha1))
+            {
+                if (_money >= 5)
+                {
+                    _money -= 5;
+                    _amountOfMedicine++;
+                    AudioManager.Instance.PlaySound("Money");
+                }
+            }
+            
+            else if (Input.GetKey(KeyCode.Alpha2))
+            {
+                Application.OpenURL("https://www.youtube.com/watch?v=-ix-RldHz0g");
+                
+                _isActiveDialogue = false;
+                OnCloseDialogWithSellers?.Invoke();
+            }
+            else if (Input.GetKey(KeyCode.Alpha3))
+            {
+                _isActiveDialogue = false;
+                OnCloseDialogWithSellers?.Invoke();
+            }
+        }
+    }
     private void InputLogic()
     {
         if (_isShowMessage && Input.GetKey(KeyCode.E))
@@ -200,5 +253,29 @@ public class PlayerController : MonoBehaviour
                 OnMessageClick?.Invoke();
             }
         }
+    }
+
+    public void SetActiveDialogue(bool isActive)
+    {
+        _isActiveDialogue = isActive;
+    }
+
+    public void SetMoney(int money)
+    {
+        _money = money;
+    }
+
+    public int GetMoney()
+    {
+        return _money;
+    }
+
+    public void SetAmoundMedicine(int amountOfMedicine)
+    {
+        _amountOfMedicine = amountOfMedicine;
+    }
+    public int GetAmountMedicine()
+    {
+        return _amountOfMedicine;
     }
 }

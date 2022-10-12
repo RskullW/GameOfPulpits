@@ -10,22 +10,25 @@ public class SaveManager : MonoBehaviour
     private static string _time = "0000";
     private static int _levelGun;
     private static int _amountOfGarbage;
+    private static int _amountOfMedicine;
     public static Vector3 PositionPlayer => _positionPlayer;
     public static int Money => _money;
     public static float Health => _health;
     public static string Time => _time;
     public static int LevelGun => _levelGun;
-    public static int AmounOfGarbage => _amountOfGarbage;
+    public static int AmountOfGarbage => _amountOfGarbage;
+    public static int AmountOfMedicine => _amountOfMedicine;
     
-    public static void LoadData(Vector3 positionPlayer, int money, float health, string time, int levelGun, int amountOfGarbage)
+    public static void LoadData(Vector3 positionPlayer, int money, float health, string time, int levelGun, int amountOfGarbage, int amountOfMedicine)
     {
         _positionPlayer = positionPlayer;
         _money = money;
         _health = health;
         _time = time;
         _amountOfGarbage = amountOfGarbage;
+        _amountOfMedicine = amountOfMedicine;
         _levelGun = levelGun;
-        
+             
         SaveGame();
     }
 
@@ -42,7 +45,8 @@ public class SaveManager : MonoBehaviour
         PlayerPrefs.SetInt("NumberMission", (int)Missions.NumberMissions);
         
         PlayerPrefs.SetInt("LevelGun", LevelGun);
-        PlayerPrefs.SetInt("AmountOfGarbage", AmounOfGarbage);
+        PlayerPrefs.SetInt("AmountOfGarbage", AmountOfGarbage);
+        PlayerPrefs.SetInt("AmountOfMedicine", AmountOfMedicine);
         
         Debug.Log("Game was saved");
     }
@@ -65,6 +69,7 @@ public class SaveManager : MonoBehaviour
         
         _levelGun = PlayerPrefs.GetInt("LevelGun");
         _amountOfGarbage = PlayerPrefs.GetInt("AmountOfGarbage");
+        _amountOfMedicine = PlayerPrefs.GetInt("AmountOfMedicine");
         
         return true;
     }
@@ -89,5 +94,8 @@ public class SaveManager : MonoBehaviour
         PlayerPrefs.DeleteKey("PositionZ");
         PlayerPrefs.DeleteKey("Language");
         PlayerPrefs.DeleteKey("NumberMission");
+        PlayerPrefs.DeleteKey("AmountOfGarbage");
+        PlayerPrefs.DeleteKey("AmountOfMedicine");
+        PlayerPrefs.DeleteKey("LevelGun");
     }
 }

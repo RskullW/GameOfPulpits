@@ -7,6 +7,7 @@ using UnityEngine.UIElements;
 public class GameManager : MonoBehaviour
 {
     [SerializeField] private PlayerController _playerController;
+    [SerializeField] private SellersManager _sellersManager;
     [SerializeField] private UIDocument _uiDocument;
     [SerializeField] private GameObject _player;
     [SerializeField] private Missions _missions;
@@ -14,6 +15,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int _money;
     [SerializeField] private int _levelGun;
     [SerializeField] private int _amountOfGarbage;
+    [SerializeField] private int _amountOfMedicine;
+
     private float _health;
 
     private Label[] _timeLabels; 
@@ -29,7 +32,6 @@ public class GameManager : MonoBehaviour
     
     private void Start()
     {
-        _amountOfGarbage = _levelGun = 0;
         InitializeUIElements();
         InitializeEvent();
         SetLanguageLabel();
@@ -40,9 +42,10 @@ public class GameManager : MonoBehaviour
         }
         
         SetMission((int)Missions.NumberMissions);
+        _playerController.SetMoney(_money);
+        _playerController.SetAmoundMedicine(_amountOfMedicine);
 
     }
-
     private void SetLanguageLabel()
     {
         _helpMessage.text = "Click 'E'";
@@ -55,9 +58,6 @@ public class GameManager : MonoBehaviour
     private void InitializeEvent()
     {
         _playerController.OnMessageClick += ShowMessageClick;
-        _playerController.OnSellerGun += ShowSellerGuns;
-        _playerController.OnSellerMedic += ShowSellerMedicine;
-        _playerController.OnSellerItems += ShowSellerItems;
     }
     private void InitializeUIElements()
     {
@@ -81,6 +81,8 @@ public class GameManager : MonoBehaviour
         }
         
         _buttonSave.clicked += SaveGame;
+        
+        _sellersManager.SetSafeArea(root.Q<VisualElement>("SafeArea"));
     }
     private void SaveGame()
     {
@@ -91,7 +93,9 @@ public class GameManager : MonoBehaviour
             time += timeLabel.text;
         }
 
-        SaveManager.LoadData(_player.transform.position, _money, _health, time, _levelGun, _amountOfGarbage);
+        _money = _playerController.GetMoney();
+        _amountOfMedicine = _playerController.GetAmountMedicine();
+        SaveManager.LoadData(_player.transform.position, _money, _health, time, _levelGun, _amountOfGarbage, _amountOfMedicine);
     }
     private void LoadGame()
     {
@@ -106,7 +110,8 @@ public class GameManager : MonoBehaviour
         _timeLabels[2].text = time[2].ToString();
         _timeLabels[3].text = time[3].ToString();
         
-        _amountOfGarbage = SaveManager.AmounOfGarbage;
+        _amountOfGarbage = SaveManager.AmountOfGarbage;
+        _amountOfMedicine = SaveManager.AmountOfMedicine;
         _levelGun = SaveManager.LevelGun;
     }
     private void SetMission(int numberMissions)
@@ -124,28 +129,15 @@ public class GameManager : MonoBehaviour
         }
         
     }
-
     private void ShowMessageClick()
     {
+        
         bool visible = _helpMessageClick.visible;
         
         _helpMessage.visible = _helpMessageClick.visible = !visible;
         _helpMessage.SetEnabled(!visible);
         _helpMessageClick.SetEnabled(!visible);
-    }
-
-    private void ShowSellerItems()
-    {
-        Debug.Log("Show seller items");
-    }
-
-    private void ShowSellerMedicine()
-    {
-        Debug.Log("Show seller medicine");
-    }
-
-    private void ShowSellerGuns()
-    {
-        Debug.Log("Show seller gun");   
+        
+        Debug.Log("Show Message: " + _helpMessageClick.visible);
     }
 }

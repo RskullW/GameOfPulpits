@@ -9,11 +9,10 @@ using UnityEngine.Video;
 public class MenuManager : MonoBehaviour
 {
     [SerializeField] private VideoPlayer _intro;
-    [SerializeField] private AudioManager _audioManager;
     [SerializeField] private UIDocument _uiDocument;
     private Dictionary<string, Button> _buttons;
     private bool _isNewGame = true;
-    private static Language _language = Language.Eng;
+    private static Language _language;
 
     public static Language Language => _language;
     void Awake()
@@ -44,7 +43,7 @@ public class MenuManager : MonoBehaviour
     {
 
         _uiDocument.enabled = true;
-        AudioManager.StartMusic();
+        AudioManager.Instance.PlayMusic("MainMenu");
         InitializeButtons();
         
         if (SaveManager.LoadGame())
@@ -122,8 +121,7 @@ public class MenuManager : MonoBehaviour
         if (!_isNewGame)
         {
             SceneManager.LoadScene("Castle Player");
-            AudioManager.StopMusic();
-            _audioManager.Destroy();
+            AudioManager.Instance.StopMusic("MainMenu");
             return;
         }
         SceneManager.LoadScene("DialogueKing");
