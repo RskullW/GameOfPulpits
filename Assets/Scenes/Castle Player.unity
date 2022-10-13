@@ -1031,8 +1031,8 @@ MonoBehaviour:
   _playerController: {fileID: 1028445866}
   _uiDocument: {fileID: 1182778843}
   _dialogueSellerMedicines: {fileID: 11400000, guid: c1f7839d892c24243b3d98b704f876b0, type: 2}
-  _dialogueSellerGuns: {fileID: 0}
-  _dialogueSellerItems: {fileID: 0}
+  _dialogueSellerGuns: {fileID: 11400000, guid: 69a922a84ce8a0c4e8f1c87c2e1bd487, type: 2}
+  _dialogueSellerItems: {fileID: 11400000, guid: 04d3678aa18b06d4bb369d01f04beb91, type: 2}
 --- !u!1 &477456327
 GameObject:
   m_ObjectHideFlags: 0
@@ -1550,6 +1550,10 @@ MonoBehaviour:
     Clip: {fileID: 8300000, guid: 74cd233a8d6e4da44b328d0cdd09b9aa, type: 3}
   - Name: Money
     Clip: {fileID: 8300000, guid: 6e0835e0c231f97439b7186d6e67c6f0, type: 3}
+  - Name: HelloGun
+    Clip: {fileID: 8300000, guid: 1f462e7d330b89e4388480388e311752, type: 3}
+  - Name: HelloItems
+    Clip: {fileID: 8300000, guid: 6a28ffac4072e064ab92daa656928b03, type: 3}
   _musicSource: {fileID: 293210712}
   _sfxSource: {fileID: 1923971049}
 --- !u!4 &856710727
@@ -2376,7 +2380,7 @@ MonoBehaviour:
   _missions: {fileID: 11400000, guid: 961e89c87a0448c4884f959543d033d2, type: 2}
   _money: 6
   _levelGun: 0
-  _amountOfGarbage: 0
+  _amountOfGarbage: 10
   _amountOfMedicine: 0
 --- !u!4 &1433571239
 Transform:

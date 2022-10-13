@@ -42,8 +42,12 @@ public class GameManager : MonoBehaviour
         }
         
         SetMission((int)Missions.NumberMissions);
+
         _playerController.SetMoney(_money);
-        _playerController.SetAmoundMedicine(_amountOfMedicine);
+        _playerController.SetAmountMedicine(_amountOfMedicine);
+        _playerController.SetAmountGarbage(_amountOfGarbage);
+        _playerController.SetLevelGun(_levelGun);
+
 
     }
     private void SetLanguageLabel()
@@ -58,6 +62,11 @@ public class GameManager : MonoBehaviour
     private void InitializeEvent()
     {
         _playerController.OnMessageClick += ShowMessageClick;
+        _playerController.OnSetMoney += SetMoneyPlayerControllerEvent;
+        _playerController.OnSetMedicine += SetAmountMedicinePlayerControllerEvent;
+        _playerController.OnSetGarbage += SetAmountGarbagePlayerControllerEvent;
+
+        _sellersManager.OnPassItems += PassUserItems;
     }
     private void InitializeUIElements()
     {
@@ -95,6 +104,9 @@ public class GameManager : MonoBehaviour
 
         _money = _playerController.GetMoney();
         _amountOfMedicine = _playerController.GetAmountMedicine();
+        _amountOfGarbage = _playerController.GetAmountGarbage();
+        _levelGun = _playerController.GetLevelGun();
+        
         SaveManager.LoadData(_player.transform.position, _money, _health, time, _levelGun, _amountOfGarbage, _amountOfMedicine);
     }
     private void LoadGame()
@@ -140,4 +152,61 @@ public class GameManager : MonoBehaviour
         
         Debug.Log("Show Message: " + _helpMessageClick.visible);
     }
+
+    public void SetMoney(int money)
+    {
+        _money = money;
+    }
+    public void SetMoneyPlayerControllerEvent()
+    {
+        _money = _playerController.GetMoney();
+    }
+    public int GetMoney()
+    {
+        return _money;
+    }
+    public void SetAmountMedicine(int amountOfMedicine)
+    {
+        _amountOfMedicine = amountOfMedicine;
+    }
+    public void SetAmountMedicinePlayerControllerEvent()
+    {
+        _amountOfMedicine = _playerController.GetAmountMedicine();
+    }
+    public int GetAmountMedicine()
+    {
+        return _amountOfMedicine;
+    }
+    public void SetLevelGun(int levelGun)
+    {
+        _levelGun = levelGun;
+    }
+    public int GetLevelGun()
+    {
+        return _levelGun;
+    }
+    public void SetAmountGarbage(int amountOfGarbage)
+    {
+        _amountOfMedicine = amountOfGarbage;
+    }
+    public void SetAmountGarbagePlayerControllerEvent()
+    {
+        _amountOfGarbage = _playerController.GetAmountGarbage();
+    }
+    public int GetAmountGarbage()
+    {
+        return _amountOfGarbage;
+    }
+
+    private void PassUserItems()
+    {
+        Debug.Log( "GARBAGE = " + _amountOfGarbage);
+        _playerController.SetAmountGarbage(_amountOfGarbage);
+        _playerController.SetMoney(_money);
+        _playerController.SetAmountMedicine(_amountOfMedicine);
+        _playerController.SetLevelGun(_levelGun);
+
+    }
+    
+    
 }

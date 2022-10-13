@@ -7,12 +7,15 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerController : MonoBehaviour
 {
+    public event Action OnSetMoney;
+    public event Action OnSetGarbage;
+    public event Action OnSetMedicine;
     public event Action OnSellerGun;
     public event Action OnSellerMedic;
     public event Action OnSellerItems;
     public event Action OnCloseDialogWithSellers;
     public event Action OnMessageClick;
-    
+
     [SerializeField] private float _durationCooldown;
     [SerializeField] private float _playerSpeed;
     [SerializeField] private float _damage;
@@ -20,30 +23,34 @@ public class PlayerController : MonoBehaviour
     private Position _position;
     private Animator _animator;
     private Rigidbody _rigidbody;
-    
+
     private bool _isAttack;
     private bool _isShowMessage;
-    
+
     private bool _isSellerItems;
     private bool _isSellerMedic;
     private bool _isSellerGuns;
 
     private int _money;
     private int _amountOfMedicine;
+    private int _levelGun;
+    private int _amountOfGarbage;
+
     private bool _isActiveDialogue;
 
-    
+
     void Start()
     {
         _position = Position.Down;
         _isAttack = false;
-        
+
         _animator = GetComponent<Animator>();
         _rigidbody = GetComponent<Rigidbody>();
 
         _isShowMessage = _isSellerGuns = _isSellerItems = _isSellerMedic = false;
-        
+
     }
+
     void SetAnimations()
     {
         if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A))
@@ -90,21 +97,21 @@ public class PlayerController : MonoBehaviour
                 StartCoroutine(StartAttackTime());
                 _isAttack = true;
             }
-            
-            else if (_animator.GetBool("isRightRun")  && !_animator.GetBool("isRightAttack"))
+
+            else if (_animator.GetBool("isRightRun") && !_animator.GetBool("isRightAttack"))
             {
                 _animator.SetBool("isRightAttack", true);
                 StartCoroutine(StartAttackTime());
                 _isAttack = true;
             }
-            
+
             else if (_animator.GetBool("isDownRun") && !_animator.GetBool("isDownAttack"))
             {
                 _animator.SetBool("isDownAttack", true);
                 StartCoroutine(StartAttackTime());
                 _isAttack = true;
             }
-            
+
             else if (_animator.GetBool("isUpRun") && !_animator.GetBool("isUpAttack"))
             {
                 _animator.SetBool("isUpAttack", true);
@@ -112,7 +119,7 @@ public class PlayerController : MonoBehaviour
                 _isAttack = true;
             }
         }
-        
+
         else
         {
             _animator.SetBool("isUpAttack", false);
@@ -121,6 +128,7 @@ public class PlayerController : MonoBehaviour
             _animator.SetBool("isLeftAttack", false);
         }
     }
+
     void FixedUpdate()
     {
         if (!_isActiveDialogue)
@@ -139,17 +147,57 @@ public class PlayerController : MonoBehaviour
     private void ProcessDialogClicks()
     {
         if (!_isActiveDialogue) return;
-
+        
         if (_isSellerGuns)
         {
-            
+            if (Input.GetKey(KeyCode.Alpha1))
+            {
+                if (_money >= 25)
+                {
+                    _money -= 25;
+                    _levelGun++;
+                    OnSetMoney?.Invoke();
+
+                    AudioManager.Instance.PlaySound("Money");
+                }
+            }
+
+            else if (Input.GetKey(KeyCode.Alpha2))
+            {
+                Application.OpenURL("https://www.playgwent.com/ru");
+
+                _isActiveDialogue = false;
+                OnCloseDialogWithSellers?.Invoke();
+            }
+            else if (Input.GetKey(KeyCode.Alpha3))
+            {
+                _isActiveDialogue = false;
+                OnCloseDialogWithSellers?.Invoke();
+            }
         }
-            
+
         else if (_isSellerItems)
         {
-                
-        }
+            if (Input.GetKey(KeyCode.Alpha1))
+            {
+                Debug.Log(_amountOfGarbage);
+                if (_amountOfGarbage > 0)
+                {
+                    _money += 2*_amountOfGarbage;
+                    _amountOfGarbage = 0;
+                    OnSetMoney?.Invoke();
+                    OnSetGarbage?.Invoke();
+                    AudioManager.Instance.PlaySound("Money");
+                }
+            }
             
+            else if (Input.GetKey(KeyCode.Alpha2))
+            {
+                _isActiveDialogue = false;
+                OnCloseDialogWithSellers?.Invoke();
+            }
+        }
+
         else if (_isSellerMedic)
         {
             if (Input.GetKey(KeyCode.Alpha1))
@@ -158,14 +206,16 @@ public class PlayerController : MonoBehaviour
                 {
                     _money -= 5;
                     _amountOfMedicine++;
+                    OnSetMoney?.Invoke();
+                    OnSetMedicine?.Invoke();
                     AudioManager.Instance.PlaySound("Money");
                 }
             }
-            
+
             else if (Input.GetKey(KeyCode.Alpha2))
             {
                 Application.OpenURL("https://www.youtube.com/watch?v=-ix-RldHz0g");
-                
+
                 _isActiveDialogue = false;
                 OnCloseDialogWithSellers?.Invoke();
             }
@@ -176,6 +226,7 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
+
     private void InputLogic()
     {
         if (_isShowMessage && Input.GetKey(KeyCode.E))
@@ -184,7 +235,7 @@ public class PlayerController : MonoBehaviour
             {
                 OnSellerGun?.Invoke();
             }
-            
+
             else if (_isSellerItems)
             {
                 OnSellerItems?.Invoke();
@@ -196,6 +247,7 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
+
     private void MovementLogic()
     {
         if (!_isAttack)
@@ -209,6 +261,7 @@ public class PlayerController : MonoBehaviour
         }
 
     }
+
     IEnumerator StartAttackTime()
     {
         yield return new WaitForSeconds(_durationCooldown);
@@ -225,7 +278,7 @@ public class PlayerController : MonoBehaviour
                 {
                     _isSellerMedic = true;
                 }
-                
+
                 else if (collider.gameObject.name == "SellerGuns")
                 {
                     _isSellerGuns = true;
@@ -235,6 +288,7 @@ public class PlayerController : MonoBehaviour
                 {
                     _isSellerItems = true;
                 }
+
                 _isShowMessage = true;
                 OnMessageClick?.Invoke();
             }
@@ -264,18 +318,32 @@ public class PlayerController : MonoBehaviour
     {
         _money = money;
     }
-
     public int GetMoney()
     {
         return _money;
     }
-
-    public void SetAmoundMedicine(int amountOfMedicine)
+    public void SetAmountMedicine(int amountOfMedicine)
     {
         _amountOfMedicine = amountOfMedicine;
     }
     public int GetAmountMedicine()
     {
         return _amountOfMedicine;
+    }
+    public void SetLevelGun(int levelGun)
+    {
+        _levelGun = levelGun;
+    }
+    public int GetLevelGun()
+    {
+        return _levelGun;
+    }
+    public void SetAmountGarbage(int amountOfGarbage)
+    {
+        _amountOfGarbage = amountOfGarbage;
+    }
+    public int GetAmountGarbage()
+    {
+        return _amountOfGarbage;
     }
 }
