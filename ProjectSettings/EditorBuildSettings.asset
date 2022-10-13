@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Castle Player.unity
     guid: bd789bd38314a394fa2d06fee7c83ecb
+  - enabled: 1
+    path: Assets/Scenes/MainMap.unity
+    guid: a3b30a0a74de6064389eece0fe608dc4
   m_configObjects: {}

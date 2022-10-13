@@ -26,6 +26,7 @@ public class GameManager : MonoBehaviour
 
     private Label _questLabel;
     private Label _missionLabel;
+    private Label[] _creditsLabel;
 
     private Label _helpMessage;
     private VisualElement _helpMessageClick;
@@ -48,6 +49,7 @@ public class GameManager : MonoBehaviour
         _playerController.SetAmountGarbage(_amountOfGarbage);
         _playerController.SetLevelGun(_levelGun);
 
+        SetMoneyLabelInterface();
 
     }
     private void SetLanguageLabel()
@@ -74,6 +76,7 @@ public class GameManager : MonoBehaviour
         var root = _uiDocument.rootVisualElement;
 
         _timeLabels = new Label[4];
+        _creditsLabel = new Label[5];
         _buttonPause = root.Q<Button>("PauseButton");
         _buttonSave = root.Q<Button>("SaveButton");
         _buttonUpLevel = root.Q<Button>("UpButton");
@@ -87,7 +90,10 @@ public class GameManager : MonoBehaviour
         for (int i = 1; i < 5; ++i)
         {
             _timeLabels[i-1] = root.Q<Label>("ClockNumber" + i);
+            _creditsLabel[i - 1] = root.Q<Label>("CreditsNumber" + i);
         }
+
+        _creditsLabel[4] = root.Q<Label>("CreditsNumber5");
         
         _buttonSave.clicked += SaveGame;
         
@@ -160,6 +166,8 @@ public class GameManager : MonoBehaviour
     public void SetMoneyPlayerControllerEvent()
     {
         _money = _playerController.GetMoney();
+
+        SetMoneyLabelInterface();
     }
     public int GetMoney()
     {
@@ -200,12 +208,22 @@ public class GameManager : MonoBehaviour
 
     private void PassUserItems()
     {
-        Debug.Log( "GARBAGE = " + _amountOfGarbage);
         _playerController.SetAmountGarbage(_amountOfGarbage);
         _playerController.SetMoney(_money);
         _playerController.SetAmountMedicine(_amountOfMedicine);
         _playerController.SetLevelGun(_levelGun);
 
+    }
+
+    private void SetMoneyLabelInterface()
+    {
+        int tempMoney = _money;
+        
+        for (short i = 4; i >= 0; --i)
+        {
+            _creditsLabel[i].text = (tempMoney % 10).ToString();
+            tempMoney /= 10;
+        }
     }
     
     

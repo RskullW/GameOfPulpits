@@ -5,12 +5,14 @@ using UnityEngine;
 public class SaveManager : MonoBehaviour
 {
     private static Vector3 _positionPlayer;
+    private static Vector3 _positionHorse;
     private static int _money;
     private static float _health;
     private static string _time = "0000";
     private static int _levelGun;
     private static int _amountOfGarbage;
     private static int _amountOfMedicine;
+    public static Vector3 PositionHorse => _positionHorse;
     public static Vector3 PositionPlayer => _positionPlayer;
     public static int Money => _money;
     public static float Health => _health;
@@ -65,6 +67,7 @@ public class SaveManager : MonoBehaviour
         _positionPlayer.x = PlayerPrefs.GetFloat("PositionX");
         _positionPlayer.y = PlayerPrefs.GetFloat("PositionY");
         _positionPlayer.z = PlayerPrefs.GetFloat("PositionZ");
+        
         Missions.SetNumberMission((uint)PlayerPrefs.GetInt("NumberMission"));
         
         _levelGun = PlayerPrefs.GetInt("LevelGun");
@@ -97,5 +100,33 @@ public class SaveManager : MonoBehaviour
         PlayerPrefs.DeleteKey("AmountOfGarbage");
         PlayerPrefs.DeleteKey("AmountOfMedicine");
         PlayerPrefs.DeleteKey("LevelGun");
+        
+        PlayerPrefs.DeleteKey("MainMap");
     }
+
+    public static int GetStatsMissions(string name)
+    {
+        return PlayerPrefs.GetInt(name);
+    }
+
+    public static void SaveStatsMission(string name, int isFirstOpen = 1)
+    {
+        PlayerPrefs.SetInt(name, isFirstOpen);
+    }
+
+    public static void LoadDataFromMainMap()
+    {
+        _positionHorse = new Vector3(PlayerPrefs.GetFloat("PositionHorseX"),
+            PlayerPrefs.GetFloat("PositionHorseY"), PlayerPrefs.GetFloat("PositionHorseZ"));
+    }
+
+    public static void SaveDataFromMainMap(Vector3 positionHorse)
+    {
+        _positionHorse = positionHorse;
+        
+        PlayerPrefs.SetFloat("PositionHorseX", _positionHorse.x);
+        PlayerPrefs.SetFloat("PositionHorseY", _positionHorse.y);
+        PlayerPrefs.SetFloat("PositionHorseZ", _positionHorse.z);
+    }
+
 }

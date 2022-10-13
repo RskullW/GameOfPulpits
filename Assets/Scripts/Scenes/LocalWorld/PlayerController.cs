@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(Rigidbody))]
@@ -16,27 +17,28 @@ public class PlayerController : MonoBehaviour
     public event Action OnCloseDialogWithSellers;
     public event Action OnMessageClick;
 
-    [SerializeField] private float _durationCooldown;
-    [SerializeField] private float _playerSpeed;
-    [SerializeField] private float _damage;
+    [SerializeField] protected float _durationCooldown;
+    [SerializeField] protected float _playerSpeed;
+    [SerializeField] protected float _damage;
 
-    private Position _position;
-    private Animator _animator;
-    private Rigidbody _rigidbody;
+    protected Position _position;
+    protected Animator _animator;
+    protected Rigidbody _rigidbody;
 
-    private bool _isAttack;
-    private bool _isShowMessage;
+    protected bool _isAttack;
+    protected bool _isShowMessage;
 
-    private bool _isSellerItems;
-    private bool _isSellerMedic;
-    private bool _isSellerGuns;
+    protected bool _isSellerItems;
+    protected bool _isSellerMedic;
+    protected bool _isSellerGuns;
 
-    private int _money;
-    private int _amountOfMedicine;
-    private int _levelGun;
-    private int _amountOfGarbage;
+    protected int _health;
+    protected int _money;
+    protected int _amountOfMedicine;
+    protected int _levelGun;
+    protected int _amountOfGarbage;
 
-    private bool _isActiveDialogue;
+    protected bool _isActiveDialogue;
 
 
     void Start()
@@ -144,7 +146,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void ProcessDialogClicks()
+    protected void ProcessDialogClicks()
     {
         if (!_isActiveDialogue) return;
         
@@ -227,7 +229,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void InputLogic()
+    protected void InputLogic()
     {
         if (_isShowMessage && Input.GetKey(KeyCode.E))
         {
@@ -248,7 +250,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void MovementLogic()
+    protected void MovementLogic()
     {
         if (!_isAttack)
         {
@@ -259,7 +261,6 @@ public class PlayerController : MonoBehaviour
             Vector3 movement = new Vector3(moveHorizontal, moveVertical, 0.0f);
             transform.Translate(movement * _playerSpeed * Time.fixedDeltaTime);
         }
-
     }
 
     IEnumerator StartAttackTime()
@@ -268,7 +269,7 @@ public class PlayerController : MonoBehaviour
         _isAttack = false;
     }
 
-    private void OnTriggerStay(Collider collider)
+    protected void OnTriggerStay(Collider collider)
     {
         if (collider.tag == "PointSeller")
         {
@@ -295,7 +296,18 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void OnTriggerExit(Collider collider)
+    protected void OnTriggerEnter(Collider collider)
+    {
+        if (collider.gameObject.tag == "ExitLevel")
+        {
+            var position = transform.position;
+            position.z += 2;
+            SaveManager.LoadData(position, _money, _health, "1200", _levelGun, _amountOfGarbage, _amountOfMedicine);
+            SceneManager.LoadScene("MainMap");
+        }
+    }
+
+    protected void OnTriggerExit(Collider collider)
     {
         Debug.Log("OUT");
 
@@ -314,6 +326,15 @@ public class PlayerController : MonoBehaviour
         _isActiveDialogue = isActive;
     }
 
+    public void SetHealth(int health)
+    {
+        
+    }
+
+    public int GetHealth()
+    {
+        return _health;
+    }
     public void SetMoney(int money)
     {
         _money = money;
