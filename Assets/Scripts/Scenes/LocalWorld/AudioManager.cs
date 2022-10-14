@@ -89,7 +89,11 @@ public class AudioManager : MonoBehaviour
 
     public void StopMusic()
     {
-        _musicSource.Stop();
+        if (_musicSource.isPlaying)
+        {
+            Debug.Log("StopMusic(): " + _musicSource.clip.name);
+            _musicSource.Stop();
+        }
 
         if (_isPlayBackgroundMusic)
         {
