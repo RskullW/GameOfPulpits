@@ -6,6 +6,11 @@ TagManager:
   tags:
   - PointSeller
   - ExitLevel
+  - Ground
+  - FirstBoss
+  - SecondBoss
+  - ThirdBoss
+  - Casle
   layers:
   - Default
   - TransparentFX

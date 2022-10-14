@@ -1,18 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SaveManager : MonoBehaviour
 {
     private static Vector3 _positionPlayer;
-    private static Vector3 _positionHorse;
     private static int _money;
     private static float _health;
     private static string _time = "0000";
     private static int _levelGun;
     private static int _amountOfGarbage;
     private static int _amountOfMedicine;
-    public static Vector3 PositionHorse => _positionHorse;
+    private static int _idScene;
+
+    private static int _isFirstBoss;
+    private static int _isSecondBoss;
+    private static int _isThirdBoss;
+    private static int _isFinalBoss;
+    private static Dictionary<string, bool> _namesSave;
     public static Vector3 PositionPlayer => _positionPlayer;
     public static int Money => _money;
     public static float Health => _health;
@@ -33,9 +39,13 @@ public class SaveManager : MonoBehaviour
              
         SaveGame();
     }
-
+    
     private static void SaveGame()
     {
+        // MAIN MAP
+        
+        //
+        SaveLevel();        
         PlayerPrefs.SetFloat("PositionX", PositionPlayer.x);
         PlayerPrefs.SetFloat("PositionY", PositionPlayer.y);
         PlayerPrefs.SetFloat("PositionZ", PositionPlayer.z);
@@ -89,6 +99,7 @@ public class SaveManager : MonoBehaviour
     
     public static void DeleteSave()
     {
+        // LOCAL MAP
         PlayerPrefs.DeleteKey("Money");
         PlayerPrefs.DeleteKey("Health");
         PlayerPrefs.DeleteKey("Time");
@@ -101,32 +112,127 @@ public class SaveManager : MonoBehaviour
         PlayerPrefs.DeleteKey("AmountOfMedicine");
         PlayerPrefs.DeleteKey("LevelGun");
         
+        // MAIN MAP
+        PlayerPrefs.DeleteKey("PositionXMap");
+        PlayerPrefs.DeleteKey("PositionYMap");
+        PlayerPrefs.DeleteKey("PositionZMap");
+        
+        // SCENE
+        PlayerPrefs.DeleteKey("Level");
+        
+        // BOSS
+        PlayerPrefs.DeleteKey("IsFinalBoss");
+        PlayerPrefs.DeleteKey("IsFirstBoss");
+        PlayerPrefs.DeleteKey("IsSecondBoss");
+        PlayerPrefs.DeleteKey("IsThirdBoss");
         PlayerPrefs.DeleteKey("MainMap");
     }
 
     public static int GetStatsMissions(string name)
     {
-        return PlayerPrefs.GetInt(name);
+        if (PlayerPrefs.HasKey(name))
+        {
+            if (_namesSave == null)
+            {
+                _namesSave = new Dictionary<string, bool>();
+            }
+            
+            if (!_namesSave.ContainsKey(name))
+            {
+                _namesSave[name] = true;
+            }
+            
+            return PlayerPrefs.GetInt(name);
+        }
+        
+        return 0;
     }
 
     public static void SaveStatsMission(string name, int isFirstOpen = 1)
     {
+        Debug.Log("SaveStatsMission(string " + name + ", int " + isFirstOpen + ")");
+
+        if (_namesSave == null)
+        {
+            _namesSave = new Dictionary<string, bool>();
+        }
+        if (!_namesSave.ContainsKey(name))
+        {
+            _namesSave[name] = true;
+        }
+        
         PlayerPrefs.SetInt(name, isFirstOpen);
     }
 
-    public static void LoadDataFromMainMap()
+    public static string GetLastNameScene()
     {
-        _positionHorse = new Vector3(PlayerPrefs.GetFloat("PositionHorseX"),
-            PlayerPrefs.GetFloat("PositionHorseY"), PlayerPrefs.GetFloat("PositionHorseZ"));
+        string nameScene = PlayerPrefs.GetString("Level");
+        return nameScene;
     }
 
-    public static void SaveDataFromMainMap(Vector3 positionHorse)
+    public static void SaveMapPosition(Vector3 position)
     {
-        _positionHorse = positionHorse;
-        
-        PlayerPrefs.SetFloat("PositionHorseX", _positionHorse.x);
-        PlayerPrefs.SetFloat("PositionHorseY", _positionHorse.y);
-        PlayerPrefs.SetFloat("PositionHorseZ", _positionHorse.z);
+        PlayerPrefs.SetFloat("PositionXMap", position.x);
+        PlayerPrefs.SetFloat("PositionYMap", position.y);
+        PlayerPrefs.SetFloat("PositionZMap", position.z);
+    }
+
+    public static bool IsNotFirstStartMainMap()
+    {
+        return PlayerPrefs.HasKey("PositionXMap");
+    }
+
+    public static Vector3 GetMapPosition()
+    {
+        Vector3 vector3 = new Vector3(PlayerPrefs.GetFloat("PositionXMap"), PlayerPrefs.GetFloat("PositionYMap"),
+            PlayerPrefs.GetFloat("PositionZMap"));
+
+        return vector3;
+    }
+
+    public static bool GetInformationFirstBoss()
+    {
+        if (!PlayerPrefs.HasKey("IsFirstBoss"))
+        {
+            return false;
+        }
+
+        return true;
+    }
+    
+    public static bool GetInformationSecondBoss()
+    {
+        if (!PlayerPrefs.HasKey("IsSecondBoss"))
+        {
+            return false;
+        }
+
+        return true;
+    }
+    
+    public static bool GetInformationThirdBoss()
+    {
+        if (!PlayerPrefs.HasKey("IsThirdBoss"))
+        {
+            return false;
+        }
+
+        return true;
+    }
+
+    public static bool GetInformationFinalBoss()
+    {
+        if (!PlayerPrefs.HasKey("IsFinalBoss"))
+        {
+            return false;
+        }
+
+        return true;
+    }
+
+    public static void SaveLevel()
+    {
+        PlayerPrefs.SetString("Level", SceneManager.GetActiveScene().name);
     }
 
 }

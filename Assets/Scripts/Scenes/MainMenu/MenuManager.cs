@@ -120,10 +120,11 @@ public class MenuManager : MonoBehaviour
     {
         if (!_isNewGame)
         {
-            SceneManager.LoadScene("Castle Player");
-            AudioManager.Instance.StopMusic("MainMenu");
+            SceneManager.LoadScene(SaveManager.GetLastNameScene());
+            AudioManager.Instance.StopMusic();
             return;
         }
+        
         SceneManager.LoadScene("DialogueKing");
     }
     private void ExitGame()

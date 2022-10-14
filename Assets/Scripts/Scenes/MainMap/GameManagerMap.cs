@@ -8,6 +8,7 @@ using UnityEngine.UIElements;
 public class GameManagerMap : MonoBehaviour
 {
     private int _isFirstOpenMap;
+
     [SerializeField] private Missions _missions;
     [SerializeField] private UIDocument _interfaceUIDocument;
     [SerializeField] private PlayerControllerMap _playerControllerMap;
@@ -22,22 +23,30 @@ public class GameManagerMap : MonoBehaviour
 
     private Label _questLabel;
     private Label _missionLabel;
+    private Button _saveButton;
     
     void Start()
     {
         SpawnPlayer(); 
         InitializeEvent();
+        StartMusic();
     }
 
+    void StartMusic()
+    {
+        if (!AudioManager.Instance.GetBackgroundMusic())
+        {
+            AudioManager.Instance.PlayBackgroundMusic();
+        }
+    }
     void SpawnPlayer()
     {
-        PlayerPrefs.DeleteKey("MainMap");
 
         _interfaceUIDocument.gameObject.SetActive(false);
         _playerControllerMap.SetPlayerCanMove(false);
 
         _isFirstOpenMap = SaveManager.GetStatsMissions("MainMap");
-
+      
         if (_isFirstOpenMap != 0) {
             _firstCutscene.Stop();
             
@@ -45,8 +54,11 @@ public class GameManagerMap : MonoBehaviour
             _playerControllerMap.SetPlayerCanMove(true);
             _mainCamera.gameObject.transform.position = _cameraPosition;
             _mainCamera.orthographicSize = _orthographicSizeCamera;
-            
-            _playerControllerMap.gameObject.transform.position = SaveManager.PositionHorse;
+
+            if (SaveManager.IsNotFirstStartMainMap())
+            {
+                _playerControllerMap.gameObject.transform.position = SaveManager.GetMapPosition();
+            }
         }
     }
     void InitializeEvent()
@@ -78,6 +90,9 @@ public class GameManagerMap : MonoBehaviour
         
         _questLabel = root.Q<Label>("QuestLabel");
         _missionLabel = root.Q<Label>("MissionLabel");
+        _saveButton = root.Q<Button>("SaveButton");
+
+        _saveButton.clicked += Save;
     }
 
     void OnPlayableDirectorStopped(PlayableDirector aDirector)
@@ -111,5 +126,14 @@ public class GameManagerMap : MonoBehaviour
             _missionLabel.text = _missions.RussianMissions[numberMissions];
         }
         
+    }
+
+    private void Save()
+    {
+        Debug.Log(_isFirstOpenMap);
+        SaveManager.SaveMapPosition(_playerControllerMap.gameObject.transform.position);
+        SaveManager.SaveStatsMission("MainMap");
+        SaveManager.SaveLevel();
+
     }
 }

@@ -33,6 +33,8 @@ public class GameManager : MonoBehaviour
     
     private void Start()
     {
+        StartMusic();
+        
         InitializeUIElements();
         InitializeEvent();
         SetLanguageLabel();
@@ -50,7 +52,12 @@ public class GameManager : MonoBehaviour
         _playerController.SetLevelGun(_levelGun);
 
         SetMoneyLabelInterface();
+    }
 
+    private void StartMusic()
+    {
+        AudioManager.Instance.StopMusic();
+        AudioManager.Instance.PlayBackgroundMusic();
     }
     private void SetLanguageLabel()
     {
@@ -158,7 +165,6 @@ public class GameManager : MonoBehaviour
         
         Debug.Log("Show Message: " + _helpMessageClick.visible);
     }
-
     public void SetMoney(int money)
     {
         _money = money;
