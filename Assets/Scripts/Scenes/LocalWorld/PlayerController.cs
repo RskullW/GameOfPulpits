@@ -395,4 +395,13 @@ public class PlayerController : MonoBehaviour
     {
         _damage = damage;
     }
+
+    public void SetDefaultAnimation()
+    {
+        _animator.SetBool("isUpRun", false);
+        _animator.SetBool("isLeftRun", false);
+        _animator.SetBool("isDownRun", true);
+        _animator.SetBool("isRightRun", false);
+        _position = Position.Down;
+    }
 }

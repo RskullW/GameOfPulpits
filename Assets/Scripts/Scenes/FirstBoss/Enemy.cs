@@ -21,12 +21,13 @@ public class Enemy : MonoBehaviour
     public float WalkSpeed;
     public float RunSpeed;
     public float Damage;
-
+    public float StartHealth => _startHealth; 
     public List<GameObject> MovePoints;
 
     private bool _isMovement;
     private Animator _animator;
     private Transform _playerTransform;
+    private float _startHealth;
 
     private float _cooldown;
     
@@ -35,6 +36,7 @@ public class Enemy : MonoBehaviour
         _animator = GetComponent<Animator>();
         IsAttack = false;
         _isMovement = false;
+        _startHealth = Health;
         _playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
@@ -158,5 +160,10 @@ public class Enemy : MonoBehaviour
     public void SetMovement(bool isMovement)
     {
         _isMovement = isMovement;
+    }
+
+    public void SetPosition(Vector3 position)
+    {
+        transform.position = Vector2.Lerp(transform.position, position, RunSpeed * 2);
     }
 }

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -8,6 +9,8 @@ public class WolfLevel : MonoBehaviour
     [SerializeField] private WolfDialogue _wolfDialogue;
     [SerializeField] private Enemy _enemy;
     [SerializeField] private PlayerController _player;
+
+    private bool _isStartSecondPhaseFight;
     void Start()
     {
         AudioManager.Instance.PlayMusic("FightMusic1");
@@ -29,6 +32,12 @@ public class WolfLevel : MonoBehaviour
         _player.SetActiveDialogue(false);
     }
 
+    void StopMovement()
+    {
+        _enemy.SetMovement(false);
+        _player.SetActiveDialogue(true);
+    }
+
     void ProcessEndLevel()
     {
         SaveManager.SetInformationFirstBoss();
@@ -40,6 +49,26 @@ public class WolfLevel : MonoBehaviour
         Debug.Log("GetDamageEnemy. Player deals " + _player.GetDamage() + " damage to the" + _enemy.name);
         _enemy.Health -= _player.GetDamage();
         Debug.Log("Enemy health: " + _player.GetHealth());
+
+        if (_enemy.StartHealth / 2 >= _enemy.Health && !_isStartSecondPhaseFight)
+        {
+            _isStartSecondPhaseFight = true;
+            StartSecondPhaseFight();
+        }
+    }
+
+    void StartSecondPhaseFight()
+    {
+
+        if (_enemy.MovePoints.Count > 0)
+        {
+            _enemy.SetPosition(_enemy.MovePoints[0].transform.position);
+            _enemy.RunSpeed *= 2;
+            _enemy.WalkSpeed *= 2;
+        }
+        
+        StopMovement();
+        _player.SetDefaultAnimation();
     }
 
     void GetDamagePlayer()
