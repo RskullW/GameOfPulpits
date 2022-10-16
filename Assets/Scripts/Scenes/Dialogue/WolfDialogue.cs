@@ -1,29 +1,19 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using JetBrains.Annotations;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UIElements;
+using Random = UnityEngine.Random;
 
-public class DialogueManager : MonoBehaviour
+public class WolfDialogue : DialogueManager
 {
-    [SerializeField] [ItemNotNull] protected List<TextMeshProUGUI> _firstDialogue;
-    [SerializeField] [ItemNotNull] protected List<TextMeshProUGUI> _secondDialogue;
-    [SerializeField] [ItemNotNull] protected List<TextMeshProUGUI> _thirdDialogue;
-    [SerializeField] [ItemNotNull] protected List<Replics> _dialogues;
-    [SerializeField] protected float _durationVisibleText;
-    [SerializeField] protected List<bool> _numbersOfDialogue;
-    [SerializeField] protected List<TextMeshProUGUI> _nameLeft;
-    [SerializeField] protected List<TextMeshProUGUI> _nameRight;
-    [SerializeField] protected List<TextMeshProUGUI> _choises;
-    [SerializeField] protected TextMeshProUGUI _nameDialogue;
-    
-    protected short _numberDialogue;
-
+    public event Action OnEndDialogue;
+    public event Action OnEndLevel;
+    [SerializeField] private GameObject _canvas;
     private void Awake()
     {
+        MenuManager.SetLanguage(Language.Rus);
         foreach (var name in _nameLeft)
         {
             name.text = _dialogues[0].NameLeftEnglish;
@@ -34,11 +24,11 @@ public class DialogueManager : MonoBehaviour
                 name.font = _dialogues[0].FontAssetRussian;
                 _nameDialogue.font = _dialogues[0].FontAssetRussian;
             }
-            
+
             _nameDialogue.text = name.text;
             name.text += ":";
         }
-        
+
         foreach (var name in _nameRight)
         {
             name.text = _dialogues[0].NameRightEnglish;
@@ -51,7 +41,7 @@ public class DialogueManager : MonoBehaviour
             }
 
         }
-        
+
         for (int i = 0; i < _choises.Count; ++i)
         {
             _choises[i].text = _dialogues[0].EnglishChoise[i];
@@ -62,9 +52,7 @@ public class DialogueManager : MonoBehaviour
                 _choises[i].font = _dialogues[0].FontAssetRussian;
 
             }
-         }
-        
-        
+        }
     }
 
     void Start()
@@ -75,26 +63,9 @@ public class DialogueManager : MonoBehaviour
         StartCoroutine(StartVisibleText());
     }
 
-    protected void HideText()
+    private void HideText()
     {
-        foreach (var textMeshPro in _firstDialogue)
-        {
-            textMeshPro.gameObject.SetActive(false);
-            textMeshPro.transform.parent.parent.gameObject.SetActive(false);
-        }
-        
-        foreach (var textMeshPro in _secondDialogue)
-        {
-            textMeshPro.gameObject.SetActive(false);
-            textMeshPro.transform.parent.parent.gameObject.SetActive(false);
-        }
-
-        
-        foreach (var textMeshPro in _thirdDialogue)
-        {
-            textMeshPro.gameObject.SetActive(false);
-            textMeshPro.transform.parent.parent.gameObject.SetActive(false);
-        }
+        base.HideText();
     }
     private void Update()
     {
@@ -107,7 +78,30 @@ public class DialogueManager : MonoBehaviour
                 {
                     if (_numbersOfDialogue[_numbersOfDialogue.Count-1])
                     {
-                        SceneManager.LoadScene("Castle Player");
+                        OnEndDialogue?.Invoke();
+                        _canvas.gameObject.SetActive(false);
+                        gameObject.SetActive(false);
+                        return;
+                    }
+                }
+                
+                if (Input.GetKey(KeyCode.Alpha2))
+                {
+                    if (_numbersOfDialogue[_numbersOfDialogue.Count-1])
+                    {
+                        OnEndDialogue?.Invoke();
+
+                        int chance = Random.Range(0, 100);
+                        
+                        if (chance <= 15)
+                        {
+                            OnEndLevel?.Invoke();
+                        }
+                        
+                        Debug.Log("Chance = " + chance);
+
+                        _canvas.gameObject.SetActive(false);
+                        gameObject.SetActive(false);
                         return;
                     }
 
@@ -117,7 +111,6 @@ public class DialogueManager : MonoBehaviour
             }
         }
     }
-    
     private IEnumerator StartVisibleText()
     {
         List<TextMeshProUGUI> _dialogue;
@@ -159,4 +152,5 @@ public class DialogueManager : MonoBehaviour
 
         _numbersOfDialogue[_numberDialogue] = true;
     }
+    
 }

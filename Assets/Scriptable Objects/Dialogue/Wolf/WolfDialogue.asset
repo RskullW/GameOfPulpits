@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2bdf454f62302e49b78d138d10d5c05, type: 3}
+  m_Name: WolfDialogue
+  m_EditorClassIdentifier: 
+  _englishText:
+  - '                         Woo-woo-woo'
+  - Hm...
+  _russianText:
+  - "                        \u0423-\u0443-\u0443-\u0443-\u0443-\u0443..."
+  - "\u0425\u043C..."
+  _englishChoises:
+  - 1. God damn it... [Start the battle]
+  - 2. [Pretend to be a capybara. Chance to survive 15%]
+  _russianChoises:
+  - "1. \u0427\u0451\u0440\u0442 \u0432\u043E\u0437\u044C\u043C\u0438... [\u0410\u0442\u0430\u043A\u043E\u0432\u0430\u0442\u044C]"
+  - "2. [\u041F\u0440\u0438\u0442\u0432\u043E\u0440\u0438\u0442\u044C\u0441\u044F
+    \u043A\u0430\u043F\u0438\u0431\u0430\u0440\u043E\u0439. \u0428\u0430\u043D\u0441
+    \u0432\u044B\u0436\u0438\u0442\u044C: 15%]"
+  _nameLeftEnglish: WHITE WOLF
+  _nameRightEnglish: 'YOU: '
+  _nameLeftRussian: "\u0411\u0415\u041B\u042B\u0419 \u0412\u041E\u041B\u041A"
+  _nameRightRussian: "\u0412\u042B:"
+  _fontAssetEnglish: {fileID: 11400000, guid: 0a6b1e7175467b641950d1165b9d7270, type: 2}
+  _fontAssetRussian: {fileID: 11400000, guid: c0731d50d8a43c74182e43ad904222a5, type: 2}

@@ -190,6 +190,10 @@ public class SaveManager : MonoBehaviour
         return vector3;
     }
 
+    public static void SetInformationFirstBoss()
+    {
+        PlayerPrefs.SetInt("IsFirstBoss", 1);
+    }
     public static bool GetInformationFirstBoss()
     {
         if (!PlayerPrefs.HasKey("IsFirstBoss"))
@@ -200,6 +204,10 @@ public class SaveManager : MonoBehaviour
         return true;
     }
     
+    public static void SetInformationSecondBoss()
+    {
+        PlayerPrefs.SetInt("IsSecondBoss", 1);
+    }
     public static bool GetInformationSecondBoss()
     {
         if (!PlayerPrefs.HasKey("IsSecondBoss"))
@@ -210,6 +218,10 @@ public class SaveManager : MonoBehaviour
         return true;
     }
     
+    public static void SetInformationThirdBoss()
+    {
+        PlayerPrefs.SetInt("IsThirdBoss", 1);
+    }
     public static bool GetInformationThirdBoss()
     {
         if (!PlayerPrefs.HasKey("IsThirdBoss"))
@@ -220,6 +232,10 @@ public class SaveManager : MonoBehaviour
         return true;
     }
 
+    public static void SetInformationFinalBoss()
+    {
+        PlayerPrefs.SetInt("IsFinalBoss", 1);
+    }
     public static bool GetInformationFinalBoss()
     {
         if (!PlayerPrefs.HasKey("IsFinalBoss"))
