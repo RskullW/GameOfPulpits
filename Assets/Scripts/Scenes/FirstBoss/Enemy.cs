@@ -9,6 +9,7 @@ using UnityEngine.AI;
 public class Enemy : MonoBehaviour
 {
     public event Action OnCauseDamage;
+    public event Action OnDied;
     
     public TypeEnemy TypeEnemy;
     public bool IsMovingArea;
@@ -21,14 +22,15 @@ public class Enemy : MonoBehaviour
     public float WalkSpeed;
     public float RunSpeed;
     public float Damage;
-    public float StartHealth => _startHealth; 
+    public float StartHealth => _startHealth;
+    public bool IsMovement => _isMovement;
     public List<GameObject> MovePoints;
 
     private bool _isMovement;
     private Animator _animator;
     private Transform _playerTransform;
     private float _startHealth;
-
+    private bool _isFirstVisiblePlayer;
     private float _cooldown;
     
     void Start()
@@ -39,12 +41,10 @@ public class Enemy : MonoBehaviour
         _startHealth = Health;
         _playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
     }
-
     void StartWalk()
     {
         _animator.SetBool("Walk", true);
     }
-
     private void FixedUpdate()
     {
 
@@ -55,9 +55,13 @@ public class Enemy : MonoBehaviour
         }
 
     }
-
     private void MovementLogic()
     {
+        
+        Vector3 tempDirection = (_playerTransform.position - gameObject.transform.position).normalized;
+        Quaternion tempLookRotation = Quaternion.LookRotation(new Vector3(tempDirection.x, 90.0f, tempDirection.z));
+        transform.rotation = Quaternion.Lerp(gameObject.transform.rotation, tempLookRotation, Time.deltaTime * 2f);
+        
         if (Vector3.Distance(transform.position, _playerTransform.position) >= 6f)
         {
             _animator.SetBool("RunUp", true);
@@ -71,7 +75,11 @@ public class Enemy : MonoBehaviour
             if (!IsVisiblePlayer)
             {
                 IsVisiblePlayer = true;
-                AudioManager.Instance.PlaySound("StartFight");
+
+                if (_isFirstVisiblePlayer)
+                {
+                    AudioManager.Instance.PlaySound("StartFight");
+                }
             }
 
             float xPlayer = _playerTransform.position.x, zPlayer = _playerTransform.position.z;
@@ -80,40 +88,28 @@ public class Enemy : MonoBehaviour
             if (xPlayer+0.1 < xEnemy)
             {
                 _animator.SetBool("Walk", false);
-                _animator.SetBool("RunRight", false);
-                _animator.SetBool("RunUp", false);
-                _animator.SetBool("RunDown", false);
-                _animator.SetBool("RunLeft", true);
+                _animator.SetBool("RunUp", true);
                 xEnemy -= Time.deltaTime*RunSpeed;
             }
             
             else if (xPlayer - 0.1 > xEnemy)
             {
                 _animator.SetBool("Walk", false);
-                _animator.SetBool("RunRight", true);
-                _animator.SetBool("RunUp", false);
-                _animator.SetBool("RunDown", false);
-                _animator.SetBool("RunLeft", false);
+                _animator.SetBool("RunUp", true);
                 xEnemy += Time.deltaTime*RunSpeed;
             }
 
             if (zEnemy-0.1 > zPlayer)
             {
                 _animator.SetBool("Walk", false);
-                _animator.SetBool("RunRight", false);
                 _animator.SetBool("RunUp", true);
-                _animator.SetBool("RunDown", false);
-                _animator.SetBool("RunLeft", false);
                 zEnemy -= Time.deltaTime*RunSpeed;
             }
 
             else if (zEnemy + 0.1 < zPlayer) 
             {
                 _animator.SetBool("Walk", false);
-                _animator.SetBool("RunRight", false);
-                _animator.SetBool("RunUp", false);
-                _animator.SetBool("RunDown", true);
-                _animator.SetBool("RunLeft", false);
+                _animator.SetBool("RunUp", true);
                 zEnemy += Time.deltaTime*RunSpeed;
             }
 
@@ -142,7 +138,6 @@ public class Enemy : MonoBehaviour
             }
         }
     }
-
     private void AttackLogic()
     {
         if (_cooldown > 0f && IsAttack)
@@ -156,14 +151,26 @@ public class Enemy : MonoBehaviour
             IsAttack = false;
         }
     }
-
     public void SetMovement(bool isMovement)
     {
         _isMovement = isMovement;
     }
-
     public void SetPosition(Vector3 position)
     {
         transform.position = Vector2.Lerp(transform.position, position, RunSpeed * 2);
+    }
+    public void SetIsFirstVisiblePlayer(bool isVisiblePlayer)
+    {
+        _isFirstVisiblePlayer = isVisiblePlayer;
+    }
+
+    public void SetHealth(float health)
+    {
+        Health = health;
+        
+        if (Health <= 0)
+        {
+            OnDied?.Invoke();    
+        }
     }
 }

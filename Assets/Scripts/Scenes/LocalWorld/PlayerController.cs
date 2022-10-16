@@ -56,7 +56,7 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    void SetAnimations()
+    IEnumerator SetAnimations()
     {
         if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A))
         {
@@ -99,18 +99,16 @@ public class PlayerController : MonoBehaviour
             if (_animator.GetBool("isLeftRun") && !_animator.GetBool("isLeftAttack"))
             {
                 _animator.SetBool("isLeftAttack", true);
+                _isAttack = _causeDamage = true;
                 StartCoroutine(StartAttackTime());
-                _isAttack = true;
-                
                 AudioManager.Instance.PlaySound("Attack1");
             }
 
             else if (_animator.GetBool("isRightRun") && !_animator.GetBool("isRightAttack"))
             {
                 _animator.SetBool("isRightAttack", true);
+                _isAttack = _causeDamage = true;
                 StartCoroutine(StartAttackTime());
-                _isAttack = true;
-                
                 AudioManager.Instance.PlaySound("Attack1");
 
             }
@@ -118,36 +116,39 @@ public class PlayerController : MonoBehaviour
             else if (_animator.GetBool("isDownRun") && !_animator.GetBool("isDownAttack"))
             {
                 _animator.SetBool("isDownAttack", true);
+                _causeDamage = _isAttack = true;
                 StartCoroutine(StartAttackTime());
-                _isAttack = true;
-
                 AudioManager.Instance.PlaySound("Attack1");
+
             }
 
             else if (_animator.GetBool("isUpRun") && !_animator.GetBool("isUpAttack"))
             {
                 _animator.SetBool("isUpAttack", true);
+                _isAttack = _causeDamage = true;
                 StartCoroutine(StartAttackTime());
-                _isAttack = true;
-                _causeDamage = true;
                 AudioManager.Instance.PlaySound("Attack1");
+
             }
+            
         }
 
-        else
+        else if (!_isAttack)
         {
             _animator.SetBool("isUpAttack", false);
             _animator.SetBool("isDownAttack", false);
             _animator.SetBool("isRightAttack", false);
             _animator.SetBool("isLeftAttack", false);
         }
+        
+        yield return new WaitForSeconds(0.5f);
     }
 
     void FixedUpdate()
     {
         if (!_isActiveDialogue)
         {
-            SetAnimations();
+            StartCoroutine(SetAnimations());
             MovementLogic();
             InputLogic();
         }
@@ -277,7 +278,10 @@ public class PlayerController : MonoBehaviour
 
     IEnumerator StartAttackTime()
     {
-        yield return new WaitForSeconds(_durationCooldown);
+        
+        yield return new WaitForSeconds(_durationCooldown/2);
+        AudioManager.Instance.PlaySound("Attack1");
+        yield return new WaitForSeconds(_durationCooldown / 2);
         _isAttack = false;
     }
 
