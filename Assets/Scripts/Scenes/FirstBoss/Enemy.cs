@@ -8,6 +8,9 @@ using UnityEngine.AI;
 
 public class Enemy : MonoBehaviour
 {
+    public event Action OnCauseDamage;
+    
+    public TypeEnemy TypeEnemy;
     public bool IsMovingArea;
     public bool IsVisiblePlayer = false;
     public bool IsAttack = false;
@@ -62,7 +65,12 @@ public class Enemy : MonoBehaviour
         
         else if (Vector3.Distance(transform.position, _playerTransform.position) > AttackRange + 0.5f)
         {
-            IsVisiblePlayer = true;
+
+            if (!IsVisiblePlayer)
+            {
+                IsVisiblePlayer = true;
+                AudioManager.Instance.PlaySound("StartFight");
+            }
 
             float xPlayer = _playerTransform.position.x, zPlayer = _playerTransform.position.z;
             float xEnemy = transform.position.x, zEnemy = transform.position.z;
@@ -113,8 +121,23 @@ public class Enemy : MonoBehaviour
         else if (!IsAttack && Vector3.Distance(transform.position, _playerTransform.position) <= AttackRange + 0.5f)
         {
             IsAttack = true;
+            OnCauseDamage?.Invoke();
             _cooldown = CooldownAttack;
-            Debug.Log("Wolf: take damage a " + _playerTransform.gameObject.name + "\nDamage = " + Damage);
+
+            if (TypeEnemy == TypeEnemy.Wolf)
+            {
+                AudioManager.Instance.PlaySound("WolfAttack");
+            }
+            
+            else if (TypeEnemy == TypeEnemy.People)
+            {
+                AudioManager.Instance.PlaySound("Attack2");
+            }
+            
+            else if (TypeEnemy == TypeEnemy.King)
+            {
+                AudioManager.Instance.PlaySound("Attack3");
+            }
         }
     }
 

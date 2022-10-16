@@ -3,11 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerController : MonoBehaviour
 {
+    public event Action OnCauseDamage;
     public event Action OnSetMoney;
     public event Action OnSetGarbage;
     public event Action OnSetMedicine;
@@ -17,13 +19,18 @@ public class PlayerController : MonoBehaviour
     public event Action OnCloseDialogWithSellers;
     public event Action OnMessageClick;
 
+    [SerializeField] protected int _health;
+    [SerializeField] protected int _money;
+    [SerializeField] protected int _amountOfMedicine;
+    [SerializeField] protected int _levelGun;
+    [SerializeField] protected int _amountOfGarbage;
+    
     [SerializeField] protected float _durationCooldown;
     [SerializeField] protected float _playerSpeed;
     [SerializeField] protected float _damage;
 
     protected Position _position;
     protected Animator _animator;
-    protected Rigidbody _rigidbody;
 
     protected bool _isAttack;
     protected bool _isShowMessage;
@@ -31,14 +38,11 @@ public class PlayerController : MonoBehaviour
     protected bool _isSellerItems;
     protected bool _isSellerMedic;
     protected bool _isSellerGuns;
-
-    protected int _health;
-    protected int _money;
-    protected int _amountOfMedicine;
-    protected int _levelGun;
-    protected int _amountOfGarbage;
-
+    
+   
+    protected bool _causeDamage;
     protected bool _isActiveDialogue;
+    
 
 
     void Start()
@@ -47,7 +51,6 @@ public class PlayerController : MonoBehaviour
         _isAttack = false;
 
         _animator = GetComponent<Animator>();
-        _rigidbody = GetComponent<Rigidbody>();
 
         _isShowMessage = _isSellerGuns = _isSellerItems = _isSellerMedic = false;
 
@@ -98,6 +101,8 @@ public class PlayerController : MonoBehaviour
                 _animator.SetBool("isLeftAttack", true);
                 StartCoroutine(StartAttackTime());
                 _isAttack = true;
+                
+                AudioManager.Instance.PlaySound("Attack1");
             }
 
             else if (_animator.GetBool("isRightRun") && !_animator.GetBool("isRightAttack"))
@@ -105,6 +110,9 @@ public class PlayerController : MonoBehaviour
                 _animator.SetBool("isRightAttack", true);
                 StartCoroutine(StartAttackTime());
                 _isAttack = true;
+                
+                AudioManager.Instance.PlaySound("Attack1");
+
             }
 
             else if (_animator.GetBool("isDownRun") && !_animator.GetBool("isDownAttack"))
@@ -112,6 +120,8 @@ public class PlayerController : MonoBehaviour
                 _animator.SetBool("isDownAttack", true);
                 StartCoroutine(StartAttackTime());
                 _isAttack = true;
+
+                AudioManager.Instance.PlaySound("Attack1");
             }
 
             else if (_animator.GetBool("isUpRun") && !_animator.GetBool("isUpAttack"))
@@ -119,6 +129,8 @@ public class PlayerController : MonoBehaviour
                 _animator.SetBool("isUpAttack", true);
                 StartCoroutine(StartAttackTime());
                 _isAttack = true;
+                _causeDamage = true;
+                AudioManager.Instance.PlaySound("Attack1");
             }
         }
 
@@ -294,6 +306,13 @@ public class PlayerController : MonoBehaviour
                 OnMessageClick?.Invoke();
             }
         }
+        
+        if (collider.tag == "Enemy" && _isAttack && _causeDamage)
+        {
+            OnCauseDamage?.Invoke();
+            _causeDamage = false;
+        }
+
     }
 
     protected void OnTriggerEnter(Collider collider)
@@ -305,12 +324,11 @@ public class PlayerController : MonoBehaviour
             SaveManager.LoadData(position, _money, _health, "1200", _levelGun, _amountOfGarbage, _amountOfMedicine);
             SceneManager.LoadScene("MainMap");
         }
+
     }
 
     protected void OnTriggerExit(Collider collider)
     {
-        Debug.Log("OUT");
-
         if (collider.tag == "PointSeller")
         {
             if (_isShowMessage)
@@ -328,7 +346,7 @@ public class PlayerController : MonoBehaviour
 
     public void SetHealth(int health)
     {
-        
+        _health = health;
     }
 
     public int GetHealth()
@@ -366,5 +384,15 @@ public class PlayerController : MonoBehaviour
     public int GetAmountGarbage()
     {
         return _amountOfGarbage;
+    }
+
+    public float GetDamage()
+    {
+        return _damage;
+    }
+
+    public void SetDamage(float damage)
+    {
+        _damage = damage;
     }
 }

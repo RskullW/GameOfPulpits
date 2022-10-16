@@ -13,7 +13,6 @@ public class WolfDialogue : DialogueManager
     [SerializeField] private GameObject _canvas;
     private void Awake()
     {
-        MenuManager.SetLanguage(Language.Rus);
         foreach (var name in _nameLeft)
         {
             name.text = _dialogues[0].NameLeftEnglish;

@@ -19,41 +19,26 @@ public class EnemyEditor : Editor
 
     public override void OnInspectorGUI()
     {
-        _enemy.Health = EditorGUILayout.FloatField("Health", _enemy.Health);
-        _enemy.Damage = EditorGUILayout.FloatField("Health", _enemy.Damage);
-        _enemy.AttackRange = EditorGUILayout.FloatField("Attack range", _enemy.AttackRange);
-        _enemy.CooldownAttack = EditorGUILayout.FloatField("Cooldown Attack", _enemy.CooldownAttack);
-        _enemy.RunSpeed = EditorGUILayout.FloatField("Run speed", _enemy.RunSpeed);
-        _enemy.WalkSpeed = EditorGUILayout.FloatField("Walk speed", _enemy.WalkSpeed);
+        DrawConditions();
+        
         GUILayout.Space(10);
         EditorGUILayout.Toggle("Enemy see player", _enemy.IsVisiblePlayer);
         EditorGUILayout.Toggle("Enemy attacks player", _enemy.IsAttack);
+        
         GUILayout.Space(20);
         _enemy.IsMovingArea = EditorGUILayout.Toggle("Is Moving Area", _enemy.IsMovingArea);
         GUILayout.Space(10);
+        
         if (_enemy.IsMovingArea)
-        {
-            if (!_isVisibleListMovePoints)
-            {
-                _isVisibleListMovePoints = EditorGUILayout.Toggle("Open list", _isVisibleListMovePoints);
-            }
-
-            else
-            {
-                _isVisibleListMovePoints = EditorGUILayout.Toggle("Closed list", _isVisibleListMovePoints);
-            }
-
-            if (GUILayout.Button("Add a new element", GUILayout.Height(20)))
-            {
-                _enemy.MovePoints.Add(_enemy.gameObject);
-                _isVisibleListMovePoints = true;
-            }
-
+        { 
+            _isVisibleListMovePoints = EditorGUILayout.Foldout(_isVisibleListMovePoints,
+                "Move list [Count " + _enemy.MovePoints.Count +"]", true);
             if (_isVisibleListMovePoints)
             {
+                
                 for (int i = 0; i < _enemy.MovePoints.Count; ++i)
                 {
-
+                    EditorGUILayout.BeginVertical("box");
                     if (GUILayout.Button("X", GUILayout.Width(20), GUILayout.Height(20)))
                     {
                         _enemy.MovePoints.Remove(_enemy.MovePoints[i]);
@@ -62,7 +47,16 @@ public class EnemyEditor : Editor
 
                     _enemy.MovePoints[i] = (GameObject)EditorGUILayout.ObjectField("Move point", _enemy.MovePoints[i],
                         typeof(GameObject), true);
+                    
+                    EditorGUILayout.EndVertical();
                 }
+                
+                if (GUILayout.Button("Add a new element", GUILayout.Height(20)))
+                {
+                    _enemy.MovePoints.Add(_enemy.gameObject);
+                    _isVisibleListMovePoints = true;
+                }
+
             }
         }
 
@@ -75,5 +69,16 @@ public class EnemyEditor : Editor
     {
         EditorUtility.SetDirty(gameObject);
         EditorSceneManager.MarkSceneDirty(gameObject.scene);
+    }
+
+    private void DrawConditions()
+    {
+        _enemy.TypeEnemy = (TypeEnemy)EditorGUILayout.EnumPopup("Type enemy", _enemy.TypeEnemy);
+        _enemy.Health = EditorGUILayout.FloatField("Health", _enemy.Health);
+        _enemy.Damage = EditorGUILayout.FloatField("Damage", _enemy.Damage);
+        _enemy.AttackRange = EditorGUILayout.FloatField("Attack range", _enemy.AttackRange);
+        _enemy.CooldownAttack = EditorGUILayout.FloatField("Cooldown Attack", _enemy.CooldownAttack);
+        _enemy.RunSpeed = EditorGUILayout.FloatField("Run speed", _enemy.RunSpeed);
+        _enemy.WalkSpeed = EditorGUILayout.FloatField("Walk speed", _enemy.WalkSpeed);
     }
 }

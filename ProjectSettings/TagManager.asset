@@ -11,6 +11,7 @@ TagManager:
   - SecondBoss
   - ThirdBoss
   - Casle
+  - Enemy
   layers:
   - Default
   - TransparentFX

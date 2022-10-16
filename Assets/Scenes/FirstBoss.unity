@@ -139,9 +139,9 @@ GameObject:
   m_Layer: 6
   m_Name: BorderRight
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 7250588514170254948, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &129779263
 Transform:
@@ -236,7 +236,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 129779262}
-  m_Mesh: {fileID: 0}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &167300083
 GameObject:
   m_ObjectHideFlags: 0
@@ -5162,7 +5162,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 112
+  m_Constraints: 116
   m_CollisionDetection: 0
 --- !u!114 &764545640
 MonoBehaviour:
@@ -5176,9 +5176,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89a3f4de855c8004094d323d04efc2aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _health: 100
+  _money: 0
+  _amountOfMedicine: 0
+  _levelGun: 0
+  _amountOfGarbage: 0
   _durationCooldown: 1.2
   _playerSpeed: 1.82
-  _damage: 0
+  _damage: 10
 --- !u!95 &764545641
 Animator:
   serializedVersion: 4
@@ -5418,9 +5423,9 @@ GameObject:
   m_Layer: 6
   m_Name: BorderDown
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 7250588514170254948, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &1106748557
 Transform:
@@ -5515,7 +5520,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1106748556}
-  m_Mesh: {fileID: 0}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!114 &1174819445 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7566143513383959508, guid: b01577efcc3cc4e42b36bb26e1ab9868, type: 3}
@@ -10470,9 +10475,9 @@ GameObject:
   m_Layer: 6
   m_Name: BorderLeft
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 7250588514170254948, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &1658536462
 Transform:
@@ -10567,7 +10572,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1658536461}
-  m_Mesh: {fileID: 0}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &1688902732
 GameObject:
   m_ObjectHideFlags: 0
@@ -10584,7 +10589,7 @@ GameObject:
   - component: {fileID: 1688902739}
   m_Layer: 7
   m_Name: Wolf
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10664,7 +10669,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1688902732}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 0.67, y: 1.3400004, z: 1.03}
@@ -10681,15 +10686,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9e74baf07c222349a646975b4b29bba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  TypeEnemy: 1
   IsMovingArea: 1
   IsVisiblePlayer: 1
   IsAttack: 0
   AttackRange: 1
   Health: 200
-  CooldownAttack: 4.04
+  CooldownAttack: 2.95
   WalkSpeed: 0.78
   RunSpeed: 1.12
-  Damage: 0
+  Damage: 10
   MovePoints:
   - {fileID: 1251445239}
 --- !u!54 &1688902737
@@ -10791,9 +10797,9 @@ GameObject:
   m_Layer: 6
   m_Name: BorderUp
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 7250588514170254948, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &1733224118
 Transform:
@@ -10888,7 +10894,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1733224117}
-  m_Mesh: {fileID: 0}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &1868846526
 GameObject:
   m_ObjectHideFlags: 0
