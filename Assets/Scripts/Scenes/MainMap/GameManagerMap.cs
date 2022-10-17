@@ -49,7 +49,8 @@ public class GameManagerMap : MonoBehaviour
       
         if (_isFirstOpenMap != 0) {
             _firstCutscene.Stop();
-            
+            Play();
+            Debug.Log("GameManagerMap.SpawnPlayer()");
             _interfaceUIDocument.gameObject.SetActive(true);
             _playerControllerMap.SetPlayerCanMove(true);
             _mainCamera.gameObject.transform.position = _cameraPosition;
@@ -105,6 +106,7 @@ public class GameManagerMap : MonoBehaviour
 
     void Play()
     {
+        Debug.Log("GameManagerMap.Play()");
         _interfaceUIDocument.gameObject.SetActive(true);
         _playerControllerMap.SetPlayerCanMove(true);
             

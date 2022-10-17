@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -19,7 +20,8 @@ public class PlayerController : MonoBehaviour
     public event Action OnCloseDialogWithSellers;
     public event Action OnMessageClick;
 
-    [SerializeField] protected int _health;
+    [SerializeField] protected float _maxHealth;
+    [SerializeField] protected float _health;
     [SerializeField] protected int _money;
     [SerializeField] protected int _amountOfMedicine;
     [SerializeField] protected int _levelGun;
@@ -28,7 +30,14 @@ public class PlayerController : MonoBehaviour
     [SerializeField] protected float _durationCooldown;
     [SerializeField] protected float _playerSpeed;
     [SerializeField] protected float _damage;
-
+    [SerializeField] protected float _pointRecoveryHealth;
+    [SerializeField] protected float _cooldownUseHealth;
+    [SerializeField] protected Image _circleFill;
+    
+    [SerializeField] private Image _healthBarPlayer;
+    [SerializeField] private TextMeshProUGUI _textStatusBar;
+    [SerializeField] private TextMeshProUGUI _textMedicine;
+    [SerializeField] private TextMeshProUGUI _textLevelGun;
     protected Position _position;
     protected Animator _animator;
 
@@ -42,18 +51,31 @@ public class PlayerController : MonoBehaviour
    
     protected bool _causeDamage;
     protected bool _isActiveDialogue;
-    
+
+    protected float _localCooldownUseHealth;
 
 
     void Start()
     {
         _position = Position.Down;
         _isAttack = false;
-
         _animator = GetComponent<Animator>();
 
         _isShowMessage = _isSellerGuns = _isSellerItems = _isSellerMedic = false;
+        
+        _levelGun = SaveManager.LevelGun;
+        _amountOfGarbage = SaveManager.AmountOfGarbage;
+        _amountOfMedicine = SaveManager.AmountOfMedicine;
+        _health = SaveManager.Health;
+        _money = SaveManager.Money;
+        
+        _textLevelGun.text = _levelGun.ToString();
+        _textMedicine.text = _amountOfMedicine.ToString();
 
+        if (_health <= 0)
+        {
+            _health = 10f;
+        }
     }
 
     IEnumerator SetAnimations()
@@ -151,6 +173,8 @@ public class PlayerController : MonoBehaviour
             StartCoroutine(SetAnimations());
             MovementLogic();
             InputLogic();
+            
+            _healthBarPlayer.fillAmount = _health / _maxHealth;
         }
 
         else
@@ -261,6 +285,38 @@ public class PlayerController : MonoBehaviour
                 OnSellerMedic?.Invoke();
             }
         }
+
+        if (_amountOfMedicine > 0 && Input.GetKey(KeyCode.Q) && _localCooldownUseHealth <= 0f)
+        {
+            AudioManager.Instance.PlaySound("UseHealth");
+            
+            _amountOfMedicine -= 1;
+
+            _health += _pointRecoveryHealth;
+            
+            if (_health > _maxHealth)
+            {
+                _health = _maxHealth;
+            }
+
+            _localCooldownUseHealth = _cooldownUseHealth;
+            _textMedicine.text = _amountOfMedicine.ToString();
+
+
+            if (_circleFill != null)
+            {
+                _circleFill.fillAmount = 1f;
+            }
+        }
+
+        if (_localCooldownUseHealth > 0f)
+        {
+            _localCooldownUseHealth -= Time.deltaTime;
+            if (_circleFill != null)
+            {
+                _circleFill.fillAmount = _localCooldownUseHealth/_cooldownUseHealth;
+            }
+        }
     }
 
     protected void MovementLogic()
@@ -281,7 +337,9 @@ public class PlayerController : MonoBehaviour
         
         yield return new WaitForSeconds(_durationCooldown/2);
         AudioManager.Instance.PlaySound("Attack1");
-        yield return new WaitForSeconds(_durationCooldown / 2);
+        yield return new WaitForSeconds(_durationCooldown / 4);
+        _textStatusBar.text = "";
+        yield return new WaitForSeconds(_durationCooldown / 4);
         _isAttack = false;
     }
 
@@ -314,6 +372,17 @@ public class PlayerController : MonoBehaviour
         if (collider.tag == "Enemy" && _isAttack && _causeDamage)
         {
             OnCauseDamage?.Invoke();
+
+            if (MenuManager.Language == Language.Rus)
+            {
+                _textStatusBar.text = "Вы нанесли врагу " + _damage + " единиц урона.";
+            }
+
+            else
+            {
+                _textStatusBar.text = "You have dealt " + _damage + " points of damage to the enemy";
+            }
+
             _causeDamage = false;
         }
 
@@ -353,7 +422,7 @@ public class PlayerController : MonoBehaviour
         _health = health;
     }
 
-    public int GetHealth()
+    public float GetHealth()
     {
         return _health;
     }
@@ -402,10 +471,20 @@ public class PlayerController : MonoBehaviour
 
     public void SetDefaultAnimation()
     {
+        _animator.SetBool("isUpAttack", false);
         _animator.SetBool("isUpRun", false);
         _animator.SetBool("isLeftRun", false);
-        _animator.SetBool("isDownRun", true);
+        _animator.SetBool("isLeftAttack", false);
         _animator.SetBool("isRightRun", false);
+        _animator.SetBool("isRightAttack", false);
+        
+        _animator.SetBool("isDownRun", true);
+        _animator.SetBool("isDownAttack", false);
         _position = Position.Down;
+    }
+
+    public float GetMaxHealth()
+    {
+        return _maxHealth;
     }
 }

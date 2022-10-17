@@ -39,7 +39,42 @@ public class SaveManager : MonoBehaviour
              
         SaveGame();
     }
-    
+
+    public static void SaveAmountOfMedicine(int amountOfMedicine)
+    {
+        _amountOfMedicine = amountOfMedicine;
+        PlayerPrefs.SetInt("AmountOfMedicine", AmountOfMedicine);
+        
+    }
+    public static void SaveAmountOfGarbage(int amountOfGarbage)
+    {
+        _amountOfGarbage = amountOfGarbage;
+        PlayerPrefs.SetInt("AmountOfGarbage", AmountOfGarbage);
+    }
+
+    public static void SaveLevelGun(int levelGun)
+    {
+        _levelGun = levelGun;
+        PlayerPrefs.SetInt("LevelGun", LevelGun);
+    }
+
+    public static void SaveMoney(int money)
+    {
+        _money = money;
+        PlayerPrefs.SetInt("Money", Money);
+    }
+
+    public static void SaveHealth(float health)
+    {
+        _health = health;
+        PlayerPrefs.SetFloat("Health", Health);
+    }
+
+    public static void SaveTime(string time)
+    {
+        _time = time;
+        PlayerPrefs.SetString("Time", Time);
+    }
     private static void SaveGame()
     {
         // MAIN MAP

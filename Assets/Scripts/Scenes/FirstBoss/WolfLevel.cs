@@ -4,16 +4,22 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 using UnityEngine.UIElements;
 
 public class WolfLevel : MonoBehaviour
 {
+    [SerializeField] private GameObject _finalReplicObject;
+    [SerializeField] private Text _finalText;
+    [SerializeField] private string _finalReplicsRussian;
+    [SerializeField] private string _finalReplicsEnglish;
     [SerializeField] private UnityEngine.UI.Image _healthBarBoss;
     [SerializeField] private WolfDialogue _wolfDialogue;
     [SerializeField] private Enemy _enemy;
     [SerializeField] private PlayerController _player;
     [SerializeField] private PlayableDirector _playableDirector;
     [SerializeField] private List<Enemy> _enemies;
+    [Space] 
 
     private int _numberBossesKilled;
     private bool _isStartSecondPhaseFight;
@@ -30,6 +36,22 @@ public class WolfLevel : MonoBehaviour
         _healthBarBoss.fillAmount = 1f;
         _healthBar = _healthBarBoss.transform.parent.gameObject;
         _healthBar.SetActive(false);
+        
+        SetLanguage(MenuManager.Language);
+        _finalReplicObject.SetActive(false);
+    }
+
+    void SetLanguage(Language language)
+    {
+        if (language == Language.Rus)
+        {
+            _finalText.text = _finalReplicsRussian;
+        }
+
+        else
+        {
+            _finalText.text = _finalReplicsEnglish;
+        }
     }
 
     void InitializeEvents()
@@ -43,9 +65,9 @@ public class WolfLevel : MonoBehaviour
         foreach (var enemy in _enemies)
         {
             enemy.OnDied += SetNumberBossesKill;
+            enemy.OnCauseDamage += GetDamagePlayer;
         }
         _player.OnCauseDamage += GetDamageEnemy;
-
         _playableDirector.stopped += StopCutscene;
     }
     void StartMovement()
@@ -65,12 +87,12 @@ public class WolfLevel : MonoBehaviour
             _enemies[index].SetIsFirstVisiblePlayer(false);
         }
     }
-    
 
     void StopMovement()
     {
         _enemy.SetMovement(false);
         _player.SetActiveDialogue(true);
+        _player.SetDefaultAnimation();
 
         if (_enemies.Count > 0)
         {
@@ -88,6 +110,11 @@ public class WolfLevel : MonoBehaviour
     void ProcessEndLevel()
     {
         SaveManager.SetInformationFirstBoss();
+        SaveManager.SaveAmountOfGarbage(SaveManager.AmountOfGarbage + 10);
+        SaveManager.SaveAmountOfMedicine(SaveManager.AmountOfMedicine + 2);
+        SaveManager.SaveMoney(SaveManager.Money+12);
+        SaveManager.SaveHealth(_player.GetHealth());
+        SaveManager.SaveTime("0430");
         SceneManager.LoadScene("MainMap");
     }
 
@@ -140,8 +167,10 @@ public class WolfLevel : MonoBehaviour
         }
         
         StopMovement();
-        _player.SetDefaultAnimation();
         _playableDirector.Play();
+        
+        AudioManager.Instance.StopMusic();
+        AudioManager.Instance.PlayMusic("WolfSecondPhase");
         StartCoroutine(StartSoundWolfCall());
     }
 
@@ -155,6 +184,7 @@ public class WolfLevel : MonoBehaviour
     {
         Debug.Log("GetDamageEnemy. "+ _enemy.name + " deals " + _enemy.Damage + " damage to the player");
         _player.SetHealth((int)(_player.GetHealth()-_enemy.Damage));
+
         Debug.Log("Player Health: " + _enemy.Health);
     }
     private IEnumerator StartSoundWolfCall()
@@ -177,7 +207,8 @@ public class WolfLevel : MonoBehaviour
         if (_numberBossesKilled == 3)
         {
             _healthBarBoss.fillAmount = 0;
-            Debug.Log("WolfLevel.SetNumberBossesKill(): !!!VICTORY!!!!");   
+            StartCoroutine(VictoryProcess());
+            Debug.Log("WolfLevel.SetNumberBossesKill(): Victory");   
         }
 
         else
@@ -192,5 +223,16 @@ public class WolfLevel : MonoBehaviour
         var hp = _enemy.Health;
         
         _healthBarBoss.fillAmount = hp / maxHp;
+    }
+
+    private IEnumerator VictoryProcess()
+    {
+        _finalReplicObject.SetActive(true);
+        _player.SetActiveDialogue(true);
+        
+        AudioManager.Instance.PlayBackgroundMusic();
+        yield return new WaitForSeconds(4);
+        
+        ProcessEndLevel();
     }
 }
