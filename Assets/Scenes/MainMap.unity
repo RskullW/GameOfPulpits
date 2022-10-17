@@ -566,9 +566,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8b30af83ad76df4da6ed668a3752389, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _maxHealth: 0
+  _health: 0
+  _money: 0
+  _amountOfMedicine: 0
+  _levelGun: 0
+  _amountOfGarbage: 0
   _durationCooldown: 0
   _playerSpeed: 0.25
   _damage: 0
+  _pointRecoveryHealth: 0
+  _cooldownUseHealth: 0
+  _circleFill: {fileID: 0}
+  _healthBarPlayer: {fileID: 0}
+  _textStatusBar: {fileID: 0}
+  _textMedicine: {fileID: 0}
+  _textLevelGun: {fileID: 0}
+  _cooldownBlock: 0
   _rotateSpeed: 30
 --- !u!95 &138711747
 Animator:
@@ -3179,6 +3193,7 @@ MonoBehaviour:
   _firstCutscene: {fileID: 1062890668}
   _cameraPosition: {x: 7.383589, y: 3.447959, z: -5.5270166}
   _orthographicSizeCamera: 0.99
+  _spherePlayer: {fileID: 937196879}
 --- !u!1 &1746022268
 GameObject:
   m_ObjectHideFlags: 0

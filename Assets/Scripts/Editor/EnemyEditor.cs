@@ -77,7 +77,8 @@ public class EnemyEditor : Editor
         _enemy.Health = EditorGUILayout.FloatField("Health", _enemy.Health);
         _enemy.Damage = EditorGUILayout.FloatField("Damage", _enemy.Damage);
         _enemy.AttackRange = EditorGUILayout.FloatField("Attack range", _enemy.AttackRange);
-        _enemy.CooldownAttack = EditorGUILayout.FloatField("Cooldown Attack", _enemy.CooldownAttack);
+        _enemy.MinCooldownAttack = EditorGUILayout.FloatField("Minimal cooldown attack", _enemy.MinCooldownAttack);
+        _enemy.MaxCooldownAttack = EditorGUILayout.FloatField("Maximum cooldown attack", _enemy.MaxCooldownAttack);
         _enemy.RunSpeed = EditorGUILayout.FloatField("Run speed", _enemy.RunSpeed);
         _enemy.WalkSpeed = EditorGUILayout.FloatField("Walk speed", _enemy.WalkSpeed);
     }

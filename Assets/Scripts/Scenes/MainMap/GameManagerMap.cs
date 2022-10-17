@@ -16,6 +16,7 @@ public class GameManagerMap : MonoBehaviour
     [SerializeField] private PlayableDirector _firstCutscene;
     [SerializeField] private Vector3 _cameraPosition;
     [SerializeField] private float _orthographicSizeCamera;
+    [SerializeField] private GameObject _spherePlayer;
 
     private Vector3 _horsePosition;
     private Label[] _creditsLabel;
@@ -109,6 +110,7 @@ public class GameManagerMap : MonoBehaviour
         Debug.Log("GameManagerMap.Play()");
         _interfaceUIDocument.gameObject.SetActive(true);
         _playerControllerMap.SetPlayerCanMove(true);
+        _spherePlayer.SetActive(true);
             
         InitializeUIElements();
         SetMission((int)Missions.NumberMissions);

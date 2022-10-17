@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using Random = System.Random;
 
 [RequireComponent(typeof(Animator))]
 
@@ -18,7 +19,8 @@ public class Enemy : MonoBehaviour
 
     public float AttackRange;
     public float Health;
-    public float CooldownAttack;
+    public float MinCooldownAttack;
+    public float MaxCooldownAttack;
     public float WalkSpeed;
     public float RunSpeed;
     public float Damage;
@@ -62,14 +64,14 @@ public class Enemy : MonoBehaviour
         Quaternion tempLookRotation = Quaternion.LookRotation(new Vector3(tempDirection.x, 90.0f, tempDirection.z));
         transform.rotation = Quaternion.Lerp(gameObject.transform.rotation, tempLookRotation, Time.deltaTime * 2f);
         
-        if (Vector3.Distance(transform.position, _playerTransform.position) >= 6f)
+        if (Vector3.Distance(transform.position, _playerTransform.position)-AttackRange >= 5f)
         {
             _animator.SetBool("RunUp", true);
             transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z-Time.deltaTime*WalkSpeed);
             IsVisiblePlayer = false;
         } 
         
-        else if (Vector3.Distance(transform.position, _playerTransform.position) > AttackRange + 0.5f)
+        else if (Vector3.Distance(transform.position, _playerTransform.position) > AttackRange)
         {
 
             if (!IsVisiblePlayer)
@@ -116,11 +118,11 @@ public class Enemy : MonoBehaviour
             transform.position = new Vector3(xEnemy, transform.position.y, zEnemy);
         }
         
-        else if (!IsAttack && Vector3.Distance(transform.position, _playerTransform.position) <= AttackRange + 0.5f)
+        else if (!IsAttack && Vector3.Distance(transform.position, _playerTransform.position) <= AttackRange)
         {
             IsAttack = true;
             OnCauseDamage?.Invoke();
-            _cooldown = CooldownAttack;
+            _cooldown = UnityEngine.Random.Range(MinCooldownAttack, MaxCooldownAttack);
 
             if (TypeEnemy == TypeEnemy.Wolf)
             {

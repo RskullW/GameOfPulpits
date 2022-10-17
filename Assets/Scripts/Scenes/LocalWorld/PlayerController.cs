@@ -44,6 +44,11 @@ public class PlayerController : MonoBehaviour
     protected bool _isAttack;
     protected bool _isShowMessage;
 
+    protected bool _isBlock;
+
+    [SerializeField] protected float _cooldownBlock;
+    protected float _localCooldownBlock;
+    
     protected bool _isSellerItems;
     protected bool _isSellerMedic;
     protected bool _isSellerGuns;
@@ -51,12 +56,17 @@ public class PlayerController : MonoBehaviour
    
     protected bool _causeDamage;
     protected bool _isActiveDialogue;
-
+    
     protected float _localCooldownUseHealth;
+
+    protected float _cooldownBuyItem;
+    protected float _localCooldownBuyItem;
+    
 
 
     void Start()
     {
+        _cooldownBuyItem = 0.2f;
         _position = Position.Down;
         _isAttack = false;
         _animator = GetComponent<Animator>();
@@ -68,9 +78,16 @@ public class PlayerController : MonoBehaviour
         _amountOfMedicine = SaveManager.AmountOfMedicine;
         _health = SaveManager.Health;
         _money = SaveManager.Money;
-        
-        _textLevelGun.text = _levelGun.ToString();
-        _textMedicine.text = _amountOfMedicine.ToString();
+
+        if (_textLevelGun != null)
+        {
+            _textLevelGun.text = _levelGun.ToString();
+        }
+
+        if (_textMedicine != null)
+        {
+            _textMedicine.text = _amountOfMedicine.ToString();
+        }
 
         if (_health <= 0)
         {
@@ -154,7 +171,7 @@ public class PlayerController : MonoBehaviour
             }
             
         }
-
+        
         else if (!_isAttack)
         {
             _animator.SetBool("isUpAttack", false);
@@ -162,10 +179,54 @@ public class PlayerController : MonoBehaviour
             _animator.SetBool("isRightAttack", false);
             _animator.SetBool("isLeftAttack", false);
         }
+
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            if (_position == Position.Left || _position == Position.Down)
+            {
+                    DisableAnimations();
+                _animator.SetBool("isBlockLeftDown", true);
+                _isBlock = true;
+            }
+            
+            else if (_position == Position.Right || _position == Position.Up)
+            {
+                DisableAnimations();
+                _animator.SetBool("isBlockRightUp", true);
+                _isBlock = true;
+            }
+        }
         
+        else if (!Input.GetKey(KeyCode.LeftShift) && _isBlock)
+        {
+            _isBlock = false;
+            DisableAnimations();
+
+            switch (_position)
+            {
+                case Position.Down: _animator.SetBool("isDownRun", true); break;
+                case Position.Up: _animator.SetBool("isUpRun", true); break;
+                case Position.Left: _animator.SetBool("isLeftRun", true); break;
+                case Position.Right: _animator.SetBool("isRightRun", true); break;
+            }
+        }
+
         yield return new WaitForSeconds(0.5f);
     }
 
+    public void DisableAnimations()
+    {
+        _animator.SetBool("isUpRun", false);
+        _animator.SetBool("isLeftRun", false);
+        _animator.SetBool("isDownRun", false);
+        _animator.SetBool("isRightRun", false);
+        _animator.SetBool("isRightAttack", false);
+        _animator.SetBool("isLeftAttack", false);
+        _animator.SetBool("isDownAttack", false);
+        _animator.SetBool("isUpAttack", false);
+        _animator.SetBool("isBlockLeftDown", false);
+        _animator.SetBool("isBlockRightUp", false);
+    }
     void FixedUpdate()
     {
         if (!_isActiveDialogue)
@@ -173,8 +234,12 @@ public class PlayerController : MonoBehaviour
             StartCoroutine(SetAnimations());
             MovementLogic();
             InputLogic();
-            
-            _healthBarPlayer.fillAmount = _health / _maxHealth;
+
+            if (_healthBarPlayer != null)
+            {
+
+                _healthBarPlayer.fillAmount = _health / _maxHealth;
+            }
         }
 
         else
@@ -241,13 +306,14 @@ public class PlayerController : MonoBehaviour
         {
             if (Input.GetKey(KeyCode.Alpha1))
             {
-                if (_money >= 5)
+                if (_money >= 5 && _localCooldownBuyItem <=0f)
                 {
                     _money -= 5;
                     _amountOfMedicine++;
                     OnSetMoney?.Invoke();
                     OnSetMedicine?.Invoke();
                     AudioManager.Instance.PlaySound("Money");
+                    _localCooldownBuyItem = _cooldownBuyItem;
                 }
             }
 
@@ -263,6 +329,12 @@ public class PlayerController : MonoBehaviour
                 _isActiveDialogue = false;
                 OnCloseDialogWithSellers?.Invoke();
             }
+        }
+        
+        // COOLDOWN TIME BUY/SELL ITEM
+        if (_localCooldownBuyItem >= 0f)
+        {
+            _localCooldownBuyItem -= Time.deltaTime;
         }
     }
 
@@ -300,8 +372,12 @@ public class PlayerController : MonoBehaviour
             }
 
             _localCooldownUseHealth = _cooldownUseHealth;
-            _textMedicine.text = _amountOfMedicine.ToString();
 
+            if (_textMedicine != null)
+            {
+                _textMedicine.text = _amountOfMedicine.ToString();
+
+            }
 
             if (_circleFill != null)
             {
@@ -338,7 +414,12 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(_durationCooldown/2);
         AudioManager.Instance.PlaySound("Attack1");
         yield return new WaitForSeconds(_durationCooldown / 4);
-        _textStatusBar.text = "";
+
+        if (_textStatusBar != null)
+        {
+            _textStatusBar.text = "";
+        }
+
         yield return new WaitForSeconds(_durationCooldown / 4);
         _isAttack = false;
     }
@@ -373,14 +454,17 @@ public class PlayerController : MonoBehaviour
         {
             OnCauseDamage?.Invoke();
 
-            if (MenuManager.Language == Language.Rus)
+            if (_textStatusBar != null)
             {
-                _textStatusBar.text = "Вы нанесли врагу " + _damage + " единиц урона.";
-            }
+                if (MenuManager.Language == Language.Rus)
+                {
+                    _textStatusBar.text = "Вы нанесли врагу " + _damage + " единиц урона.";
+                }
 
-            else
-            {
-                _textStatusBar.text = "You have dealt " + _damage + " points of damage to the enemy";
+                else
+                {
+                    _textStatusBar.text = "You have dealt " + _damage + " points of damage to the enemy";
+                }
             }
 
             _causeDamage = false;
@@ -417,7 +501,7 @@ public class PlayerController : MonoBehaviour
         _isActiveDialogue = isActive;
     }
 
-    public void SetHealth(int health)
+    public void SetHealth(float health)
     {
         _health = health;
     }
@@ -477,6 +561,8 @@ public class PlayerController : MonoBehaviour
         _animator.SetBool("isLeftAttack", false);
         _animator.SetBool("isRightRun", false);
         _animator.SetBool("isRightAttack", false);
+        _animator.SetBool("isBlockRightUp", false);
+        _animator.SetBool("isBlockLeftDown", false);
         
         _animator.SetBool("isDownRun", true);
         _animator.SetBool("isDownAttack", false);
@@ -486,5 +572,10 @@ public class PlayerController : MonoBehaviour
     public float GetMaxHealth()
     {
         return _maxHealth;
+    }
+
+    public bool GetIsBlock()
+    {
+        return _isBlock;
     }
 }

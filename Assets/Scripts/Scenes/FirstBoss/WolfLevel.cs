@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Experimental.GlobalIllumination;
 using UnityEngine.Playables;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -92,7 +93,7 @@ public class WolfLevel : MonoBehaviour
     {
         _enemy.SetMovement(false);
         _player.SetActiveDialogue(true);
-        _player.SetDefaultAnimation();
+        _player.DisableAnimations();
 
         if (_enemies.Count > 0)
         {
@@ -159,6 +160,9 @@ public class WolfLevel : MonoBehaviour
             _enemy.SetPosition(_enemy.MovePoints[0].transform.position);
             _enemy.RunSpeed *= 4;
             _enemy.WalkSpeed *= 4;
+            _enemy.Damage *= 2;
+            _enemy.MinCooldownAttack /= 2;
+            _enemy.MaxCooldownAttack /= 2;
         }
 
         foreach (var enemy in _enemies)
@@ -178,12 +182,19 @@ public class WolfLevel : MonoBehaviour
     {
         StartWolf(_numberBossesKilled);
         _player.SetActiveDialogue(false);
-
     }
     void GetDamagePlayer()
     {
-        Debug.Log("GetDamageEnemy. "+ _enemy.name + " deals " + _enemy.Damage + " damage to the player");
-        _player.SetHealth((int)(_player.GetHealth()-_enemy.Damage));
+
+        if (_player.GetIsBlock())
+        {
+            _player.SetHealth(_player.GetHealth()-_enemy.Damage/4);
+            
+            Debug.Log("GetDamagePlayer(BLOCKED)" + _enemy.name + " deals" + _enemy.Damage/4 + " damage to the player");
+            return;
+        }
+        Debug.Log("GetDamagePlayer. "+ _enemy.name + " deals " + _enemy.Damage + " damage to the player");
+        _player.SetHealth(_player.GetHealth()-_enemy.Damage);
 
         Debug.Log("Player Health: " + _enemy.Health);
     }

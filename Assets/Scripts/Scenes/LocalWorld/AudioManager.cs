@@ -13,6 +13,7 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private AudioSource[] _sfxSource;
 
     private bool _isPlayBackgroundMusic;
+    private bool _isPlaySecondPhaseMusicWolf;
     private void Start()
     {
         if (Instance == null)
@@ -133,15 +134,14 @@ public class AudioManager : MonoBehaviour
         }
 
     }
-
     private void AudioFinished()
     {
         if (_isPlayBackgroundMusic)
         {
             PlayBackgroundMusic();
         }
+        
     }
-
     public bool GetBackgroundMusic()
     {
         return _isPlayBackgroundMusic;
