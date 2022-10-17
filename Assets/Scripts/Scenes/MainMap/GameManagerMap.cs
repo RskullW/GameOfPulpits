@@ -74,7 +74,6 @@ public class GameManagerMap : MonoBehaviour
         _clockNumberLabels = new Label[4];
         
         int tempMoney = SaveManager.Money;
-        string time = SaveManager.Time;
         var root = _interfaceUIDocument.rootVisualElement;
 
         for (int i = 4; i >= 0; --i)
@@ -87,7 +86,6 @@ public class GameManagerMap : MonoBehaviour
         for (short i = 3; i >= 0; --i)
         {
             _clockNumberLabels[i] = _interfaceUIDocument.rootVisualElement.Q<Label>("ClockNumber" + (i+1));
-            _clockNumberLabels[i].text = time[i].ToString();
         }
         
         _questLabel = root.Q<Label>("QuestLabel");
@@ -111,7 +109,7 @@ public class GameManagerMap : MonoBehaviour
         _interfaceUIDocument.gameObject.SetActive(true);
         _playerControllerMap.SetPlayerCanMove(true);
         _spherePlayer.SetActive(true);
-            
+        _mainCamera.transform.position = _cameraPosition;
         InitializeUIElements();
         SetMission((int)Missions.NumberMissions);
     }

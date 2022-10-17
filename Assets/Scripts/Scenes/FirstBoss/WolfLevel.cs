@@ -11,7 +11,7 @@ using UnityEngine.UIElements;
 public class WolfLevel : MonoBehaviour
 {
     [SerializeField] private GameObject _finalReplicObject;
-    [SerializeField] private Text _finalText;
+    [SerializeField] private TextMeshProUGUI _finalText;
     [SerializeField] private string _finalReplicsRussian;
     [SerializeField] private string _finalReplicsEnglish;
     [SerializeField] private UnityEngine.UI.Image _healthBarBoss;
@@ -115,7 +115,6 @@ public class WolfLevel : MonoBehaviour
         SaveManager.SaveAmountOfMedicine(SaveManager.AmountOfMedicine + 2);
         SaveManager.SaveMoney(SaveManager.Money+12);
         SaveManager.SaveHealth(_player.GetHealth());
-        SaveManager.SaveTime("0430");
         SceneManager.LoadScene("MainMap");
     }
 
@@ -189,14 +188,14 @@ public class WolfLevel : MonoBehaviour
         if (_player.GetIsBlock())
         {
             _player.SetHealth(_player.GetHealth()-_enemy.Damage/4);
-            
-            Debug.Log("GetDamagePlayer(BLOCKED)" + _enemy.name + " deals" + _enemy.Damage/4 + " damage to the player");
+            _player.SetLogsBar(_enemy.Damage/4);
+
             return;
         }
-        Debug.Log("GetDamagePlayer. "+ _enemy.name + " deals " + _enemy.Damage + " damage to the player");
+        
         _player.SetHealth(_player.GetHealth()-_enemy.Damage);
+        _player.SetLogsBar(_enemy.Damage);
 
-        Debug.Log("Player Health: " + _enemy.Health);
     }
     private IEnumerator StartSoundWolfCall()
     {

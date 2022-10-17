@@ -19,7 +19,6 @@ public class GameManager : MonoBehaviour
 
     private float _health;
 
-    private Label[] _timeLabels; 
     private Button _buttonPause;
     private Button _buttonSave;
     private Button _buttonUpLevel;
@@ -27,6 +26,7 @@ public class GameManager : MonoBehaviour
     private Label _questLabel;
     private Label _missionLabel;
     private Label[] _creditsLabel;
+    private Label[] _garbagesLabel;
 
     private Label _helpMessage;
     private VisualElement _helpMessageClick;
@@ -52,6 +52,7 @@ public class GameManager : MonoBehaviour
         _playerController.SetLevelGun(_levelGun);
 
         SetMoneyLabelInterface();
+        SetGarbageLabelInterface();
     }
 
     private void StartMusic()
@@ -82,8 +83,8 @@ public class GameManager : MonoBehaviour
 
         var root = _uiDocument.rootVisualElement;
 
-        _timeLabels = new Label[4];
         _creditsLabel = new Label[5];
+        _garbagesLabel = new Label[5];
         _buttonPause = root.Q<Button>("PauseButton");
         _buttonSave = root.Q<Button>("SaveButton");
         _buttonUpLevel = root.Q<Button>("UpButton");
@@ -96,11 +97,12 @@ public class GameManager : MonoBehaviour
 
         for (int i = 1; i < 5; ++i)
         {
-            _timeLabels[i-1] = root.Q<Label>("ClockNumber" + i);
             _creditsLabel[i - 1] = root.Q<Label>("CreditsNumber" + i);
+            _garbagesLabel[i - 1] = root.Q<Label>("GarbageNumber" + i);
         }
 
         _creditsLabel[4] = root.Q<Label>("CreditsNumber5");
+        _garbagesLabel[4] = root.Q<Label>("GarbageNumber5");
         
         _buttonSave.clicked += SaveGame;
         
@@ -108,32 +110,20 @@ public class GameManager : MonoBehaviour
     }
     private void SaveGame()
     {
-        string time = "";
-
-        foreach (var timeLabel in _timeLabels)
-        {
-            time += timeLabel.text;
-        }
+        
 
         _money = _playerController.GetMoney();
         _amountOfMedicine = _playerController.GetAmountMedicine();
         _amountOfGarbage = _playerController.GetAmountGarbage();
         _levelGun = _playerController.GetLevelGun();
         
-        SaveManager.LoadData(_player.transform.position, _money, _health, time, _levelGun, _amountOfGarbage, _amountOfMedicine);
+        SaveManager.LoadData(_player.transform.position, _money, _health, _levelGun, _amountOfGarbage, _amountOfMedicine);
     }
     private void LoadGame()
     {
         _money = SaveManager.Money;
         _health = SaveManager.Health;
         _player.transform.position = SaveManager.PositionPlayer;
-
-        string time = SaveManager.Time;
-        
-        _timeLabels[0].text = time[0].ToString();
-        _timeLabels[1].text = time[1].ToString();
-        _timeLabels[2].text = time[2].ToString();
-        _timeLabels[3].text = time[3].ToString();
         
         _amountOfGarbage = SaveManager.AmountOfGarbage;
         _amountOfMedicine = SaveManager.AmountOfMedicine;
@@ -206,6 +196,8 @@ public class GameManager : MonoBehaviour
     public void SetAmountGarbagePlayerControllerEvent()
     {
         _amountOfGarbage = _playerController.GetAmountGarbage();
+        
+        SetGarbageLabelInterface();
     }
     public int GetAmountGarbage()
     {
@@ -229,6 +221,17 @@ public class GameManager : MonoBehaviour
         {
             _creditsLabel[i].text = (tempMoney % 10).ToString();
             tempMoney /= 10;
+        }
+    }
+
+    private void SetGarbageLabelInterface()
+    {
+        int tempGarbages = _amountOfGarbage;
+
+        for (short i = 4; i >= 0; --i)
+        {
+            _garbagesLabel[i].text = (tempGarbages % 10).ToString();
+            tempGarbages /= 10;
         }
     }
     

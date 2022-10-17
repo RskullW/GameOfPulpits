@@ -201,6 +201,8 @@ MonoBehaviour:
     Clip: {fileID: 8300000, guid: 479b9cd1051549940a5b7601c9390a8c, type: 3}
   - Name: UseHealth
     Clip: {fileID: 8300000, guid: a6c038e1641740640be13fb5908cb2e6, type: 3}
+  - Name: ImproveGun
+    Clip: {fileID: 8300000, guid: 8c6d8a11220ac8a429cf3eccd19323d6, type: 3}
   _musicSource: {fileID: 1540903215}
   _sfxSource:
   - {fileID: 986605817}

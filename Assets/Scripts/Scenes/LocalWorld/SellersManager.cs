@@ -41,7 +41,6 @@ public class SellersManager : MonoBehaviour
         _playerController.OnSellerGun += () => ProcessDialogsWithSellers(Sellers.Gun);
         _playerController.OnSellerMedic += () => ProcessDialogsWithSellers(Sellers.Medicine);
         _playerController.OnSellerItems += () => ProcessDialogsWithSellers(Sellers.Items);
-        _playerController.OnSetMoney += SetMoneyLabel;
         
         _playerController.OnCloseDialogWithSellers += ClosePurchaseWindow;
     }
@@ -65,7 +64,6 @@ public class SellersManager : MonoBehaviour
         _dialoguesLabels["ReplicaLeft-Triss"] = root.Q<Label>("ReplicaTriss");
         _dialoguesLabels["NameRight-Triss"] = root.Q<Label>("NameUser-Triss");
         _dialoguesLabels["ReplicaRight-Triss"] = root.Q<Label>("ReplicaUser-Triss");
-        _dialoguesLabels["Credits-Triss"] = root.Q<Label>("Credits-Triss");
         _dialoguesLabels["Choise1-Triss"] = root.Q<Label>("Choise1-Triss");
         _dialoguesLabels["Choise2-Triss"] = root.Q<Label>("Choise2-Triss");
         _dialoguesLabels["Choise3-Triss"] = root.Q<Label>("Choise3-Triss");
@@ -80,7 +78,6 @@ public class SellersManager : MonoBehaviour
             _dialoguesLabels["ReplicaLeft-Triss"].text = _dialogueSellerMedicines.RussianText[0];
             _dialoguesLabels["ReplicaRight-Triss"].text = _dialogueSellerMedicines.RussianText[1];
 
-            _dialoguesLabels["Credits-Triss"].text = "Кредиты: ";
 
             _dialoguesLabels["Choise1-Triss"].text = _dialogueSellerMedicines.RussianChoise[0];
             _dialoguesLabels["Choise2-Triss"].text = _dialogueSellerMedicines.RussianChoise[1];
@@ -95,7 +92,6 @@ public class SellersManager : MonoBehaviour
             _dialoguesLabels["ReplicaLeft-Triss"].text = _dialogueSellerMedicines.EnglishText[0];
             _dialoguesLabels["ReplicaRight-Triss"].text = _dialogueSellerMedicines.EnglishText[1];
 
-            _dialoguesLabels["Credits-Triss"].text = "Credits: ";
 
             _dialoguesLabels["Choise1-Triss"].text = _dialogueSellerMedicines.EnglishChoise[0];
             _dialoguesLabels["Choise2-Triss"].text = _dialogueSellerMedicines.EnglishChoise[1];
@@ -103,7 +99,6 @@ public class SellersManager : MonoBehaviour
         }
 
         _dialoguesLabels["NameLeft-Triss"].text += ":";
-        _dialoguesLabels["Credits-Triss"].text += _playerController.GetMoney();
         
         _visualElements["SellerMedicVisualElement"].style.opacity = 0f;
         _visualElements["DialogMedic"].style.opacity = 0f;
@@ -120,7 +115,7 @@ public class SellersManager : MonoBehaviour
         _dialoguesLabels["ReplicaLeft-Items"] = root.Q<Label>("ReplicaItems");
         _dialoguesLabels["NameRight-Items"] = root.Q<Label>("NameUser-Items");
         _dialoguesLabels["ReplicaRight-Items"] = root.Q<Label>("ReplicaUser-Items");
-        _dialoguesLabels["Credits-Items"] = root.Q<Label>("Credits-Items");
+
         _dialoguesLabels["Choise1-Items"] = root.Q<Label>("Choise1-Items");
         _dialoguesLabels["Choise2-Items"] = root.Q<Label>("Choise2-Items");
 
@@ -133,8 +128,8 @@ public class SellersManager : MonoBehaviour
             _dialoguesLabels["ReplicaLeft-Items"].text = _dialogueSellerItems.RussianText[0];
             _dialoguesLabels["ReplicaRight-Items"].text = _dialogueSellerItems.RussianText[1];
 
-            _dialoguesLabels["Credits-Items"].text = "Кредиты: ";
 
+            
             _dialoguesLabels["Choise1-Items"].text = _dialogueSellerItems.RussianChoise[0];
             _dialoguesLabels["Choise2-Items"].text = _dialogueSellerItems.RussianChoise[1];
         }
@@ -147,14 +142,12 @@ public class SellersManager : MonoBehaviour
             _dialoguesLabels["ReplicaLeft-Items"].text = _dialogueSellerItems.EnglishText[0];
             _dialoguesLabels["ReplicaRight-Items"].text = _dialogueSellerItems.EnglishText[1];
 
-            _dialoguesLabels["Credits-Items"].text = "Credits: ";
 
             _dialoguesLabels["Choise1-Items"].text = _dialogueSellerItems.EnglishChoise[0];
             _dialoguesLabels["Choise2-Items"].text = _dialogueSellerItems.EnglishChoise[1];
         }
 
         _dialoguesLabels["NameLeft-Items"].text += ":";
-        _dialoguesLabels["Credits-Items"].text += _playerController.GetMoney();
         
         _visualElements["SellerItemsVisualElement"].style.opacity = 0f;
         _visualElements["DialogItems"].style.opacity = 0f;
@@ -171,7 +164,6 @@ public class SellersManager : MonoBehaviour
         _dialoguesLabels["ReplicaLeft-Gun"] = root.Q<Label>("ReplicaGun");
         _dialoguesLabels["NameRight-Gun"] = root.Q<Label>("NameUser-Gun");
         _dialoguesLabels["ReplicaRight-Gun"] = root.Q<Label>("ReplicaUser-Gun");
-        _dialoguesLabels["Credits-Gun"] = root.Q<Label>("Credits-Gun");
         _dialoguesLabels["Choise1-Gun"] = root.Q<Label>("Choise1-Gun");
         _dialoguesLabels["Choise2-Gun"] = root.Q<Label>("Choise2-Gun");
         _dialoguesLabels["Choise3-Gun"] = root.Q<Label>("Choise3-Gun");
@@ -184,9 +176,7 @@ public class SellersManager : MonoBehaviour
 
             _dialoguesLabels["ReplicaLeft-Gun"].text = _dialogueSellerGuns.RussianText[0];
             _dialoguesLabels["ReplicaRight-Gun"].text = _dialogueSellerGuns.RussianText[1];
-
-            _dialoguesLabels["Credits-Gun"].text = "Кредиты: ";
-
+            
             _dialoguesLabels["Choise1-Gun"].text = _dialogueSellerGuns.RussianChoise[0];
             _dialoguesLabels["Choise2-Gun"].text = _dialogueSellerGuns.RussianChoise[1];
             _dialoguesLabels["Choise3-Gun"].text = _dialogueSellerGuns.RussianChoise[2];
@@ -199,16 +189,13 @@ public class SellersManager : MonoBehaviour
 
             _dialoguesLabels["ReplicaLeft-Gun"].text = _dialogueSellerGuns.EnglishText[0];
             _dialoguesLabels["ReplicaRight-Gun"].text = _dialogueSellerGuns.EnglishText[1];
-
-            _dialoguesLabels["Credits-Gun"].text = "Credits: ";
-
+            
             _dialoguesLabels["Choise1-Gun"].text = _dialogueSellerGuns.EnglishChoise[0];
             _dialoguesLabels["Choise2-Gun"].text = _dialogueSellerGuns.EnglishChoise[1];
             _dialoguesLabels["Choise3-Gun"].text = _dialogueSellerGuns.EnglishChoise[2];
         }
 
         _dialoguesLabels["NameLeft-Gun"].text += ":";
-        _dialoguesLabels["Credits-Gun"].text += _playerController.GetMoney();
         
         _visualElements["SellerGunVisualElement"].style.opacity = 0f;
         _visualElements["DialogGun"].style.opacity = 0f;
@@ -219,7 +206,6 @@ public class SellersManager : MonoBehaviour
         _safeArea.style.opacity = 0f;
         _playerController.SetActiveDialogue(true);
 
-        SetMoneyLabel();
         OnPassItems?.Invoke();
 
         switch (seller)
@@ -291,27 +277,5 @@ public class SellersManager : MonoBehaviour
     public void SetSafeArea(VisualElement visualElement)
     {
         _safeArea = visualElement;
-    }
-
-    private void SetMoneyLabel()
-    {
-        if (MenuManager.Language == Language.Rus)
-        {
-            _dialoguesLabels["Credits-Gun"].text = "Кредиты: ";
-            _dialoguesLabels["Credits-Triss"].text = "Кредиты: ";
-            _dialoguesLabels["Credits-Items"].text = "Кредиты: ";
-        }
-
-        else
-        {
-            _dialoguesLabels["Credits-Gun"].text = "Credits: ";
-            _dialoguesLabels["Credits-Triss"].text = "Credits: ";
-            _dialoguesLabels["Credits-Items"].text = "Credits: ";
-        }
-        
-        _dialoguesLabels["Credits-Gun"].text += _playerController.GetMoney();
-        _dialoguesLabels["Credits-Triss"].text += _playerController.GetMoney();
-        _dialoguesLabels["Credits-Items"].text += _playerController.GetMoney();
-
     }
 }

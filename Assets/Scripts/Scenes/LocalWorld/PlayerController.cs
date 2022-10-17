@@ -35,9 +35,16 @@ public class PlayerController : MonoBehaviour
     [SerializeField] protected Image _circleFill;
     
     [SerializeField] private Image _healthBarPlayer;
-    [SerializeField] private TextMeshProUGUI _textStatusBar;
     [SerializeField] private TextMeshProUGUI _textMedicine;
     [SerializeField] private TextMeshProUGUI _textLevelGun;
+    
+    [Space]
+    [SerializeField] private List<TextMeshProUGUI> _textsLogBar;
+
+    [SerializeField] private Color _colorCausePlayer;
+    [SerializeField] private Color _colorTakeDamagePlayer;
+    
+    [Space]
     protected Position _position;
     protected Animator _animator;
 
@@ -54,13 +61,15 @@ public class PlayerController : MonoBehaviour
     protected bool _isSellerGuns;
     
    
-    protected bool _causeDamage;
+    protected bool _isCauseDamage;
     protected bool _isActiveDialogue;
     
     protected float _localCooldownUseHealth;
 
     protected float _cooldownBuyItem;
     protected float _localCooldownBuyItem;
+
+
     
 
 
@@ -93,8 +102,21 @@ public class PlayerController : MonoBehaviour
         {
             _health = 10f;
         }
+
+        if (_textsLogBar != null)
+        {
+            SetDefaultLogsBar();
+        }
     }
 
+    protected void SetDefaultLogsBar()
+    {
+
+        foreach (var textMeshProUGUI in _textsLogBar)
+        {
+            textMeshProUGUI.text = "";
+        }
+    }
     IEnumerator SetAnimations()
     {
         if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A))
@@ -138,7 +160,7 @@ public class PlayerController : MonoBehaviour
             if (_animator.GetBool("isLeftRun") && !_animator.GetBool("isLeftAttack"))
             {
                 _animator.SetBool("isLeftAttack", true);
-                _isAttack = _causeDamage = true;
+                _isAttack = _isCauseDamage = true;
                 StartCoroutine(StartAttackTime());
                 AudioManager.Instance.PlaySound("Attack1");
             }
@@ -146,7 +168,7 @@ public class PlayerController : MonoBehaviour
             else if (_animator.GetBool("isRightRun") && !_animator.GetBool("isRightAttack"))
             {
                 _animator.SetBool("isRightAttack", true);
-                _isAttack = _causeDamage = true;
+                _isAttack = _isCauseDamage = true;
                 StartCoroutine(StartAttackTime());
                 AudioManager.Instance.PlaySound("Attack1");
 
@@ -155,7 +177,7 @@ public class PlayerController : MonoBehaviour
             else if (_animator.GetBool("isDownRun") && !_animator.GetBool("isDownAttack"))
             {
                 _animator.SetBool("isDownAttack", true);
-                _causeDamage = _isAttack = true;
+                _isCauseDamage = _isAttack = true;
                 StartCoroutine(StartAttackTime());
                 AudioManager.Instance.PlaySound("Attack1");
 
@@ -164,7 +186,7 @@ public class PlayerController : MonoBehaviour
             else if (_animator.GetBool("isUpRun") && !_animator.GetBool("isUpAttack"))
             {
                 _animator.SetBool("isUpAttack", true);
-                _isAttack = _causeDamage = true;
+                _isAttack = _isCauseDamage = true;
                 StartCoroutine(StartAttackTime());
                 AudioManager.Instance.PlaySound("Attack1");
 
@@ -251,7 +273,7 @@ public class PlayerController : MonoBehaviour
     protected void ProcessDialogClicks()
     {
         if (!_isActiveDialogue) return;
-        
+
         if (_isSellerGuns)
         {
             if (Input.GetKey(KeyCode.Alpha1))
@@ -262,13 +284,20 @@ public class PlayerController : MonoBehaviour
                     _levelGun++;
                     OnSetMoney?.Invoke();
 
-                    AudioManager.Instance.PlaySound("Money");
+                    AudioManager.Instance.PlaySound("ImproveGun");
                 }
             }
 
             else if (Input.GetKey(KeyCode.Alpha2))
             {
-                Application.OpenURL("https://www.playgwent.com/ru");
+                if (_amountOfGarbage >= 10)
+                {
+                    _amountOfGarbage -= 10;
+                    _levelGun++;
+                    OnSetGarbage?.Invoke();
+
+                    AudioManager.Instance.PlaySound("ImproveGun");
+                }
 
                 _isActiveDialogue = false;
                 OnCloseDialogWithSellers?.Invoke();
@@ -287,14 +316,14 @@ public class PlayerController : MonoBehaviour
                 Debug.Log(_amountOfGarbage);
                 if (_amountOfGarbage > 0)
                 {
-                    _money += 2*_amountOfGarbage;
+                    _money += 2 * _amountOfGarbage;
                     _amountOfGarbage = 0;
                     OnSetMoney?.Invoke();
                     OnSetGarbage?.Invoke();
                     AudioManager.Instance.PlaySound("Money");
                 }
             }
-            
+
             else if (Input.GetKey(KeyCode.Alpha2))
             {
                 _isActiveDialogue = false;
@@ -306,7 +335,7 @@ public class PlayerController : MonoBehaviour
         {
             if (Input.GetKey(KeyCode.Alpha1))
             {
-                if (_money >= 5 && _localCooldownBuyItem <=0f)
+                if (_money >= 5 && _localCooldownBuyItem <= 0f)
                 {
                     _money -= 5;
                     _amountOfMedicine++;
@@ -330,7 +359,7 @@ public class PlayerController : MonoBehaviour
                 OnCloseDialogWithSellers?.Invoke();
             }
         }
-        
+
         // COOLDOWN TIME BUY/SELL ITEM
         if (_localCooldownBuyItem >= 0f)
         {
@@ -361,11 +390,11 @@ public class PlayerController : MonoBehaviour
         if (_amountOfMedicine > 0 && Input.GetKey(KeyCode.Q) && _localCooldownUseHealth <= 0f)
         {
             AudioManager.Instance.PlaySound("UseHealth");
-            
+
             _amountOfMedicine -= 1;
 
             _health += _pointRecoveryHealth;
-            
+
             if (_health > _maxHealth)
             {
                 _health = _maxHealth;
@@ -390,7 +419,7 @@ public class PlayerController : MonoBehaviour
             _localCooldownUseHealth -= Time.deltaTime;
             if (_circleFill != null)
             {
-                _circleFill.fillAmount = _localCooldownUseHealth/_cooldownUseHealth;
+                _circleFill.fillAmount = _localCooldownUseHealth / _cooldownUseHealth;
             }
         }
     }
@@ -410,20 +439,13 @@ public class PlayerController : MonoBehaviour
 
     IEnumerator StartAttackTime()
     {
-        
-        yield return new WaitForSeconds(_durationCooldown/2);
+        yield return new WaitForSeconds(_durationCooldown / 2);
         AudioManager.Instance.PlaySound("Attack1");
         yield return new WaitForSeconds(_durationCooldown / 4);
-
-        if (_textStatusBar != null)
-        {
-            _textStatusBar.text = "";
-        }
 
         yield return new WaitForSeconds(_durationCooldown / 4);
         _isAttack = false;
     }
-
     protected void OnTriggerStay(Collider collider)
     {
         if (collider.tag == "PointSeller")
@@ -449,27 +471,58 @@ public class PlayerController : MonoBehaviour
                 OnMessageClick?.Invoke();
             }
         }
-        
-        if (collider.tag == "Enemy" && _isAttack && _causeDamage)
+
+        if (collider.tag == "Enemy" && _isAttack && _isCauseDamage)
         {
             OnCauseDamage?.Invoke();
 
-            if (_textStatusBar != null)
+            if (_textsLogBar != null)
             {
-                if (MenuManager.Language == Language.Rus)
-                {
-                    _textStatusBar.text = "Вы нанесли врагу " + _damage + " единиц урона.";
-                }
-
-                else
-                {
-                    _textStatusBar.text = "You have dealt " + _damage + " points of damage to the enemy";
-                }
+                SetLogsBar(GetDamage());
             }
 
-            _causeDamage = false;
+            _isCauseDamage = false;
+        }
+    }
+
+    public void SetLogsBar(float damage)
+    {
+        string text;
+
+        if (MenuManager.Language == Language.Rus)
+        {
+            if (_isCauseDamage)
+            {
+                text = "Вы нанесли врагу " + damage + " единиц урона.";
+            }
+
+            else
+            {
+                text = "Враг нанёс вам " + damage + " единиц урона.";
+            }
         }
 
+        else
+        {
+            if (_isCauseDamage)
+            {
+                text = "You have dealt " + damage + " points of damage to the enemy";
+            }
+
+            else
+            {
+                text = "The enemy has dealt you " + damage + " damage units.";
+            }
+        }
+
+        for (int index = _textsLogBar.Count-1; index > 0; --index)
+        {
+            _textsLogBar[index].text = _textsLogBar[index-1].text;
+            _textsLogBar[index].color = _textsLogBar[index-1].color;
+        }
+        
+        _textsLogBar[0].color = (_isCauseDamage) ? _colorCausePlayer : _colorTakeDamagePlayer;
+        _textsLogBar[0].text = text;
     }
 
     protected void OnTriggerEnter(Collider collider)
@@ -478,7 +531,7 @@ public class PlayerController : MonoBehaviour
         {
             var position = transform.position;
             position.z += 2;
-            SaveManager.LoadData(position, _money, _health, "1200", _levelGun, _amountOfGarbage, _amountOfMedicine);
+            SaveManager.LoadData(position, _money, _health, _levelGun, _amountOfGarbage, _amountOfMedicine);
             SceneManager.LoadScene("MainMap");
         }
 
@@ -545,7 +598,7 @@ public class PlayerController : MonoBehaviour
 
     public float GetDamage()
     {
-        return _damage;
+        return (_levelGun<=0)? _damage:_damage + _damage*(_levelGun+0.5f);
     }
 
     public void SetDamage(float damage)

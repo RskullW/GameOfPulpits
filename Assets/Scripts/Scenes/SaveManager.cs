@@ -8,7 +8,6 @@ public class SaveManager : MonoBehaviour
     private static Vector3 _positionPlayer;
     private static int _money;
     private static float _health;
-    private static string _time = "0000";
     private static int _levelGun;
     private static int _amountOfGarbage;
     private static int _amountOfMedicine;
@@ -22,17 +21,15 @@ public class SaveManager : MonoBehaviour
     public static Vector3 PositionPlayer => _positionPlayer;
     public static int Money => _money;
     public static float Health => _health;
-    public static string Time => _time;
     public static int LevelGun => _levelGun;
     public static int AmountOfGarbage => _amountOfGarbage;
     public static int AmountOfMedicine => _amountOfMedicine;
     
-    public static void LoadData(Vector3 positionPlayer, int money, float health, string time, int levelGun, int amountOfGarbage, int amountOfMedicine)
+    public static void LoadData(Vector3 positionPlayer, int money, float health, int levelGun, int amountOfGarbage, int amountOfMedicine)
     {
         _positionPlayer = positionPlayer;
         _money = money;
         _health = health;
-        _time = time;
         _amountOfGarbage = amountOfGarbage;
         _amountOfMedicine = amountOfMedicine;
         _levelGun = levelGun;
@@ -69,12 +66,6 @@ public class SaveManager : MonoBehaviour
         _health = health;
         PlayerPrefs.SetFloat("Health", Health);
     }
-
-    public static void SaveTime(string time)
-    {
-        _time = time;
-        PlayerPrefs.SetString("Time", Time);
-    }
     private static void SaveGame()
     {
         // MAIN MAP
@@ -87,7 +78,6 @@ public class SaveManager : MonoBehaviour
         
         PlayerPrefs.SetInt("Money", Money);
         PlayerPrefs.SetFloat("Health", Health);
-        PlayerPrefs.SetString("Time", Time);
         PlayerPrefs.SetInt("Language", (int)MenuManager.Language);
         PlayerPrefs.SetInt("NumberMission", (int)Missions.NumberMissions);
         
@@ -107,7 +97,6 @@ public class SaveManager : MonoBehaviour
 
         _money = PlayerPrefs.GetInt("Money");
         _health = PlayerPrefs.GetFloat("Health");
-        _time = PlayerPrefs.GetString("Time");
 
         _positionPlayer.x = PlayerPrefs.GetFloat("PositionX");
         _positionPlayer.y = PlayerPrefs.GetFloat("PositionY");

@@ -6,7 +6,6 @@ using UnityEngine.SceneManagement;
 public class PlayerControllerMap : PlayerController
 {
 
-    [SerializeField] private float _rotateSpeed;
     private bool _isPlayerCanMove;
     void FixedUpdate()
     {
@@ -19,7 +18,6 @@ public class PlayerControllerMap : PlayerController
     private void MovementLogic()
     {
         float speed = _playerSpeed;
-        float rotateSpeed = _rotateSpeed;
         if (speed <= 0f)
         {
             speed = 0.11f;
@@ -27,17 +25,13 @@ public class PlayerControllerMap : PlayerController
         if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
         {
             speed += 0.1f;
-            rotateSpeed = _rotateSpeed;
         }
         
         else if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
         {
             speed -= 0.1f;
-            rotateSpeed = -_rotateSpeed;
         }
         
-        transform.Rotate(0, 0, _rotateSpeed * Input.GetAxis("Vertical") * Input.GetAxis("Horizontal") * Time.deltaTime);
-
         transform.Translate(0, Input.GetAxis("Vertical") * speed * Time.deltaTime, 0);
         transform.Translate(Input.GetAxis("Horizontal") * speed * Time.deltaTime, 0, 0);
 
