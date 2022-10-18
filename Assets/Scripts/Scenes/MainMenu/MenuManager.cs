@@ -11,16 +11,24 @@ public class MenuManager : MonoBehaviour
     [SerializeField] private VideoPlayer _intro;
     [SerializeField] private UIDocument _uiDocument;
     private Dictionary<string, Button> _buttons;
-    private bool _isNewGame = true;
+    private static bool _isNewGame = true;
+    private static bool _isOpenGame;
     private static Language _language;
 
     public static Language Language => _language;
+    public static bool IsNewGame => _isNewGame;
     void Awake()
     {
         _isNewGame = true;
         _buttons = new Dictionary<string, Button>();
         _uiDocument.enabled = false;
         _intro.loopPointReached += OnVideoEnd;
+
+        if (_isOpenGame)
+        {
+            _intro.Stop();
+            StartMenu();
+        }
     }
 
     private void Update()
@@ -33,16 +41,20 @@ public class MenuManager : MonoBehaviour
 
     private void OnVideoEnd(VideoPlayer causedVideoPlayer)
     {
-        _intro.Stop();
-        _intro.loopPointReached -= OnVideoEnd;
+        if (!_isOpenGame)
+        {
+            _intro.Stop();
+            _intro.loopPointReached -= OnVideoEnd;
+            _intro.enabled = false;
+            StartMenu();
 
-        _intro.enabled = false;
-        StartMenu();
+            _isOpenGame = true;
+        }
     }
     private void StartMenu()
     {
-
-        _uiDocument.enabled = true;
+        Debug.Log("StartMenu()");
+        _uiDocument.enabled = true; ;
         AudioManager.Instance.PlayMusic("MainMenu");
         InitializeButtons();
         
@@ -121,7 +133,6 @@ public class MenuManager : MonoBehaviour
         if (!_isNewGame)
         {
             SceneManager.LoadScene(SaveManager.GetLastNameScene());
-            AudioManager.Instance.StopMusic();
             return;
         }
         

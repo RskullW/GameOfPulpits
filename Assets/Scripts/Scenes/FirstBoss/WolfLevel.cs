@@ -10,8 +10,11 @@ using UnityEngine.UIElements;
 
 public class WolfLevel : MonoBehaviour
 {
+    [SerializeField] private UIElementsDeath _uiElementsDeath;
+    [Space]
     [SerializeField] private GameObject _finalReplicObject;
     [SerializeField] private TextMeshProUGUI _finalText;
+    [Space]
     [SerializeField] private string _finalReplicsRussian;
     [SerializeField] private string _finalReplicsEnglish;
     [SerializeField] private UnityEngine.UI.Image _healthBarBoss;
@@ -111,10 +114,11 @@ public class WolfLevel : MonoBehaviour
     void ProcessEndLevel()
     {
         SaveManager.SetInformationFirstBoss();
-        SaveManager.SaveAmountOfGarbage(SaveManager.AmountOfGarbage + 10);
-        SaveManager.SaveAmountOfMedicine(SaveManager.AmountOfMedicine + 2);
-        SaveManager.SaveMoney(SaveManager.Money+12);
-        SaveManager.SaveHealth(_player.GetHealth());
+        SaveManager.SetAmountGarbage(SaveManager.AmountOfGarbage + 10);
+        SaveManager.SetAmountMedicine(SaveManager.AmountOfMedicine + 2);
+        SaveManager.SetMoney(SaveManager.GetMoney()+12);
+        SaveManager.SetHealth(_player.GetHealth());
+        SaveManager.SetIsHavePositionMap(true);
         SceneManager.LoadScene("MainMap");
     }
 
@@ -189,13 +193,19 @@ public class WolfLevel : MonoBehaviour
         {
             _player.SetHealth(_player.GetHealth()-_enemy.Damage/4);
             _player.SetLogsBar(_enemy.Damage/4);
+        }
 
-            return;
+        else
+        {
+            _player.SetHealth(_player.GetHealth() - _enemy.Damage);
+            _player.SetLogsBar(_enemy.Damage);
         }
         
-        _player.SetHealth(_player.GetHealth()-_enemy.Damage);
-        _player.SetLogsBar(_enemy.Damage);
-
+        if (_player.GetHealth() <= 0f)
+        {
+            AudioManager.Instance.StopMusic();
+            DeathProcess();
+        }
     }
     private IEnumerator StartSoundWolfCall()
     {
@@ -244,5 +254,26 @@ public class WolfLevel : MonoBehaviour
         yield return new WaitForSeconds(4);
         
         ProcessEndLevel();
+    }
+
+    private void DeathProcess()
+    {
+        StopMovement();
+        _player.SetAnimation("isDeath", true); 
+        AudioManager.Instance.PlaySoundDeath();
+        _uiElementsDeath.StartScreenDeath();
+
+        if (!SaveManager.IsWasSave)
+        {
+            SaveManager.SetHaveData(false);
+            SaveManager.SetIsHavePositionMap(false);
+            SaveManager.SaveStatsMission("MainMap", 0);
+        }
+
+        else
+        {
+            SaveManager.SetHaveData(true);
+        }
+        
     }
 }

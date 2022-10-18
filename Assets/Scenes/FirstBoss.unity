@@ -26292,6 +26292,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1368940100}
+  - {fileID: 973179800}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
@@ -31227,8 +31228,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1113872711}
   m_HandleRect: {fileID: 1113872710}
   m_Direction: 2
-  m_Value: -0.00000045776298
-  m_Size: 0.66371447
+  m_Value: -0.00000976561
+  m_Size: 0.6666629
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -31441,6 +31442,70 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &973179799
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 973179800}
+  - component: {fileID: 973179802}
+  - component: {fileID: 973179801}
+  m_Layer: 3
+  m_Name: UIDocumentDeath
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &973179800
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 973179799}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 764545643}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &973179801
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 973179799}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ac3dcb408382594f8cc61414c24662d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _playerController: {fileID: 764545640}
+  _textInRussian: "\u0422\u042B \u0423\u041C\u0415\u0420"
+  _textInEnglish: YOU DIED
+--- !u!114 &973179802
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 973179799}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 19102, guid: 0000000000000000e000000000000000, type: 0}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_PanelSettings: {fileID: 11400000, guid: 5887d5799836b8f4b81ccd248ea94c62, type: 2}
+  m_ParentUI: {fileID: 0}
+  sourceAsset: {fileID: 9197481963319205126, guid: 6698ed5a4f3f5fa4a83e3cfbf8eca04a, type: 3}
+  m_SortingOrder: 0
 --- !u!1 &1014503251
 GameObject:
   m_ObjectHideFlags: 0
@@ -31658,6 +31723,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf217c23039b92d45a969456ff68e4b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _volumeMusic: 0.523
   _musicSounds:
   - Name: MainMenu
     Clip: {fileID: 8300000, guid: 1140506d9beb73a45bc9fcb65449ba7a, type: 3}
@@ -31680,6 +31746,11 @@ MonoBehaviour:
     Clip: {fileID: 8300000, guid: 5f10c4579c3155c41888a7a120d2cdf0, type: 3}
   - Name: BackgroundMusic4
     Clip: {fileID: 8300000, guid: 28d2f1c677888ac499f00923e9ff04a5, type: 3}
+  _deathSounds:
+  - Name: Death1
+    Clip: {fileID: 8300000, guid: da00cd16c4590ac43a7db7797899df7d, type: 3}
+  - Name: Death2
+    Clip: {fileID: 8300000, guid: 63ef79098e1e899409655660b5a7c9a7, type: 3}
   _sfxSounds:
   - Name: HelloTriss
     Clip: {fileID: 8300000, guid: 74cd233a8d6e4da44b328d0cdd09b9aa, type: 3}
@@ -37898,7 +37969,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 99.99986}
+  m_AnchoredPosition: {x: 0, y: 100.00082}
   m_SizeDelta: {x: 0, y: 300}
   m_Pivot: {x: 0, y: 1}
 --- !u!4 &1481409331 stripped
@@ -38923,6 +38994,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f36c81c9f2e9b9468cb16dfddd314cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _uiElementsDeath: {fileID: 973179801}
   _finalReplicObject: {fileID: 1160109296}
   _finalText: {fileID: 116497637}
   _finalReplicsRussian: "\u041F\u043E\u0441\u043B\u0435 \u043F\u043E\u0431\u0435\u0434\u044B

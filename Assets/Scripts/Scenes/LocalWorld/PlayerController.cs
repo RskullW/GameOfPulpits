@@ -13,7 +13,6 @@ public class PlayerController : MonoBehaviour
     public event Action OnCauseDamage;
     public event Action OnSetMoney;
     public event Action OnSetGarbage;
-    public event Action OnSetMedicine;
     public event Action OnSellerGun;
     public event Action OnSellerMedic;
     public event Action OnSellerItems;
@@ -68,12 +67,8 @@ public class PlayerController : MonoBehaviour
 
     protected float _cooldownBuyItem;
     protected float _localCooldownBuyItem;
-
-
     
-
-
-    void Start()
+    protected void Start()
     {
         _cooldownBuyItem = 0.2f;
         _position = Position.Down;
@@ -81,12 +76,15 @@ public class PlayerController : MonoBehaviour
         _animator = GetComponent<Animator>();
 
         _isShowMessage = _isSellerGuns = _isSellerItems = _isSellerMedic = false;
-        
-        _levelGun = SaveManager.LevelGun;
-        _amountOfGarbage = SaveManager.AmountOfGarbage;
-        _amountOfMedicine = SaveManager.AmountOfMedicine;
-        _health = SaveManager.Health;
-        _money = SaveManager.Money;
+
+        if (SaveManager.IsHaveData || SaveManager.IsWasSave)
+        {
+            _levelGun = SaveManager.LevelGun;
+            _amountOfGarbage = SaveManager.AmountOfGarbage;
+            _amountOfMedicine = SaveManager.AmountOfMedicine;
+            _health = SaveManager.Health;
+            _money = SaveManager.GetMoney();
+        }
 
         if (_textLevelGun != null)
         {
@@ -100,7 +98,7 @@ public class PlayerController : MonoBehaviour
 
         if (_health <= 0)
         {
-            _health = 10f;
+            _health = 20f;
         }
 
         if (_textsLogBar != null)
@@ -298,9 +296,6 @@ public class PlayerController : MonoBehaviour
 
                     AudioManager.Instance.PlaySound("ImproveGun");
                 }
-
-                _isActiveDialogue = false;
-                OnCloseDialogWithSellers?.Invoke();
             }
             else if (Input.GetKey(KeyCode.Alpha3))
             {
@@ -340,7 +335,6 @@ public class PlayerController : MonoBehaviour
                     _money -= 5;
                     _amountOfMedicine++;
                     OnSetMoney?.Invoke();
-                    OnSetMedicine?.Invoke();
                     AudioManager.Instance.PlaySound("Money");
                     _localCooldownBuyItem = _cooldownBuyItem;
                 }
@@ -598,7 +592,7 @@ public class PlayerController : MonoBehaviour
 
     public float GetDamage()
     {
-        return (_levelGun<=0)? _damage:_damage + _damage*(_levelGun+0.5f);
+        return (_levelGun<=0)? _damage:_damage + _damage*(_levelGun*0.5f);
     }
 
     public void SetDamage(float damage)
@@ -608,6 +602,7 @@ public class PlayerController : MonoBehaviour
 
     public void SetDefaultAnimation()
     {
+        _animator.SetBool("isDeath", false);
         _animator.SetBool("isUpAttack", false);
         _animator.SetBool("isUpRun", false);
         _animator.SetBool("isLeftRun", false);
@@ -617,7 +612,7 @@ public class PlayerController : MonoBehaviour
         _animator.SetBool("isBlockRightUp", false);
         _animator.SetBool("isBlockLeftDown", false);
         
-        _animator.SetBool("isDownRun", true);
+        _animator.SetBool("isDownRun", false);
         _animator.SetBool("isDownAttack", false);
         _position = Position.Down;
     }
@@ -630,5 +625,10 @@ public class PlayerController : MonoBehaviour
     public bool GetIsBlock()
     {
         return _isBlock;
+    }
+
+    public void SetAnimation(string name, bool isActive)
+    {
+        _animator.SetBool(name, isActive);
     }
 }

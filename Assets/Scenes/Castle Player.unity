@@ -1700,20 +1700,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _maxHealth: 100
   _health: 100
-  _money: 0
-  _amountOfMedicine: 0
+  _money: 8
+  _amountOfMedicine: 2
   _levelGun: 0
-  _amountOfGarbage: 0
+  _amountOfGarbage: 10
   _durationCooldown: 1.2
   _playerSpeed: 1.82
-  _damage: 0
+  _damage: 10
   _pointRecoveryHealth: 0
-  _cooldownUseHealth: 0
+  _cooldownUseHealth: 3
   _circleFill: {fileID: 0}
   _healthBarPlayer: {fileID: 0}
-  _textStatusBar: {fileID: 0}
   _textMedicine: {fileID: 0}
   _textLevelGun: {fileID: 0}
+  _textsLogBar: []
+  _colorCausePlayer: {r: 0, g: 0, b: 0, a: 0}
+  _colorTakeDamagePlayer: {r: 0, g: 0, b: 0, a: 0}
   _cooldownBlock: 0
 --- !u!65 &1028445867
 BoxCollider:
@@ -2282,10 +2284,6 @@ MonoBehaviour:
   _uiDocument: {fileID: 610089105}
   _player: {fileID: 1028445862}
   _missions: {fileID: 11400000, guid: 961e89c87a0448c4884f959543d033d2, type: 2}
-  _money: 6
-  _levelGun: 0
-  _amountOfGarbage: 10
-  _amountOfMedicine: 4
 --- !u!4 &1433571239
 Transform:
   m_ObjectHideFlags: 0

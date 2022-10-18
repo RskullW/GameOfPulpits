@@ -12,11 +12,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject _player;
     [SerializeField] private Missions _missions;
     
-    [SerializeField] private int _money;
-    [SerializeField] private int _levelGun;
-    [SerializeField] private int _amountOfGarbage;
-    [SerializeField] private int _amountOfMedicine;
-
     private float _health;
 
     private Button _buttonPause;
@@ -38,18 +33,7 @@ public class GameManager : MonoBehaviour
         InitializeUIElements();
         InitializeEvent();
         SetLanguageLabel();
-
-        if (SaveManager.LoadGame())
-        {
-            LoadGame();
-        }
-        
         SetMission((int)Missions.NumberMissions);
-
-        _playerController.SetMoney(_money);
-        _playerController.SetAmountMedicine(_amountOfMedicine);
-        _playerController.SetAmountGarbage(_amountOfGarbage);
-        _playerController.SetLevelGun(_levelGun);
 
         SetMoneyLabelInterface();
         SetGarbageLabelInterface();
@@ -57,7 +41,6 @@ public class GameManager : MonoBehaviour
 
     private void StartMusic()
     {
-        AudioManager.Instance.StopMusic();
         AudioManager.Instance.PlayBackgroundMusic();
     }
     private void SetLanguageLabel()
@@ -72,8 +55,7 @@ public class GameManager : MonoBehaviour
     private void InitializeEvent()
     {
         _playerController.OnMessageClick += ShowMessageClick;
-        _playerController.OnSetMoney += SetMoneyPlayerControllerEvent;
-        _playerController.OnSetMedicine += SetAmountMedicinePlayerControllerEvent;
+        _playerController.OnSetMoney += SetMoneyLabelInterface;
         _playerController.OnSetGarbage += SetAmountGarbagePlayerControllerEvent;
 
         _sellersManager.OnPassItems += PassUserItems;
@@ -110,25 +92,11 @@ public class GameManager : MonoBehaviour
     }
     private void SaveGame()
     {
-        
+        SaveManager.LoadData(_player.transform.position, _playerController.GetMoney(), _health,
+            _playerController.GetLevelGun(), _playerController.GetAmountGarbage(), _playerController.GetAmountMedicine());
+        SaveManager.SaveGame();
+    }
 
-        _money = _playerController.GetMoney();
-        _amountOfMedicine = _playerController.GetAmountMedicine();
-        _amountOfGarbage = _playerController.GetAmountGarbage();
-        _levelGun = _playerController.GetLevelGun();
-        
-        SaveManager.LoadData(_player.transform.position, _money, _health, _levelGun, _amountOfGarbage, _amountOfMedicine);
-    }
-    private void LoadGame()
-    {
-        _money = SaveManager.Money;
-        _health = SaveManager.Health;
-        _player.transform.position = SaveManager.PositionPlayer;
-        
-        _amountOfGarbage = SaveManager.AmountOfGarbage;
-        _amountOfMedicine = SaveManager.AmountOfMedicine;
-        _levelGun = SaveManager.LevelGun;
-    }
     private void SetMission(int numberMissions)
     {
 
@@ -155,67 +123,24 @@ public class GameManager : MonoBehaviour
         
         Debug.Log("Show Message: " + _helpMessageClick.visible);
     }
-    public void SetMoney(int money)
-    {
-        _money = money;
-    }
-    public void SetMoneyPlayerControllerEvent()
-    {
-        _money = _playerController.GetMoney();
 
-        SetMoneyLabelInterface();
-    }
-    public int GetMoney()
-    {
-        return _money;
-    }
-    public void SetAmountMedicine(int amountOfMedicine)
-    {
-        _amountOfMedicine = amountOfMedicine;
-    }
-    public void SetAmountMedicinePlayerControllerEvent()
-    {
-        _amountOfMedicine = _playerController.GetAmountMedicine();
-    }
-    public int GetAmountMedicine()
-    {
-        return _amountOfMedicine;
-    }
-    public void SetLevelGun(int levelGun)
-    {
-        _levelGun = levelGun;
-    }
-    public int GetLevelGun()
-    {
-        return _levelGun;
-    }
-    public void SetAmountGarbage(int amountOfGarbage)
-    {
-        _amountOfMedicine = amountOfGarbage;
-    }
     public void SetAmountGarbagePlayerControllerEvent()
     {
-        _amountOfGarbage = _playerController.GetAmountGarbage();
-        
         SetGarbageLabelInterface();
-    }
-    public int GetAmountGarbage()
-    {
-        return _amountOfGarbage;
     }
 
     private void PassUserItems()
     {
-        _playerController.SetAmountGarbage(_amountOfGarbage);
-        _playerController.SetMoney(_money);
-        _playerController.SetAmountMedicine(_amountOfMedicine);
-        _playerController.SetLevelGun(_levelGun);
+        _playerController.SetAmountGarbage(_playerController.GetAmountGarbage());
+        _playerController.SetMoney(_playerController.GetMoney());
+        _playerController.SetAmountMedicine(_playerController.GetAmountMedicine());
+        _playerController.SetLevelGun(_playerController.GetLevelGun());
 
     }
 
     private void SetMoneyLabelInterface()
     {
-        int tempMoney = _money;
+        int tempMoney = _playerController.GetMoney();
         
         for (short i = 4; i >= 0; --i)
         {
@@ -226,7 +151,7 @@ public class GameManager : MonoBehaviour
 
     private void SetGarbageLabelInterface()
     {
-        int tempGarbages = _amountOfGarbage;
+        int tempGarbages = _playerController.GetAmountGarbage();
 
         for (short i = 4; i >= 0; --i)
         {

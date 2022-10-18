@@ -16,11 +16,10 @@ public class GameManagerMap : MonoBehaviour
     [SerializeField] private PlayableDirector _firstCutscene;
     [SerializeField] private Vector3 _cameraPosition;
     [SerializeField] private float _orthographicSizeCamera;
-    [SerializeField] private GameObject _spherePlayer;
 
     private Vector3 _horsePosition;
     private Label[] _creditsLabel;
-    private Label[] _clockNumberLabels;
+    private Label[] _garbagesLabel;
 
     private Label _questLabel;
     private Label _missionLabel;
@@ -57,7 +56,7 @@ public class GameManagerMap : MonoBehaviour
             _mainCamera.gameObject.transform.position = _cameraPosition;
             _mainCamera.orthographicSize = _orthographicSizeCamera;
 
-            if (SaveManager.IsNotFirstStartMainMap())
+            if (SaveManager.IsHavePositionMap && SaveManager.IsHaveData)
             {
                 _playerControllerMap.gameObject.transform.position = SaveManager.GetMapPosition();
             }
@@ -71,21 +70,22 @@ public class GameManagerMap : MonoBehaviour
     void InitializeUIElements()
     {
         _creditsLabel = new Label[5];
-        _clockNumberLabels = new Label[4];
+        _garbagesLabel = new Label[5];
         
-        int tempMoney = SaveManager.Money;
+        int tempMoney = SaveManager.GetMoney();
+        int tempGarbage = SaveManager.AmountOfGarbage;
         var root = _interfaceUIDocument.rootVisualElement;
 
         for (int i = 4; i >= 0; --i)
         {
             _creditsLabel[i] = root.Q<Label>("CreditsNumber" + (i+1));
+            _garbagesLabel[i] = root.Q<Label>("GarbageNumber" + (i+1));
+            
             _creditsLabel[i].text = (tempMoney % 10).ToString();
+            _garbagesLabel[i].text = (tempGarbage % 10).ToString();
+            
             tempMoney /= 10;
-        }
-
-        for (short i = 3; i >= 0; --i)
-        {
-            _clockNumberLabels[i] = _interfaceUIDocument.rootVisualElement.Q<Label>("ClockNumber" + (i+1));
+            tempGarbage /= 10;
         }
         
         _questLabel = root.Q<Label>("QuestLabel");
@@ -108,7 +108,6 @@ public class GameManagerMap : MonoBehaviour
         Debug.Log("GameManagerMap.Play()");
         _interfaceUIDocument.gameObject.SetActive(true);
         _playerControllerMap.SetPlayerCanMove(true);
-        _spherePlayer.SetActive(true);
         _mainCamera.transform.position = _cameraPosition;
         InitializeUIElements();
         SetMission((int)Missions.NumberMissions);
@@ -133,7 +132,9 @@ public class GameManagerMap : MonoBehaviour
     private void Save()
     {
         Debug.Log(_isFirstOpenMap);
-        SaveManager.SaveMapPosition(_playerControllerMap.gameObject.transform.position);
+        SaveManager.SaveMap(_playerControllerMap.gameObject.transform.position, _playerControllerMap.GetMoney(),
+            _playerControllerMap.GetHealth(), _playerControllerMap.GetLevelGun(),
+            _playerControllerMap.GetAmountGarbage(), _playerControllerMap.GetAmountMedicine());
         SaveManager.SaveStatsMission("MainMap");
         SaveManager.SaveLevel();
 

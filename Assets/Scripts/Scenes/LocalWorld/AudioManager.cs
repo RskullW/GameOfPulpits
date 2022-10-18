@@ -7,15 +7,21 @@ using Random = UnityEngine.Random;
 public class AudioManager : MonoBehaviour
 {
     public static AudioManager Instance;
-    
-    [SerializeField] private Sound[] _musicSounds, _backgroundMusic, _sfxSounds;
+
+    [SerializeField] [Range(0f, 1f)] private float _volumeMusic;
+    [SerializeField] private Sound[] _musicSounds, _backgroundMusic, _deathSounds, _sfxSounds;
     [SerializeField] private AudioSource _musicSource;
     [SerializeField] private AudioSource[] _sfxSource;
 
     private bool _isPlayBackgroundMusic;
     private bool _isPlaySecondPhaseMusicWolf;
+
+    private bool _lock;
     private void Start()
     {
+
+        _lock = false;
+        
         if (Instance == null)
         {
             Instance = this;
@@ -26,16 +32,18 @@ public class AudioManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        
     }
 
     public void PlayMusic(string name)
     {
+        Debug.Log("PlayMusic");
         Sound s = Array.Find(_musicSounds, x => x.Name == name);
 
         if (s != null)
         {
             _musicSource.clip = s.Clip;
-            _musicSource.Play();
+            StartCoroutine(PlayingMusic());
         }
 
         else
@@ -88,12 +96,29 @@ public class AudioManager : MonoBehaviour
         
     }
 
+    public void PlaySoundDeath()
+    {
+        if (_deathSounds != null && _deathSounds.Length > 0)
+        {
+            Sound s = Array.Find(_deathSounds, x => x.Name == _deathSounds[Random.Range(0, _deathSounds.Length-1)].Name);
+            
+            if (s != null)
+            {
+                _sfxSource[0].PlayOneShot(s.Clip);
+            }
+            else
+            {
+                Debug.LogError("Error. Sound not found");
+            }
+        }
+    }
+    
     public void StopMusic()
     {
         if (_musicSource.isPlaying)
         {
             Debug.Log("StopMusic(): " + _musicSource.clip.name);
-            _musicSource.Stop();
+            StartCoroutine(StopingMusic());
         }
 
         if (_isPlayBackgroundMusic)
@@ -102,13 +127,53 @@ public class AudioManager : MonoBehaviour
         }
     }
 
+    private IEnumerator StopingMusic()
+    {
+        if (_musicSource.isPlaying)
+        {
+            while (_musicSource.volume > 0f && _lock)
+            {
+                _musicSource.volume -= 0.1f;
+                yield return new WaitForSeconds(0.5f);
+
+                if (_musicSource.volume <= 0f)
+                {
+                    _musicSource.volume = 0f;
+                    _musicSource.Stop();
+                    _lock = false;
+                    break;
+                }
+            }
+        }
+    }
+
+    private IEnumerator PlayingMusic()
+    {
+        if (_musicSource.isPlaying)
+        {
+            _lock = true;
+             StopMusic();
+            while (_lock);
+        }
+
+        _musicSource.volume = 0;
+        _musicSource.Play();
+
+        while (_musicSource.volume < _volumeMusic)
+        {
+            _musicSource.volume += 0.05f;
+            yield return new WaitForSeconds(0.5f);
+        }
+
+        _musicSource.volume = _volumeMusic;
+    }
+
     public void StopSounds()
     {
         foreach (var source in _sfxSource)
         {
             source.Stop();
         }
-      
     }
 
     public void PlayBackgroundMusic()
@@ -120,7 +185,7 @@ public class AudioManager : MonoBehaviour
         if (s != null)
         {
             _musicSource.clip = s.Clip;
-            _musicSource.Play();
+            StartCoroutine(PlayingMusic());
             _isPlayBackgroundMusic = true;
             Invoke("AudioFinished", _musicSource.clip.length);
             
