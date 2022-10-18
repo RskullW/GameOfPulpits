@@ -30,6 +30,7 @@ public class WolfLevel : MonoBehaviour
     private GameObject _healthBar;
     void Start()
     {
+        AudioManager.Instance.SetIsPlayBackgroundMusic(false);
         AudioManager.Instance.PlayMusic("FightMusic1");
         
         InitializeEvents();  

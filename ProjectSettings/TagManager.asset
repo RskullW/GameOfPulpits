@@ -12,6 +12,7 @@ TagManager:
   - ThirdBoss
   - Casle
   - Enemy
+  - InHouse
   layers:
   - Default
   - TransparentFX

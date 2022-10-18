@@ -20,10 +20,13 @@ public class GameManagerMap : MonoBehaviour
     private Vector3 _horsePosition;
     private Label[] _creditsLabel;
     private Label[] _garbagesLabel;
-
+    
     private Label _questLabel;
     private Label _missionLabel;
     private Button _saveButton;
+    
+    private Label _helpMessage;
+    private VisualElement _helpMessageClick;
     
     void Start()
     {
@@ -46,13 +49,15 @@ public class GameManagerMap : MonoBehaviour
         _playerControllerMap.SetPlayerCanMove(false);
 
         _isFirstOpenMap = SaveManager.GetStatsMissions("MainMap");
-      
+        Debug.Log("GameManagerMap.SpawnPlayer._isFirstOpenMap = " + _isFirstOpenMap);
         if (_isFirstOpenMap != 0) {
             _firstCutscene.Stop();
+            
             Play();
-            Debug.Log("GameManagerMap.SpawnPlayer()");
+            
             _interfaceUIDocument.gameObject.SetActive(true);
             _playerControllerMap.SetPlayerCanMove(true);
+            
             _mainCamera.gameObject.transform.position = _cameraPosition;
             _mainCamera.orthographicSize = _orthographicSizeCamera;
 
@@ -65,6 +70,8 @@ public class GameManagerMap : MonoBehaviour
     void InitializeEvent()
     {
         _firstCutscene.stopped += OnPlayableDirectorStopped;
+        _playerControllerMap.OnHideMessage += HideMessage;
+        _playerControllerMap.OnShowMessage += ShowMessage;
     }
 
     void InitializeUIElements()
@@ -90,9 +97,12 @@ public class GameManagerMap : MonoBehaviour
         
         _questLabel = root.Q<Label>("QuestLabel");
         _missionLabel = root.Q<Label>("MissionLabel");
-        _saveButton = root.Q<Button>("SaveButton");
-
+        _saveButton = root.Q<Button>("SaveButton");         
         _saveButton.clicked += Save;
+
+        _helpMessage = root.Q<Label>("HelpMessageLabel");
+        _helpMessageClick = root.Q<VisualElement>("HelpMessageClick");
+        
     }
 
     void OnPlayableDirectorStopped(PlayableDirector aDirector)
@@ -110,6 +120,7 @@ public class GameManagerMap : MonoBehaviour
         _playerControllerMap.SetPlayerCanMove(true);
         _mainCamera.transform.position = _cameraPosition;
         InitializeUIElements();
+        SetLanguageLabel();
         SetMission((int)Missions.NumberMissions);
     }
     
@@ -138,5 +149,32 @@ public class GameManagerMap : MonoBehaviour
         SaveManager.SaveStatsMission("MainMap");
         SaveManager.SaveLevel();
 
+    }
+    
+    private void SetLanguageLabel()
+    {
+        if (_interfaceUIDocument.gameObject.activeSelf)
+        {
+            _helpMessage.text = "Click 'E'";
+
+            if (MenuManager.Language == Language.Rus)
+            {
+                _helpMessage.text = "Нажмите 'E'";
+            }
+        }
+    }
+    
+    private void ShowMessage()
+    {
+        _helpMessage.visible = _helpMessageClick.visible = true;
+        _helpMessage.SetEnabled(true);
+        _helpMessageClick.SetEnabled(true);
+    }
+
+    private void HideMessage()
+    {
+        _helpMessage.visible = _helpMessageClick.visible = false;
+        _helpMessage.SetEnabled(false);
+        _helpMessageClick.SetEnabled(false);
     }
 }

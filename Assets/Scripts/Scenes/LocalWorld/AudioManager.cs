@@ -35,6 +35,10 @@ public class AudioManager : MonoBehaviour
         
     }
 
+    public void SetIsPlayBackgroundMusic(bool isPlayBackgroundMusic)
+    {
+        _isPlayBackgroundMusic = isPlayBackgroundMusic;
+    } 
     public void PlayMusic(string name)
     {
         Debug.Log("PlayMusic");

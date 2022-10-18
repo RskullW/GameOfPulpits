@@ -84,23 +84,26 @@ public class PlayerController : MonoBehaviour
             _amountOfMedicine = SaveManager.AmountOfMedicine;
             _health = SaveManager.Health;
             _money = SaveManager.GetMoney();
+
+            if (SceneManager.GetActiveScene().name == "Castle Player")
+            {
+                transform.position = SaveManager.PositionPlayer;
+            }
+            
         }
 
         if (_textLevelGun != null)
         {
             _textLevelGun.text = _levelGun.ToString();
         }
-
         if (_textMedicine != null)
         {
             _textMedicine.text = _amountOfMedicine.ToString();
         }
-
         if (_health <= 0)
         {
             _health = 20f;
         }
-
         if (_textsLogBar != null)
         {
             SetDefaultLogsBar();

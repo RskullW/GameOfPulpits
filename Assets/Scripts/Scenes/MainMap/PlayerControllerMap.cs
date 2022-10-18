@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,7 +8,11 @@ using UnityEngine.SceneManagement;
 public class PlayerControllerMap : PlayerController
 {
 
+    public event Action OnHideMessage;
+    public event Action OnShowMessage;
+    
     private bool _isPlayerCanMove;
+    private bool _isTransformHouse;
     private SpriteRenderer _sprite;
 
     protected void Start()
@@ -21,9 +26,21 @@ public class PlayerControllerMap : PlayerController
         if (_isPlayerCanMove)
         {
             MovementLogic();
+            InputLogic();
         }
     }
 
+    protected void InputLogic()
+    {
+        if (Input.GetKey(KeyCode.E))
+        {
+            if (_isTransformHouse)
+            {
+                SaveManager.LoadMapPosition(transform.position);
+                SceneManager.LoadScene("Castle Player");
+            }
+        }
+    }
     private void MovementLogic()
     {
 
@@ -50,8 +67,21 @@ public class PlayerControllerMap : PlayerController
                 SaveManager.SaveStatsMission("MainMap");
                 SceneManager.LoadScene("FirstBoss");
             }
-            
+        }
+        
+        else if (collider.gameObject.tag == "InHouse" && _isPlayerCanMove)
+        {
+            OnShowMessage?.Invoke();
+            _isTransformHouse = true;
         }
     }
 
+    protected void OnTriggerExit(Collider collider)
+    {
+        if (collider.gameObject.tag == "InHouse" && _isPlayerCanMove)
+        {
+            OnHideMessage?.Invoke();
+            _isTransformHouse = false;
+        }
+    }
 }
