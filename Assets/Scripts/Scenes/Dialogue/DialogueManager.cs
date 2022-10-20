@@ -171,7 +171,6 @@ public class DialogueManager : MonoBehaviour
                 yield return new WaitForSeconds(_durationVisibleText);
             }
         }
-
         _numbersOfDialogue[_numberDialogue] = true;
     }
 }

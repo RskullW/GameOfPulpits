@@ -16,6 +16,7 @@ public class SaveManager : MonoBehaviour
     private static int _amountOfGarbage;
     private static int _amountOfMedicine;
     private static int _idScene;
+    private static int _isSecondPhase;
 
     private static int _isFirstBoss;
     private static int _isSecondBoss;
@@ -36,6 +37,7 @@ public class SaveManager : MonoBehaviour
     public static bool IsHaveData => _isHaveData;
     public static bool IsWasSave => _isWasSave;
     public static bool IsHavePositionMap => _isHavePositionMap;
+    public static int IsSecondPhase => _isSecondPhase;
     
     public static void LoadData(Vector3 positionPlayer, int money, float health, int levelGun, int amountOfGarbage, int amountOfMedicine)
     {
@@ -143,6 +145,8 @@ public class SaveManager : MonoBehaviour
         PlayerPrefs.SetInt("IsThirdBoss", _isThirdBoss);
         PlayerPrefs.SetInt("IsFinalBoss", _isFinalBoss);
         
+        PlayerPrefs.SetInt("IsSecondPhase", _isSecondPhase);
+        
         Debug.Log("Game was saved");
     }
 
@@ -203,7 +207,7 @@ public class SaveManager : MonoBehaviour
         _isHaveData = false;
         _isWasSave = false;
         
-        _isFirstBoss = _isSecondBoss = _isThirdBoss = _isFinalBoss = 0;
+        _isSecondPhase = _isFirstBoss = _isSecondBoss = _isThirdBoss = _isFinalBoss = 0;
 
         // LOCAL MAP
         PlayerPrefs.DeleteKey("Money");
@@ -232,6 +236,9 @@ public class SaveManager : MonoBehaviour
         PlayerPrefs.DeleteKey("IsSecondBoss");
         PlayerPrefs.DeleteKey("IsThirdBoss");
         PlayerPrefs.DeleteKey("MainMap");
+        PlayerPrefs.DeleteKey("SecondPhaseOpenMap");
+        
+        PlayerPrefs.DeleteKey("SecondPhase");
     }
 
     public static int GetStatsMissions(string name)
@@ -309,12 +316,10 @@ public class SaveManager : MonoBehaviour
     {
         return _positionPlayerMap;
     }
-
     public static void SetInformationFirstBoss(int isFirstBoss = 1)
     {
         _isFirstBoss = isFirstBoss;
     }
-    
     public static bool GetInformationFirstBoss()
     {
         if (!PlayerPrefs.HasKey("IsFirstBoss"))
@@ -367,6 +372,10 @@ public class SaveManager : MonoBehaviour
         return true;
     }
 
+    public static void SetPhase(int value)
+    {
+        _isSecondPhase = value;
+    }
     public static void SaveLevel()
     {
         PlayerPrefs.SetString("Level", SceneManager.GetActiveScene().name);

@@ -189,7 +189,7 @@ public class AudioManager : MonoBehaviour
     public void PlayBackgroundMusic()
     {
         int numberMusic = Random.Range(0, _backgroundMusic.Length - 1);
-
+        
         Sound s = _backgroundMusic[numberMusic];
 
         if (s != null)
@@ -209,12 +209,22 @@ public class AudioManager : MonoBehaviour
         }
 
     }
-    
-    public void PlaySecondPhaseBackgroundMusic()
+
+    public void PlaySecondPhaseBackgroundMusic(string name = null)
     {
         int numberMusic = Random.Range(0, _backgroundSecondPhaseMusic.Length - 1);
 
+        if (_backgroundSecondPhaseMusic[numberMusic].Name == "FindLetter")
+        {
+            numberMusic--;
+        }
+
         Sound s = _backgroundSecondPhaseMusic[numberMusic];
+
+        if (name != null)
+        {
+            s = Array.Find(_backgroundSecondPhaseMusic, x => x.Name == name);
+        }
 
         if (s != null)
         {
@@ -223,17 +233,17 @@ public class AudioManager : MonoBehaviour
             _isPlayBackgroundSecondPhaseMusic = true;
             _isPlayBackgroundMusic = false;
             Invoke("AudioFinished", _musicSource.clip.length);
-            
+
             Debug.Log("PlaySecondPhaseBackgroundSMusic(): name = " + _backgroundSecondPhaseMusic[numberMusic].Name);
         }
-        
+
 
         else
         {
             Debug.LogError("Error. Sound not found");
         }
-
     }
+
     private void AudioFinished()
     {
         if (_isPlayBackgroundSecondPhaseMusic)
@@ -250,5 +260,10 @@ public class AudioManager : MonoBehaviour
     public bool GetBackgroundMusic()
     {
         return _isPlayBackgroundMusic;
+    }
+
+    public bool GetActiveMusic()
+    {
+        return _musicSource.isPlaying;
     }
 }

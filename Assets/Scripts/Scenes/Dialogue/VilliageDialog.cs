@@ -61,9 +61,17 @@ public class VilliageDialog : DialogueManager
     void Start()
     {
         _numberDialogue = -1;
-        
-        HideText();
-        StartCoroutine(StartVisibleText());
+
+        if (VilliageLevel.IS_SECOND_PHASE_LEVEL)
+        {
+           StartSecondPhase();
+        }
+
+        else
+        {
+            HideText();
+            StartCoroutine(StartVisibleText());
+        }
     }
 
     private void HideText()
@@ -102,8 +110,6 @@ public class VilliageDialog : DialogueManager
 
     public void StartSecondPhase()
     {
-        gameObject.SetActive(true);
-        _canvas.gameObject.SetActive(true);
         _isStartSecondPhase = true;
 
         _numberDialogue = 0;

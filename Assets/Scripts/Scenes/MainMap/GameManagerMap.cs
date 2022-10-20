@@ -8,14 +8,20 @@ using UnityEngine.UIElements;
 public class GameManagerMap : MonoBehaviour
 {
     private int _isFirstOpenMap;
+    private int _isSecondPhaseOpenMap;
 
     [SerializeField] private Missions _missions;
     [SerializeField] private UIDocument _interfaceUIDocument;
     [SerializeField] private PlayerControllerMap _playerControllerMap;
     [SerializeField] private Camera _mainCamera;
     [SerializeField] private PlayableDirector _firstCutscene;
+    [SerializeField] private PlayableDirector _secondCutscene;
     [SerializeField] private Vector3 _cameraPosition;
     [SerializeField] private float _orthographicSizeCamera;
+    [Space]
+    [Space]
+    [SerializeField] private GameObject _objectsFirstPhase;
+    [SerializeField] private GameObject _objectsSecondPhase;
 
     private Vector3 _horsePosition;
     private Label[] _creditsLabel;
@@ -30,16 +36,45 @@ public class GameManagerMap : MonoBehaviour
     
     void Start()
     {
+
         SpawnPlayer(); 
         InitializeEvent();
         StartMusic();
+
+        if (SaveManager.IsSecondPhase == 1)
+        {
+            StartSecondPhase();
+        }
+
+        else
+        {
+            _objectsSecondPhase.gameObject.SetActive(false);
+        }
     }
 
+    void StartSecondPhase()
+    {
+        _objectsSecondPhase.gameObject.SetActive(true);
+        _objectsFirstPhase.gameObject.SetActive(false);
+        _playerControllerMap.SetPlayerCanMove(false);
+
+        _secondCutscene.Play();
+        
+    }
     void StartMusic()
     {
-        if (!AudioManager.Instance.GetBackgroundMusic())
+        
+        if (!AudioManager.Instance.GetBackgroundMusic() && !AudioManager.Instance.GetActiveMusic())
         {
-            AudioManager.Instance.PlayBackgroundMusic();
+            if (SaveManager.IsSecondPhase == 1)
+            {
+                AudioManager.Instance.PlaySecondPhaseBackgroundMusic();
+            }
+
+            else
+            {
+                AudioManager.Instance.PlayBackgroundMusic();
+            }
         }
     }
     void SpawnPlayer()
@@ -49,27 +84,23 @@ public class GameManagerMap : MonoBehaviour
         _playerControllerMap.SetPlayerCanMove(false);
 
         _isFirstOpenMap = SaveManager.GetStatsMissions("MainMap");
+        _isSecondPhaseOpenMap = SaveManager.GetStatsMissions("SecondPhaseOpenMap");
+        
         Debug.Log("GameManagerMap.SpawnPlayer._isFirstOpenMap = " + _isFirstOpenMap);
+        
         if (_isFirstOpenMap != 0) {
             _firstCutscene.Stop();
-            
-            Play();
-            
-            _interfaceUIDocument.gameObject.SetActive(true);
-            _playerControllerMap.SetPlayerCanMove(true);
-            
-            _mainCamera.gameObject.transform.position = _cameraPosition;
-            _mainCamera.orthographicSize = _orthographicSizeCamera;
 
-            if (SaveManager.IsHavePositionMap && SaveManager.IsHaveData)
+            if (_isSecondPhaseOpenMap == 0)
             {
-                _playerControllerMap.gameObject.transform.position = SaveManager.GetMapPosition();
+                Play();
             }
         }
     }
     void InitializeEvent()
     {
         _firstCutscene.stopped += OnPlayableDirectorStopped;
+        _secondCutscene.stopped += OnStopSecondCutscene;
         _playerControllerMap.OnHideMessage += HideMessage;
         _playerControllerMap.OnShowMessage += ShowMessage;
     }
@@ -112,6 +143,14 @@ public class GameManagerMap : MonoBehaviour
             Play();
         }
     }
+    
+    void OnStopSecondCutscene(PlayableDirector aDirector)
+    {
+        if (_secondCutscene == aDirector)
+        {
+            Play();
+        }
+    }
 
     void Play()
     {
@@ -119,6 +158,13 @@ public class GameManagerMap : MonoBehaviour
         _interfaceUIDocument.gameObject.SetActive(true);
         _playerControllerMap.SetPlayerCanMove(true);
         _mainCamera.transform.position = _cameraPosition;
+        _mainCamera.orthographicSize = _orthographicSizeCamera;
+            
+        if (SaveManager.IsHavePositionMap && SaveManager.IsHaveData) 
+        {
+            _playerControllerMap.gameObject.transform.position = SaveManager.GetMapPosition(); 
+        }
+        
         InitializeUIElements();
         SetLanguageLabel();
         SetMission((int)Missions.NumberMissions);
@@ -142,11 +188,15 @@ public class GameManagerMap : MonoBehaviour
 
     private void Save()
     {
-        Debug.Log(_isFirstOpenMap);
         SaveManager.SaveMap(_playerControllerMap.gameObject.transform.position, _playerControllerMap.GetMoney(),
             _playerControllerMap.GetHealth(), _playerControllerMap.GetLevelGun(),
             _playerControllerMap.GetAmountGarbage(), _playerControllerMap.GetAmountMedicine());
         SaveManager.SaveStatsMission("MainMap");
+
+        if (SaveManager.IsSecondPhase == 1)
+        {
+            SaveManager.SaveStatsMission("SecondPhaseOpenMap");
+        }
         SaveManager.SaveLevel();
 
     }

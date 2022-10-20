@@ -120,6 +120,8 @@ public class WolfLevel : MonoBehaviour
         SaveManager.SetMoney(SaveManager.GetMoney()+12);
         SaveManager.SetHealth(_player.GetHealth());
         SaveManager.SetIsHavePositionMap(true);
+        
+        AudioManager.Instance.PlayBackgroundMusic();
         SceneManager.LoadScene("MainMap");
     }
 

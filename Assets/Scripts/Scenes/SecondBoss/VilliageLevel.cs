@@ -18,7 +18,7 @@ public class VilliageLevel : MonoBehaviour
     {
         InitializeEvents();  
         _player.SetActiveDialogue(true);
-        
+
         if (IS_SECOND_PHASE_LEVEL)
         {
             StartSecondPhase();
@@ -42,15 +42,8 @@ public class VilliageLevel : MonoBehaviour
 
     void StartSecondPhase()
     {
-        AudioManager.Instance.PlayMusic("FindLatter");
-        _villiageDialogue.gameObject.SetActive(true);
-        _villiageDialogue.StartSecondPhase();
+        AudioManager.Instance.PlaySecondPhaseBackgroundMusic("Background2");
+        SaveManager.SetPhase(1);
         StopMovement();
-    }
-
-    IEnumerator test()
-    {
-        yield return new WaitForSeconds(20);
-        StartSecondPhase();
     }
 }
