@@ -1,0 +1,1260 @@
+fileFormatVersion: 2
+guid: 007a64e01c33d3f49ad5915c1624cf78
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 11
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMasterTextureLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: OutlawSprites_0
+      rect:
+        serializedVersion: 2
+        x: 36
+        y: 545
+        width: 37
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4d21734d4456de643bd034aa2ea22c01
+      internalID: 2003890677
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: OutlawSprites_1
+      rect:
+        serializedVersion: 2
+        x: 123
+        y: 544
+        width: 36
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4a90fc04fa4ea154d933282de7d21c0a
+      internalID: 629313348
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: OutlawSprites_2
+      rect:
+        serializedVersion: 2
+        x: 209
+        y: 543
+        width: 36
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6e20900b8a394c44daefdd52b4595e15
+      internalID: 2065451340
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: OutlawSprites_3
+      rect:
+        serializedVersion: 2
+        x: 296
+        y: 543
+        width: 37
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c55b64c3727197f43a9478e30cc97495
+      internalID: 1422425852
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: OutlawSprites_4
+      rect:
+        serializedVersion: 2
+        x: 378
+        y: 543
+        width: 37
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cc05b68930cd2ff4f9b4261c3533b1c1
+      internalID: -713296113
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: OutlawSprites_5
+      rect:
+        serializedVersion: 2
+        x: 463
+        y: 543
+        width: 36
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1a1c32865767a3a4eb4b179cdfb458f8
+      internalID: -347495053
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: OutlawSprites_6
+      rect:
+        serializedVersion: 2
+        x: 550
+        y: 543
+        width: 37
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1c7b34243cc467542a9026fcad72ebfd
+      internalID: 471934814
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: OutlawSprites_7
+      rect:
+        serializedVersion: 2
+        x: 43
+        y: 434
+        width: 38
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dc9cb772a05b90644b17da3a6582be40
+      internalID: -180109375
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: OutlawSprites_8
+      rect:
+        serializedVersion: 2
+        x: 114
+        y: 434
+        width: 38
+        height: 71
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 54dcb3ab2d93083448ce32606987a5d0
+      internalID: 1096734977
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: OutlawSprites_9
+      rect:
+        serializedVersion: 2
+        x: 204
+        y: 434
+        width: 39
+        height: 71
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 658e9e2760c3d97409316c197e33548c
+      internalID: -980978129
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: OutlawSprites_10
+      rect:
+        serializedVersion: 2
+        x: 295
+        y: 434
+        width: 44
+        height: 71
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: abc9393107034f7448614d566d361ef6
+      internalID: -1483482672
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: OutlawSprites_11
+      rect:
+        serializedVersion: 2
+        x: 379
+        y: 434
+        width: 45
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 86e1dfd53e4655e46ad5ea60593b43b0
+      internalID: 1105506016
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: OutlawSprites_12
+      rect:
+        serializedVersion: 2
+        x: 471
+        y: 434
+        width: 40
+        height: 71
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 564d8fb926946cc42afa6e67dc91aa3b
+      internalID: 1967895628
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: OutlawSprites_13
+      rect:
+        serializedVersion: 2
+        x: 563
+        y: 434
+        width: 35
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5377350eae093b84a9fc27c299ec1e29
+      internalID: 1215402072
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: OutlawSprites_14
+      rect:
+        serializedVersion: 2
+        x: 652
+        y: 434
+        width: 32
+        height: 71
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fa7e63e2c3f54864da3cbfba984c13d3
+      internalID: -710344593
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: OutlawSprites_15
+      rect:
+        serializedVersion: 2
+        x: 735
+        y: 435
+        width: 34
+        height: 71
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fd9e2fac7dbdd97489fa49678cc88574
+      internalID: -1144091020
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: OutlawSprites_16
+      rect:
+        serializedVersion: 2
+        x: 815
+        y: 434
+        width: 36
+        height: 71
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1ce7944cf24722e4aa32c3629ab0aadb
+      internalID: -1497575239
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: OutlawSprites_17
+      rect:
+        serializedVersion: 2
+        x: 43
+        y: 317
+        width: 38
+        height: 71
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4f0354227fffe734789776c8d19beba4
+      internalID: 231632813
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: OutlawSprites_18
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 319
+        width: 43
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f29b8a08510257a418c96a145b1bf2e5
+      internalID: 1108331718
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: OutlawSprites_19
+      rect:
+        serializedVersion: 2
+        x: 210
+        y: 319
+        width: 41
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a6f29c359c0043a4498303aabb073cf0
+      internalID: 60865860
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: OutlawSprites_20
+      rect:
+        serializedVersion: 2
+        x: 296
+        y: 318
+        width: 41
+        height: 71
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 54196c246135cde49a026d18f5c00c8d
+      internalID: -308301499
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: OutlawSprites_21
+      rect:
+        serializedVersion: 2
+        x: 380
+        y: 318
+        width: 49
+        height: 71
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1a4ed26ddce77f34e8e402b2e14c5313
+      internalID: 5164936
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: OutlawSprites_22
+      rect:
+        serializedVersion: 2
+        x: 465
+        y: 318
+        width: 44
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9a3e8113898f6d2498ca364f2f2637c3
+      internalID: 1660456530
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: OutlawSprites_23
+      rect:
+        serializedVersion: 2
+        x: 549
+        y: 318
+        width: 48
+        height: 68
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ba1684cbfbb47ef4d8f223670eb17206
+      internalID: -1928439207
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: OutlawSprites_24
+      rect:
+        serializedVersion: 2
+        x: 652
+        y: 318
+        width: 48
+        height: 69
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 06e4ce659f3adb94c8bbf0edbdaa8cb6
+      internalID: -578757650
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: OutlawSprites_25
+      rect:
+        serializedVersion: 2
+        x: 737
+        y: 318
+        width: 44
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2ef15ff66421b564eafb7a94d0166890
+      internalID: 1549105975
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: OutlawSprites_26
+      rect:
+        serializedVersion: 2
+        x: 819
+        y: 319
+        width: 40
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c25406f9d4a857b4c8042b5c83cd21ca
+      internalID: -1193574331
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: OutlawSprites_27
+      rect:
+        serializedVersion: 2
+        x: 376
+        y: 218
+        width: 35
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f76d380d3e41d234e857237768329555
+      internalID: -1162216640
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: OutlawSprites_28
+      rect:
+        serializedVersion: 2
+        x: 466
+        y: 218
+        width: 30
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bf3bca37391375341930a86f316fcc42
+      internalID: -717347878
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: OutlawSprites_29
+      rect:
+        serializedVersion: 2
+        x: 548
+        y: 218
+        width: 33
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0665df562fd9128419d01ac0748fac73
+      internalID: 541011448
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: OutlawSprites_30
+      rect:
+        serializedVersion: 2
+        x: 635
+        y: 218
+        width: 34
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8c89dd71659ec744fb68dc5b07b40993
+      internalID: 1188021237
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: OutlawSprites_31
+      rect:
+        serializedVersion: 2
+        x: 718
+        y: 218
+        width: 33
+        height: 69
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 25a15099b658c9c4b9538f240825b413
+      internalID: 743025886
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: OutlawSprites_32
+      rect:
+        serializedVersion: 2
+        x: 800
+        y: 218
+        width: 48
+        height: 81
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a84f63646f3df41449c2ef9bbb7d77ce
+      internalID: -729240437
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: OutlawSprites_33
+      rect:
+        serializedVersion: 2
+        x: 544
+        y: 110
+        width: 36
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4674ff0f6a97fe147a6b4a519111a7dc
+      internalID: -2049136560
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: OutlawSprites_34
+      rect:
+        serializedVersion: 2
+        x: 633
+        y: 110
+        width: 35
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cfdeaed5eb2c283478e9979916f0e3fc
+      internalID: 1509645576
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: OutlawSprites_35
+      rect:
+        serializedVersion: 2
+        x: 715
+        y: 110
+        width: 35
+        height: 68
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7c798a23b119a9b47adffcd22ddfa953
+      internalID: -702057303
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: OutlawSprites_36
+      rect:
+        serializedVersion: 2
+        x: 798
+        y: 110
+        width: 63
+        height: 65
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d2dd397c0ddde5841950626033daa28d
+      internalID: 1729783671
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: OutlawSprites_47
+      rect:
+        serializedVersion: 2
+        x: 124
+        y: 109
+        width: 31
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 39fe6b8cdb9e0dd45b75ec5721c3f166
+      internalID: 1082633881
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: OutlawSprites_41
+      rect:
+        serializedVersion: 2
+        x: 10
+        y: 8
+        width: 47
+        height: 68
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 74c40c973d1dacf4093db8ea471a00c5
+      internalID: 892013100
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: OutlawSprites_42
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 8
+        width: 40
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 37a5853f941de2948a5bfdbc7ad95ca6
+      internalID: -764291855
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: OutlawSprites_43
+      rect:
+        serializedVersion: 2
+        x: 177
+        y: 8
+        width: 45
+        height: 59
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3536957c23eadeb4f92cdd75da2ddfac
+      internalID: 782260203
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: OutlawSprites_44
+      rect:
+        serializedVersion: 2
+        x: 259
+        y: 10
+        width: 51
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a3941e8688ae4be4ea327aed95530151
+      internalID: -1835397451
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: OutlawSprites_45
+      rect:
+        serializedVersion: 2
+        x: 350
+        y: 14
+        width: 46
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f4534d637c4c0824a849996a15e8014e
+      internalID: -951234633
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: OutlawSprites_46
+      rect:
+        serializedVersion: 2
+        x: 441
+        y: 13
+        width: 44
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 728d762a736833243aa28f5e0cef5e50
+      internalID: -2106299597
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: OutlawSprites_40
+      rect:
+        serializedVersion: 2
+        x: 802
+        y: 8
+        width: 51
+        height: 67
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c1b9392dd0c62264c9bdf97db2cb4197
+      internalID: 478786710
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: OutlawSprites_39
+      rect:
+        serializedVersion: 2
+        x: 717
+        y: 8
+        width: 45
+        height: 71
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 79fe27e2f3e37c04eb4f8a39bef69a1c
+      internalID: 505615769
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: OutlawSprites_38
+      rect:
+        serializedVersion: 2
+        x: 635
+        y: 8
+        width: 44
+        height: 76
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4225f34615182f745add617cc022b1a4
+      internalID: -102294888
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: OutlawSprites_37
+      rect:
+        serializedVersion: 2
+        x: 546
+        y: 7
+        width: 45
+        height: 76
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b771d9f7b9e5a1e4ea252e4c1e0d4f5a
+      internalID: 1553571283
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      OutlawSprites_49: 1186101344
+      OutlawSprites_53: -223710449
+      OutlawSprites_1: 629313348
+      OutlawSprites_135: -253473526
+      OutlawSprites_28: -717347878
+      OutlawSprites_30: 1188021237
+      OutlawSprites_110: 1143482745
+      OutlawSprites_117: 1124967643
+      OutlawSprites_2: 2065451340
+      OutlawSprites_154: 323402705
+      OutlawSprites_122: 668783876
+      OutlawSprites_112: 1058045385
+      OutlawSprites_138: 1132881140
+      OutlawSprites_23: -1928439207
+      OutlawSprites_27: -1162216640
+      OutlawSprites_91: -562253211
+      OutlawSprites_111: 258107351
+      OutlawSprites_45: -951234633
+      OutlawSprites_48: -693121741
+      OutlawSprites_90: 1053547504
+      OutlawSprites_22: 1660456530
+      OutlawSprites_124: -544065427
+      OutlawSprites_20: -308301499
+      OutlawSprites_46: -2106299597
+      OutlawSprites_21: 5164936
+      OutlawSprites_9: -980978129
+      OutlawSprites_141: -661636136
+      OutlawSprites_3: 1422425852
+      OutlawSprites_121: -1279413988
+      OutlawSprites_15: -1144091020
+      OutlawSprites_44: -1835397451
+      OutlawSprites_153: -1086929224
+      OutlawSprites_41: 892013100
+      OutlawSprites_152: 1228417705
+      OutlawSprites_130: 537482546
+      OutlawSprites_38: -102294888
+      OutlawSprites_98: -2012011276
+      OutlawSprites_125: 897211318
+      OutlawSprites_5: -347495053
+      OutlawSprites_114: 434494732
+      OutlawSprites_119: 402841918
+      OutlawSprites_134: 902746892
+      OutlawSprites_132: 2094729209
+      OutlawSprites_33: -2049136560
+      OutlawSprites_13: 1215402072
+      OutlawSprites_115: -1243992866
+      OutlawSprites_55: 285068150
+      OutlawSprites_116: -1256774074
+      OutlawSprites_95: -1036441022
+      OutlawSprites_43: 782260203
+      OutlawSprites_96: 1377007935
+      OutlawSprites_6: 471934814
+      OutlawSprites_0: 2003890677
+      OutlawSprites_8: 1096734977
+      OutlawSprites_35: -702057303
+      OutlawSprites_99: 598470587
+      OutlawSprites_54: -399400853
+      OutlawSprites_113: 421602611
+      OutlawSprites_97: 573343231
+      OutlawSprites_126: -44311322
+      OutlawSprites_42: -764291855
+      OutlawSprites_136: 852507594
+      OutlawSprites_51: -1799346257
+      OutlawSprites_29: 541011448
+      OutlawSprites_12: 1967895628
+      OutlawSprites_26: -1193574331
+      OutlawSprites_139: -1701203194
+      OutlawSprites_24: -578757650
+      OutlawSprites_131: -843344483
+      OutlawSprites_133: 1137394285
+      OutlawSprites_39: 505615769
+      OutlawSprites_7: -180109375
+      OutlawSprites_47: 1082633881
+      OutlawSprites_79: 1972135286
+      OutlawSprites_89: 188947858
+      OutlawSprites_106: 982618544
+      OutlawSprites_128: -33478784
+      OutlawSprites_140: -2002252123
+      OutlawSprites_104: -163850019
+      OutlawSprites_78: 1323976449
+      OutlawSprites_94: -1392452078
+      OutlawSprites_50: -1820587832
+      OutlawSprites_80: 887517527
+      OutlawSprites_109: 467682668
+      OutlawSprites_18: 1108331718
+      OutlawSprites_93: -1402049206
+      OutlawSprites_56: -716714106
+      OutlawSprites_88: 1844589750
+      OutlawSprites_123: 1867680290
+      OutlawSprites_32: -729240437
+      OutlawSprites_57: -1003564069
+      OutlawSprites_87: -423162149
+      OutlawSprites_52: 2020016981
+      OutlawSprites_108: 1606720241
+      OutlawSprites_11: 1105506016
+      OutlawSprites_151: -1008161397
+      OutlawSprites_36: 1729783671
+      OutlawSprites_25: 1549105975
+      OutlawSprites_118: -1956859195
+      OutlawSprites_34: 1509645576
+      OutlawSprites_107: 840335509
+      OutlawSprites_37: 1553571283
+      OutlawSprites_10: -1483482672
+      OutlawSprites_105: -678740287
+      OutlawSprites_14: -710344593
+      OutlawSprites_129: 891366294
+      OutlawSprites_120: 1268082765
+      OutlawSprites_142: -132415439
+      OutlawSprites_17: 231632813
+      OutlawSprites_143: 1526042134
+      OutlawSprites_137: -1134746850
+      OutlawSprites_4: -713296113
+      OutlawSprites_150: -1648319359
+      OutlawSprites_19: 60865860
+      OutlawSprites_31: 743025886
+      OutlawSprites_92: -719581770
+      OutlawSprites_16: -1497575239
+      OutlawSprites_40: 478786710
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

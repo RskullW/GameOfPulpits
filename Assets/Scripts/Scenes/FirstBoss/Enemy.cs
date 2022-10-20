@@ -17,6 +17,9 @@ public class Enemy : MonoBehaviour
     public bool IsVisiblePlayer = false;
     public bool IsAttack = false;
 
+    public float StoppingDistance;
+    public float RetreatDistance;
+    public GameObject _arrow;
     public float AttackRange;
     public float Health;
     public float MinCooldownAttack;
@@ -63,7 +66,21 @@ public class Enemy : MonoBehaviour
         Vector3 tempDirection = (_playerTransform.position - gameObject.transform.position).normalized;
         Quaternion tempLookRotation = Quaternion.LookRotation(new Vector3(tempDirection.x, 90.0f, tempDirection.z));
         transform.rotation = Quaternion.Lerp(gameObject.transform.rotation, tempLookRotation, Time.deltaTime * 2f);
+
+        if (TypeEnemy == TypeEnemy.Wolf)
+        {
+            WolfUpdate();
+        }
         
+        else if (TypeEnemy == TypeEnemy.Outlaw)
+        {
+            OutlawUpdate();
+        }
+        
+    }
+
+    private void WolfUpdate()
+    {
         if (Vector3.Distance(transform.position, _playerTransform.position)-AttackRange >= 5f)
         {
             _animator.SetBool("RunUp", true);
@@ -124,21 +141,40 @@ public class Enemy : MonoBehaviour
             OnCauseDamage?.Invoke();
             _cooldown = UnityEngine.Random.Range(MinCooldownAttack, MaxCooldownAttack);
 
-            if (TypeEnemy == TypeEnemy.Wolf)
-            {
-                AudioManager.Instance.PlaySound("WolfAttack");
-            }
-            
-            else if (TypeEnemy == TypeEnemy.People)
-            {
-                AudioManager.Instance.PlaySound("Attack2");
-            }
-            
-            else if (TypeEnemy == TypeEnemy.King)
-            {
-                AudioManager.Instance.PlaySound("Attack3");
-            }
+            AudioManager.Instance.PlaySound("WolfAttack");
         }
+    }
+
+    private void OutlawUpdate()
+    {
+        if (Vector2.Distance(transform.position, _playerTransform.position) > StoppingDistance)
+        {
+            transform.position = Vector2.MoveTowards(transform.position, _playerTransform.position, WalkSpeed*Time.deltaTime);
+        }
+
+        else if (Vector2.Distance(transform.position, _playerTransform.position) < StoppingDistance
+                 && Vector2.Distance(transform.position, _playerTransform.position) > RetreatDistance)
+        {
+            transform.position = this.transform.position;
+        }
+        
+        else if (Vector2.Distance(transform.position, _playerTransform.position) < RetreatDistance)
+        {
+            transform.position = Vector2.MoveTowards(transform.position, _playerTransform.position, -WalkSpeed*Time.deltaTime);
+        }
+
+        if (_cooldown <= 0)
+        {
+            Instantiate(_arrow, _playerTransform.position, Quaternion.identity);
+            IsAttack = true;
+            _cooldown = UnityEngine.Random.Range(MinCooldownAttack, MaxCooldownAttack);
+        }
+
+        else
+        {
+            _cooldown-= Time.deltaTime;
+        }
+        
     }
     private void AttackLogic()
     {
