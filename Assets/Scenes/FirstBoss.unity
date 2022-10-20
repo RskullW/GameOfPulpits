@@ -20980,6 +20980,9 @@ MonoBehaviour:
   IsMovingArea: 1
   IsVisiblePlayer: 1
   IsAttack: 0
+  StoppingDistance: 0
+  RetreatDistance: 0
+  _arrow: {fileID: 0}
   AttackRange: 1
   Health: 100
   MinCooldownAttack: 2
@@ -21064,107 +21067,13 @@ GameObject:
   m_Component:
   - component: {fileID: 764545643}
   - component: {fileID: 764545642}
-  - component: {fileID: 764545641}
-  - component: {fileID: 764545640}
-  - component: {fileID: 764545639}
-  - component: {fileID: 764545638}
-  m_Layer: 3
-  m_Name: Player
-  m_TagString: Player
+  m_Layer: 0
+  m_Name: PlayerSprite
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!65 &764545638
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 764545637}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.67331386, y: 1.2000002, z: 0.8089325}
-  m_Center: {x: 0.1375348, y: -7.479733e-16, z: -0.16935505}
---- !u!54 &764545639
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 764545637}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 100
-  m_AngularDrag: 0
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 116
-  m_CollisionDetection: 0
---- !u!114 &764545640
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 764545637}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 89a3f4de855c8004094d323d04efc2aa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _maxHealth: 100
-  _health: 100
-  _money: 0
-  _amountOfMedicine: 3
-  _levelGun: 2
-  _amountOfGarbage: 0
-  _durationCooldown: 1.2
-  _playerSpeed: 1.82
-  _damage: 10
-  _pointRecoveryHealth: 50
-  _cooldownUseHealth: 3
-  _circleFill: {fileID: 1324056749}
-  _interface: {fileID: 1347244471}
-  _healthBarPlayer: {fileID: 1241712032}
-  _textMedicine: {fileID: 1863127673}
-  _textLevelGun: {fileID: 1178978497}
-  _textsLogBar:
-  - {fileID: 614400873}
-  - {fileID: 121279265}
-  - {fileID: 1508959416}
-  - {fileID: 1797460892}
-  - {fileID: 368500235}
-  - {fileID: 1712787585}
-  - {fileID: 733891235}
-  - {fileID: 1861976917}
-  - {fileID: 935930955}
-  _colorCausePlayer: {r: 0.14117648, g: 0.58431375, b: 0.14509805, a: 1}
-  _colorTakeDamagePlayer: {r: 0.59607846, g: 0.16862746, b: 0.10980392, a: 1}
-  _cooldownBlock: 1
---- !u!95 &764545641
-Animator:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 764545637}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: d2c6ba19fcd30a049aed66fe660f5d8c, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!212 &764545642
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -21224,16 +21133,142 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 764545637}
-  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1.435339, y: 1.4353387, z: 1.4353387}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 868258508}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+--- !u!1 &868258507
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 868258508}
+  - component: {fileID: 868258512}
+  - component: {fileID: 868258511}
+  - component: {fileID: 868258510}
+  - component: {fileID: 868258509}
+  m_Layer: 3
+  m_Name: Player
+  m_TagString: Player
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &868258508
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 868258507}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 1.1, y: 2.87, z: -5.213}
-  m_LocalScale: {x: 1.435339, y: 1.4353389, z: 1.4353389}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1368940100}
   - {fileID: 973179800}
+  - {fileID: 764545643}
   m_Father: {fileID: 0}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &868258509
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 868258507}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89a3f4de855c8004094d323d04efc2aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _maxHealth: 100
+  _health: 100
+  _money: 0
+  _amountOfMedicine: 3
+  _levelGun: 2
+  _amountOfGarbage: 0
+  _durationCooldown: 1.2
+  _playerSpeed: 1.82
+  _damage: 10
+  _pointRecoveryHealth: 50
+  _cooldownUseHealth: 3
+  _circleFill: {fileID: 1324056749}
+  _interface: {fileID: 1347244471}
+  _healthBarPlayer: {fileID: 1241712032}
+  _textMedicine: {fileID: 1863127673}
+  _textLevelGun: {fileID: 1178978497}
+  _textsLogBar:
+  - {fileID: 614400873}
+  - {fileID: 121279265}
+  - {fileID: 1508959416}
+  - {fileID: 1797460892}
+  - {fileID: 368500235}
+  - {fileID: 1712787585}
+  - {fileID: 733891235}
+  - {fileID: 1861976917}
+  - {fileID: 935930955}
+  _colorCausePlayer: {r: 0.14117648, g: 0.58431375, b: 0.14509805, a: 1}
+  _colorTakeDamagePlayer: {r: 0.59607846, g: 0.16862746, b: 0.10980392, a: 1}
+  _cooldownBlock: 1
+--- !u!95 &868258510
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 868258507}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: d2c6ba19fcd30a049aed66fe660f5d8c, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!54 &868258511
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 868258507}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 100
+  m_AngularDrag: 0
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 116
+  m_CollisionDetection: 0
+--- !u!65 &868258512
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 868258507}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.67331386, y: 1.2000002, z: 0.8089325}
+  m_Center: {x: 0.1375348, y: -7.479733e-16, z: -0.16935505}
 --- !u!1 &876762442
 GameObject:
   m_ObjectHideFlags: 0
@@ -26166,8 +26201,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1113872711}
   m_HandleRect: {fileID: 1113872710}
   m_Direction: 2
-  m_Value: -0.00000640868
-  m_Size: 0.66666627
+  m_Value: -0.0000010681136
+  m_Size: 0.66644734
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -26405,12 +26440,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 973179799}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.435339, y: 1.4353386, z: 1.4353386}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 764545643}
+  m_Father: {fileID: 868258508}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &973179801
@@ -26425,7 +26460,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ac3dcb408382594f8cc61414c24662d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerController: {fileID: 764545640}
+  _playerController: {fileID: 0}
   _textInRussian: "\u0422\u042B \u0423\u041C\u0415\u0420"
   _textInEnglish: YOU DIED
 --- !u!114 &973179802
@@ -32330,6 +32365,9 @@ MonoBehaviour:
   IsMovingArea: 1
   IsVisiblePlayer: 1
   IsAttack: 0
+  StoppingDistance: 0
+  RetreatDistance: 0
+  _arrow: {fileID: 0}
   AttackRange: 1
   Health: 100
   MinCooldownAttack: 2
@@ -32548,12 +32586,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1368940099}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.19999999, y: 0.26251504, z: -1.1800001}
-  m_LocalScale: {x: 0.69669956, y: 0.6966997, z: 0}
+  m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: -0.28706777, y: 1.6936998, z: 0.37679815}
+  m_LocalScale: {x: 1, y: 1, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 764545643}
+  m_Father: {fileID: 868258508}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!81 &1368940101
@@ -32669,7 +32707,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 100.000595}
+  m_AnchoredPosition: {x: 0, y: 99.999985}
   m_SizeDelta: {x: 0, y: 300}
   m_Pivot: {x: 0, y: 1}
 --- !u!4 &1481409331 stripped
@@ -33229,6 +33267,9 @@ MonoBehaviour:
   IsMovingArea: 1
   IsVisiblePlayer: 1
   IsAttack: 0
+  StoppingDistance: 0
+  RetreatDistance: 0
+  _arrow: {fileID: 0}
   AttackRange: 1
   Health: 200
   MinCooldownAttack: 2
@@ -33455,7 +33496,7 @@ MonoBehaviour:
   _healthBarBoss: {fileID: 1042372722}
   _wolfDialogue: {fileID: 1174819445}
   _enemy: {fileID: 1688902736}
-  _player: {fileID: 764545640}
+  _player: {fileID: 868258509}
   _playableDirector: {fileID: 1201622838}
   _enemies:
   - {fileID: 1326707114}

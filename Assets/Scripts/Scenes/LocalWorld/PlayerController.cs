@@ -430,7 +430,7 @@ public class PlayerController : MonoBehaviour
 
             float moveVertical = Input.GetAxis("Vertical");
 
-            Vector3 movement = new Vector3(moveHorizontal, moveVertical, 0.0f);
+            Vector3 movement = new Vector3(moveHorizontal, 0.0f, moveVertical);
             transform.Translate(movement * _playerSpeed * Time.fixedDeltaTime);
         }
     }

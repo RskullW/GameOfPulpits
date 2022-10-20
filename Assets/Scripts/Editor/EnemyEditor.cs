@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
+using UnityEngine.AI;
 
 [CustomEditor(typeof(Enemy))]
 public class EnemyEditor : Editor
@@ -81,6 +82,7 @@ public class EnemyEditor : Editor
         if (_enemy.TypeEnemy == TypeEnemy.Outlaw)
         {
             _enemy._arrow = (GameObject)EditorGUILayout.ObjectField("Arrow (Bullet)", _enemy._arrow, typeof(GameObject), true);
+            _enemy._Agent = (NavMeshAgent)EditorGUILayout.ObjectField("Nav mesh agent", _enemy._Agent, typeof(NavMeshAgent), true);
             _enemy.StoppingDistance = EditorGUILayout.FloatField("Stopping distance", _enemy.StoppingDistance);
             _enemy.RetreatDistance = EditorGUILayout.FloatField("Retreat distance", _enemy.RetreatDistance);
         }

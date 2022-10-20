@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 using Random = System.Random;
@@ -13,6 +15,7 @@ public class Enemy : MonoBehaviour
     public event Action OnDied;
     
     public TypeEnemy TypeEnemy;
+    public NavMeshAgent _Agent;
     public bool IsMovingArea;
     public bool IsVisiblePlayer = false;
     public bool IsAttack = false;
@@ -52,6 +55,14 @@ public class Enemy : MonoBehaviour
     }
     private void FixedUpdate()
     {
+        // TODO: удалить строку _isMovement = true после создания левел менеджера
+
+        if (TypeEnemy == TypeEnemy.Outlaw)
+        {
+            
+            IsVisiblePlayer = true;
+            _isMovement = true;
+        }
 
         if (_isMovement)
         {
@@ -147,25 +158,29 @@ public class Enemy : MonoBehaviour
 
     private void OutlawUpdate()
     {
-        if (Vector2.Distance(transform.position, _playerTransform.position) > StoppingDistance)
+        Debug.Log("OutlawUpdate()");
+        if (Vector3.Distance(transform.position, _playerTransform.position) > StoppingDistance)
         {
-            transform.position = Vector2.MoveTowards(transform.position, _playerTransform.position, WalkSpeed*Time.deltaTime);
+            Debug.Log("OutlawUpdate.RunPlayer");
+            IsAttack = false;
+            _Agent.SetDestination(_playerTransform.position);
         }
 
-        else if (Vector2.Distance(transform.position, _playerTransform.position) < StoppingDistance
-                 && Vector2.Distance(transform.position, _playerTransform.position) > RetreatDistance)
+        else if (Vector3.Distance(transform.position, _playerTransform.position) < RetreatDistance)
         {
-            transform.position = this.transform.position;
+            IsAttack = false;
+            Debug.Log("OutlawUpdate.RunAway");
+            Vector3 dirToPlayer = transform.position - _playerTransform.transform.position;
+            Vector3 newPos = transform.position + dirToPlayer;
+            
+            _Agent.SetDestination(newPos);
         }
-        
-        else if (Vector2.Distance(transform.position, _playerTransform.position) < RetreatDistance)
-        {
-            transform.position = Vector2.MoveTowards(transform.position, _playerTransform.position, -WalkSpeed*Time.deltaTime);
-        }
+
+        IsAttack = true;
 
         if (_cooldown <= 0)
         {
-            Instantiate(_arrow, _playerTransform.position, Quaternion.identity);
+            Instantiate(_arrow, _playerTransform.position, quaternion.Euler(90, 90, 0));
             IsAttack = true;
             _cooldown = UnityEngine.Random.Range(MinCooldownAttack, MaxCooldownAttack);
         }
@@ -174,8 +189,8 @@ public class Enemy : MonoBehaviour
         {
             _cooldown-= Time.deltaTime;
         }
-        
     }
+    
     private void AttackLogic()
     {
         if (_cooldown > 0f && IsAttack)
