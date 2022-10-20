@@ -32,7 +32,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] protected float _pointRecoveryHealth;
     [SerializeField] protected float _cooldownUseHealth;
     [SerializeField] protected Image _circleFill;
-    
+
+    [SerializeField] private GameObject _interface;
     [SerializeField] private Image _healthBarPlayer;
     [SerializeField] private TextMeshProUGUI _textMedicine;
     [SerializeField] private TextMeshProUGUI _textLevelGun;
@@ -549,6 +550,19 @@ public class PlayerController : MonoBehaviour
     public void SetActiveDialogue(bool isActive)
     {
         _isActiveDialogue = isActive;
+
+        if (_interface != null)
+        {
+            if (_isActiveDialogue)
+            {
+                _interface.gameObject.SetActive(false);
+            }
+
+            else
+            {
+                _interface.gameObject.SetActive(true);
+            }
+        }
     }
 
     public void SetHealth(float health)

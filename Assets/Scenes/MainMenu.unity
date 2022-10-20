@@ -805,6 +805,15 @@ MonoBehaviour:
     Clip: {fileID: 8300000, guid: a6c038e1641740640be13fb5908cb2e6, type: 3}
   - Name: ImproveGun
     Clip: {fileID: 8300000, guid: 8c6d8a11220ac8a429cf3eccd19323d6, type: 3}
+  _backgroundSecondPhaseMusic:
+  - Name: Background1
+    Clip: {fileID: 8300000, guid: fadc3b0d0af7e9d4cae02e4e6ed10d1a, type: 3}
+  - Name: Background2
+    Clip: {fileID: 8300000, guid: d1ae6be62b027934990618e23e31500d, type: 3}
+  - Name: Background3
+    Clip: {fileID: 8300000, guid: b9eb0867c3921de4381f13bd36f3b85d, type: 3}
+  - Name: Background4
+    Clip: {fileID: 8300000, guid: 2a9ceb34670f082489f1a3a8619f42aa, type: 3}
   _musicSource: {fileID: 665210153}
   _sfxSource:
   - {fileID: 1035202794}

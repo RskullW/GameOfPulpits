@@ -12,6 +12,7 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] [ItemNotNull] protected List<TextMeshProUGUI> _firstDialogue;
     [SerializeField] [ItemNotNull] protected List<TextMeshProUGUI> _secondDialogue;
     [SerializeField] [ItemNotNull] protected List<TextMeshProUGUI> _thirdDialogue;
+    [SerializeField] protected List<TextMeshProUGUI> _fourDialogue;
     [SerializeField] [ItemNotNull] protected List<Replics> _dialogues;
     [SerializeField] protected float _durationVisibleText;
     [SerializeField] protected List<bool> _numbersOfDialogue;
@@ -95,6 +96,12 @@ public class DialogueManager : MonoBehaviour
             textMeshPro.gameObject.SetActive(false);
             textMeshPro.transform.parent.parent.gameObject.SetActive(false);
         }
+        
+        foreach (var textMeshPro in _fourDialogue)
+        {
+            textMeshPro.gameObject.SetActive(false);
+            textMeshPro.transform.parent.parent.gameObject.SetActive(false);
+        }
     }
     private void Update()
     {
@@ -105,7 +112,7 @@ public class DialogueManager : MonoBehaviour
             {
                 if (Input.GetKey(KeyCode.Alpha1))
                 {
-                    if (_numbersOfDialogue[_numbersOfDialogue.Count-1])
+                    if (_numbersOfDialogue[^1])
                     {
                         SceneManager.LoadScene("Castle Player");
                         return;
@@ -126,12 +133,13 @@ public class DialogueManager : MonoBehaviour
         {
             case -1: _dialogue = _firstDialogue; break;
             case 0: _dialogue = _secondDialogue; break;
-            default: _dialogue = _thirdDialogue; break;
+            case 1: _dialogue = _thirdDialogue; break;
+            default: _dialogue = _fourDialogue; break;
         }
 
         int indexText = -1;
         _numberDialogue++;
-
+        
         foreach (var textMeshPro in _dialogue)
         {
             indexText++;
@@ -141,12 +149,19 @@ public class DialogueManager : MonoBehaviour
 
             textMeshPro.transform.parent.parent.gameObject.SetActive(true);
             textMeshPro.gameObject.SetActive(true);
-            
+
+            textMeshPro.font = _dialogues[_numberDialogue].FontAssetEnglish;
+            _nameDialogue.text = _dialogues[_numberDialogue].NameLeftEnglish;
+            _nameDialogue.font = _dialogues[_numberDialogue].FontAssetEnglish;
             
             if (MenuManager.Language == Language.Rus)
             {
-                text = _dialogues[_numberDialogue ].RussianText[indexText];
+                _nameDialogue.text = _dialogues[_numberDialogue].NameLeftEnglish;
+                _nameDialogue.font = _dialogues[_numberDialogue].FontAssetRussian;
+                
+                text = _dialogues[_numberDialogue].RussianText[indexText];
                 textMeshPro.font = _dialogues[_numberDialogue].FontAssetRussian;
+          
             }
 
             textMeshPro.text = "";

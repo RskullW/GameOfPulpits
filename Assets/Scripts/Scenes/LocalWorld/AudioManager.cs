@@ -10,11 +10,13 @@ public class AudioManager : MonoBehaviour
 
     [SerializeField] [Range(0f, 1f)] private float _volumeMusic;
     [SerializeField] private Sound[] _musicSounds, _backgroundMusic, _deathSounds, _sfxSounds;
+    [SerializeField] private Sound[] _backgroundSecondPhaseMusic;
     [SerializeField] private AudioSource _musicSource;
     [SerializeField] private AudioSource[] _sfxSource;
 
     private bool _isPlayBackgroundMusic;
     private bool _isPlaySecondPhaseMusicWolf;
+    private bool _isPlayBackgroundSecondPhaseMusic;
 
     private bool _lock;
     private void Start()
@@ -35,6 +37,10 @@ public class AudioManager : MonoBehaviour
         
     }
 
+    public void SetIsPlayBackgroundSecondPhaseMusic(bool value)
+    {
+        _isPlayBackgroundSecondPhaseMusic = value;
+    }
     public void SetIsPlayBackgroundMusic(bool isPlayBackgroundMusic)
     {
         _isPlayBackgroundMusic = isPlayBackgroundMusic;
@@ -124,7 +130,7 @@ public class AudioManager : MonoBehaviour
             Debug.Log("StopMusic(): " + _musicSource.clip.name);
             StartCoroutine(StopingMusic());
         }
-
+        
         if (_isPlayBackgroundMusic)
         {
             _isPlayBackgroundMusic = false;
@@ -203,9 +209,39 @@ public class AudioManager : MonoBehaviour
         }
 
     }
+    
+    public void PlaySecondPhaseBackgroundMusic()
+    {
+        int numberMusic = Random.Range(0, _backgroundSecondPhaseMusic.Length - 1);
+
+        Sound s = _backgroundSecondPhaseMusic[numberMusic];
+
+        if (s != null)
+        {
+            _musicSource.clip = s.Clip;
+            StartCoroutine(PlayingMusic());
+            _isPlayBackgroundSecondPhaseMusic = true;
+            _isPlayBackgroundMusic = false;
+            Invoke("AudioFinished", _musicSource.clip.length);
+            
+            Debug.Log("PlaySecondPhaseBackgroundSMusic(): name = " + _backgroundSecondPhaseMusic[numberMusic].Name);
+        }
+        
+
+        else
+        {
+            Debug.LogError("Error. Sound not found");
+        }
+
+    }
     private void AudioFinished()
     {
-        if (_isPlayBackgroundMusic)
+        if (_isPlayBackgroundSecondPhaseMusic)
+        {
+            PlaySecondPhaseBackgroundMusic();
+        }
+        
+        else if (_isPlayBackgroundMusic)
         {
             PlayBackgroundMusic();
         }
