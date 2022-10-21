@@ -101,6 +101,11 @@ public class SaveManager : MonoBehaviour
     {
         _health = value;
     }
+    
+    public static void SetLevelGun(int value)
+    {
+        _levelGun = value;
+    }
 
     public static void SaveLevelGun(int levelGun)
     {

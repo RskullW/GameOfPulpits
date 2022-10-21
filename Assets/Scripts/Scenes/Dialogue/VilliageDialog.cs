@@ -133,32 +133,35 @@ public class VilliageDialog : DialogueManager
         int indexText = -1;
         _numberDialogue++;
 
-        foreach (var textMeshPro in _dialogue)
+        if (_numberDialogue <= _dialogues.Count - 1)
         {
-            indexText++;
-
-            int index = 0;
-            string text = _dialogues[_numberDialogue].EnglishText[indexText];
-
-            textMeshPro.transform.parent.parent.gameObject.SetActive(true);
-            textMeshPro.gameObject.SetActive(true);
-            
-            
-            if (MenuManager.Language == Language.Rus)
+            foreach (var textMeshPro in _dialogue)
             {
-                text = _dialogues[_numberDialogue ].RussianText[indexText];
-                textMeshPro.font = _dialogues[_numberDialogue].FontAssetRussian;
+                indexText++;
+
+                int index = 0;
+                string text = _dialogues[_numberDialogue].EnglishText[indexText];
+
+                textMeshPro.transform.parent.parent.gameObject.SetActive(true);
+                textMeshPro.gameObject.SetActive(true);
+
+
+                if (MenuManager.Language == Language.Rus)
+                {
+                    text = _dialogues[_numberDialogue].RussianText[indexText];
+                    textMeshPro.font = _dialogues[_numberDialogue].FontAssetRussian;
+                }
+
+                textMeshPro.text = "";
+                while (textMeshPro.text != text)
+                {
+                    textMeshPro.text += text[index++];
+                    yield return new WaitForSeconds(_durationVisibleText);
+                }
             }
 
-            textMeshPro.text = "";
-            while (textMeshPro.text != text)
-            {
-                textMeshPro.text += text[index++];
-                yield return new WaitForSeconds(_durationVisibleText);
-            }
+            _numbersOfDialogue[_numberDialogue] = true;
         }
-
-        _numbersOfDialogue[_numberDialogue] = true;
     }
     
 }

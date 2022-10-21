@@ -20,4 +20,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/FirstBoss.unity
     guid: 34c15c5d68077cf44a8ea47fa3040332
+  - enabled: 1
+    path: Assets/Scenes/Village.unity
+    guid: c7e12f7297dd80442ba786104cccbc3e
+  - enabled: 1
+    path: Assets/Scenes/SecondBoss.unity
+    guid: df8b39c937a6a9a41a08663c1cc3f7d0
   m_configObjects: {}

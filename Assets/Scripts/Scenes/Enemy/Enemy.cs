@@ -15,13 +15,14 @@ public class Enemy : MonoBehaviour
     public event Action OnDied;
     
     public TypeEnemy TypeEnemy;
-    public NavMeshAgent _Agent;
+    public NavMeshAgent Agent;
     public bool IsMovingArea;
     public bool IsVisiblePlayer = false;
     public bool IsAttack = false;
 
     public float StoppingDistance;
     public float RetreatDistance;
+    public float VisibleDistance;
     
     public GameObject _arrow;
     public float AttackRange;
@@ -34,22 +35,24 @@ public class Enemy : MonoBehaviour
     public float RunSpeed;
     public float Damage;
     public float StartHealth => _startHealth;
-    public bool IsMovement => _isMovement;
     public List<GameObject> MovePoints;
 
-    private bool _isMovement;
+    public bool IsMovement;
+    public bool IsBlocked => _isBlocked;
     private bool _isBlocked;
     private Animator _animator;
     private Transform _playerTransform;
     private float _startHealth;
     private bool _isFirstVisiblePlayer;
     private float _cooldown;
+    private float _cooldownBlock;
+    
+    
 
     void Start()
     {
         _animator = GetComponent<Animator>();
         IsAttack = false;
-        _isMovement = true;
         _startHealth = Health;
         _playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
     }
@@ -60,8 +63,7 @@ public class Enemy : MonoBehaviour
             IsVisiblePlayer = true;
         }
 
-        Debug.Log("IS MOVE: " + IsMovement);
-        if (_isMovement)
+        if (IsMovement)
         {
             MovementLogic();
             AttackLogic();
@@ -83,6 +85,11 @@ public class Enemy : MonoBehaviour
         else if (TypeEnemy == TypeEnemy.Outlaw)
         {
             OutlawUpdate();
+        }
+        
+        else if (TypeEnemy == TypeEnemy.People)
+        {
+            PeopleUpdate();
         }
         
     }
@@ -158,7 +165,7 @@ public class Enemy : MonoBehaviour
         if (Vector3.Distance(transform.position, _playerTransform.position) > StoppingDistance)
         {
             IsAttack = false;
-            _Agent.SetDestination(_playerTransform.position);
+            Agent.SetDestination(_playerTransform.position);
         }
 
         else if (Vector3.Distance(transform.position, _playerTransform.position) < RetreatDistance)
@@ -167,7 +174,7 @@ public class Enemy : MonoBehaviour
             Vector3 dirToPlayer = transform.position - _playerTransform.transform.position;
             Vector3 newPos = transform.position + dirToPlayer;
 
-            _Agent.SetDestination(newPos);
+            Agent.SetDestination(newPos);
         }
         
         if (_cooldown <= 0)
@@ -186,32 +193,85 @@ public class Enemy : MonoBehaviour
 
     private void PeopleUpdate()
     {
-        if (_isMovement && Vector3.Distance(transform.position, _playerTransform.position) > StoppingDistance)
+        if (IsMovement && Vector3.Distance(transform.position, _playerTransform.position) > VisibleDistance)
         {
-            IsAttack = false;
-            _Agent.SetDestination(_playerTransform.position);
+            transform.position = transform.position;
+        }
+        
+        else if (IsMovement && Vector3.Distance(transform.position, _playerTransform.position) > StoppingDistance 
+                       && Vector3.Distance(transform.position, _playerTransform.position) <= VisibleDistance)
+        {
+            Agent.SetDestination(_playerTransform.position);
+
+            if (!_isBlocked)
+            {
+                _animator.SetBool("PeopleRun", true);
+                _animator.SetBool("PeopleAttack", false);
+                _animator.SetBool("PeopleBlock", false);
+
+            }
         }
 
-        else if ( _isMovement && Vector3.Distance(transform.position, _playerTransform.position) < RetreatDistance)
+        else if ( IsMovement && Vector3.Distance(transform.position, _playerTransform.position) < RetreatDistance)
         {
-            IsAttack = false;
+            if (!_isBlocked)
+            {
+                _animator.SetBool("PeopleRun", true);
+                _animator.SetBool("PeopleAttack", false);
+                _animator.SetBool("PeopleBlock", false);
+            }
+
             Vector3 dirToPlayer = transform.position - _playerTransform.transform.position;
             Vector3 newPos = transform.position + dirToPlayer;
 
-            _Agent.SetDestination(newPos);
-        }
-        
-        if (_cooldown <= 0 && _isMovement && !_isBlocked)
-        {
-            IsAttack = true;
-            StartCoroutine(StartAttackOutlaw());
-            
-            _cooldown = UnityEngine.Random.Range(MinCooldownAttack, MaxCooldownAttack);
+            Agent.SetDestination(newPos);
         }
 
-        else
+        else if (IsMovement && Vector3.Distance(transform.position, _playerTransform.position) >= RetreatDistance &&
+            Vector3.Distance(transform.position, _playerTransform.position) <= StoppingDistance)
+        {
+            AttackLogicPeople();
+        }
+
+        if (_cooldownBlock > 0)
+        {
+            _cooldownBlock -= Time.deltaTime;
+
+            if (_cooldownBlock <= 0f)
+            {
+                _isBlocked = false;
+            }
+        }
+
+        if (_cooldown > 0)
         {   
             _cooldown-= Time.deltaTime;
+        }
+    }
+
+    private void AttackLogicPeople()
+    {
+        if (_cooldownBlock <= 0 && IsMovement && IsAttack && _cooldown <= 0)
+        {
+            IsAttack = false;
+            _isBlocked = true;
+            
+            _animator.SetBool("PeopleBlock", true);
+            _animator.SetBool("PeopleRun", false);
+            _animator.SetBool("PeopleAttack", false);
+            
+            _cooldownBlock = UnityEngine.Random.Range(MinCooldownBlock, MaxCooldownBlock);
+        }
+        
+        if (_cooldown <= 0 && IsMovement && !_isBlocked)
+        {
+            IsAttack = true;
+            OnCauseDamage?.Invoke();
+            _animator.SetBool("PeopleAttack", true);
+            _animator.SetBool("PeopleRun", false);
+            _animator.SetBool("PeopleBlock", false);
+
+            _cooldown = UnityEngine.Random.Range(MinCooldownAttack, MaxCooldownAttack);
         }
     }
     private void AttackLogic()
@@ -229,7 +289,7 @@ public class Enemy : MonoBehaviour
     }
     public void SetMovement(bool isMovement)
     {
-        _isMovement = isMovement;
+        IsMovement = isMovement;
     }
     public void SetPosition(Vector3 position)
     {
@@ -244,9 +304,10 @@ public class Enemy : MonoBehaviour
     {
         Health = health;
 
+        if (!(Health <= 0)) return;
+
         if (TypeEnemy == TypeEnemy.Outlaw)
         {
-            if (!(Health <= 0)) return;
             OnDied?.Invoke();
             StartCoroutine(StartDieOutlaw());
         }
@@ -255,10 +316,22 @@ public class Enemy : MonoBehaviour
         {
             OnDied?.Invoke();
         }
+        
+        else if (TypeEnemy == TypeEnemy.People && Health <= 0)
+        {
+            OnDied?.Invoke();
+            StartCoroutine(StartDiePeople());
+        }
+        
     }
 
     public void TakeDamage(float damage)
     {
+        if (TypeEnemy == TypeEnemy.People && _isBlocked)
+        {
+            damage /= 4;
+        }
+        
         Health -= damage;
 
         if (!(Health <= 0)) return;
@@ -266,13 +339,23 @@ public class Enemy : MonoBehaviour
         if (TypeEnemy == TypeEnemy.Outlaw)
         {
             OnDied?.Invoke();
-            _isMovement = false;
-            StartCoroutine(StartDieOutlaw());
+            IsMovement = false;
+
+            if (gameObject.activeSelf)
+            {
+                StartCoroutine(StartDieOutlaw());
+            }
         }
         
         else if (TypeEnemy == TypeEnemy.Wolf && Health<=0)
         {
             OnDied?.Invoke();
+        }
+
+        else if (TypeEnemy == TypeEnemy.People && Health <= 0)
+        {
+            OnDied?.Invoke();
+            StartCoroutine(StartDiePeople());
         }
     }
 
@@ -284,6 +367,17 @@ public class Enemy : MonoBehaviour
         gameObject.SetActive(false);
     }
 
+    private IEnumerator StartDiePeople()
+    {
+        _animator.SetBool("PeopleRun", false);
+        _animator.SetBool("PeopleAttack", false);
+        _animator.SetBool("PeopleBlock", false);
+        _animator.SetBool("PeopleDie", true);
+
+        yield return new WaitForSeconds(4);
+        gameObject.SetActive(false);
+    }
+    
     private IEnumerator StartAttackOutlaw()
     {
         _animator.SetBool("OutlawRun", false);
@@ -295,4 +389,12 @@ public class Enemy : MonoBehaviour
         _animator.SetBool("OutlawRun", true);
         _animator.SetBool("OutlawAttack", false);
     }
+
+    public void SetActiveNavMeshAgent(bool value)
+    {
+        if (Agent != null)
+        {
+            Agent.enabled = value;
+        }
+    } 
 }

@@ -10,6 +10,7 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerController : MonoBehaviour
 {
+    public event Action OnDie;
     public event Action OnCauseDamage;
     public event Action OnSetMoney;
     public event Action OnSetGarbage;
@@ -472,20 +473,32 @@ public class PlayerController : MonoBehaviour
 
         if (collider.tag == "Enemy" && _isAttack && _isCauseDamage)
         {
-            if (_textsLogBar != null)
-            {
-                SetLogsBar(GetDamage());
-            }
-            
             Enemy enemy = collider.gameObject.GetComponent<Enemy>();
 
-            if (enemy.TypeEnemy == TypeEnemy.Outlaw)
+            if (_textsLogBar != null)
             {
-                enemy.TakeDamage(GetDamage());
-            }
+                if (enemy.TypeEnemy == TypeEnemy.People && enemy.IsBlocked)
+                {
+                    SetLogsBar(GetDamage()/4);
+                }
 
-            OnCauseDamage?.Invoke();
-            _isCauseDamage = false;
+                else
+                {
+                    SetLogsBar(GetDamage());
+                }
+            }
+            
+            if (enemy.Health >= 0f)
+            {
+
+                if (enemy.TypeEnemy == TypeEnemy.Outlaw || enemy.TypeEnemy == TypeEnemy.People)
+                {
+                    enemy.TakeDamage(GetDamage());
+                }
+
+                OnCauseDamage?.Invoke();
+                _isCauseDamage = false;
+            }
         }
     }
 
@@ -634,6 +647,11 @@ public class PlayerController : MonoBehaviour
         
 
         _isCauseDamage = false;
+
+        if (_health <= 0f)
+        {
+            OnDie?.Invoke();
+        }
         SetLogsBar(damage);
     }
 

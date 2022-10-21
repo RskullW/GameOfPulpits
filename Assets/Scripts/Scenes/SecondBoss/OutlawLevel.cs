@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.Collections.LowLevel.Unsafe;
 using UnityEngine;
 using UnityEngine.Experimental.GlobalIllumination;
 using UnityEngine.Playables;
@@ -27,6 +28,8 @@ public class OutlawLevel : MonoBehaviour
     [SerializeField] private PlayerController _player;
     [SerializeField] private PlayableDirector _playableDirector;
     [SerializeField] private List<Enemy> _enemies;
+    [SerializeField] private List<Enemy> _enemySecondPhase;
+    [SerializeField] private Enemy _boss;
     [Space] 
     
     private int _numberOfDieOutlaws;
@@ -45,6 +48,14 @@ public class OutlawLevel : MonoBehaviour
         SetLanguage(MenuManager.Language);
         _finalReplicObject.SetActive(false);
         _healthBarBoss.fillAmount = 1f;
+
+        foreach (var enemy in _enemySecondPhase)
+        {
+            enemy.OnDied += DeathOutlaw;
+            enemy.gameObject.SetActive(false);
+        }
+        
+        _boss.gameObject.SetActive(false);
     }
 
     void InitializeConditions()
@@ -69,24 +80,48 @@ public class OutlawLevel : MonoBehaviour
             _finalText.text = _finalReplicsEnglish;
         }
     }
+
     void InitializeEvents()
     {
         _outlawDialogue.OnEndDialogue += StartFirstPhase;
         _outlawDialogue.OnEndLevel += ProcessEndLevel;
         _player.OnCauseDamage += SetHealthBar;
+        _player.OnDie += DeathProcess;
 
+        _boss.OnCauseDamage += () => _player.TakeDamage(_boss.Damage);
+        _boss.OnDied += DeathBoss;
+        
         _playableDirector.stopped += StopCutscene;
     }
+
     void StartMovement()
     {
-        foreach (var enemy in _enemies)
+        if (!_isStartSecondPhaseFight)
         {
-            enemy.SetMovement(true);
-            enemy.SetIsFirstVisiblePlayer(true);
-        }
-        
-        _player.SetActiveDialogue(false);
+            foreach (var enemy in _enemies)
+            {
+                if (enemy.gameObject.activeSelf)
+                {
+                    enemy.SetMovement(true);
+                    enemy.SetIsFirstVisiblePlayer(true);
+                }
+            }
 
+        }
+        else
+        {
+            foreach (var enemy in _enemySecondPhase)
+            {
+                if (enemy.gameObject.activeSelf)
+                {
+                    enemy.SetMovement(true);
+                    enemy.SetIsFirstVisiblePlayer(true);
+                }
+            }
+        }
+
+        _player.SetActiveDialogue(false);
+        _boss.SetMovement(true);
         _healthBar.SetActive(true);
     }
 
@@ -121,6 +156,19 @@ public class OutlawLevel : MonoBehaviour
                 }
             }
         }
+
+        if (_enemySecondPhase.Count > 0)
+        {
+            foreach (var enemy in _enemySecondPhase)
+            {
+                if (enemy.gameObject.activeSelf)
+                {
+                    enemy.SetMovement(false);
+                }    
+            }
+        }
+        
+        _boss.SetMovement(false);
         
     }
 
@@ -131,7 +179,6 @@ public class OutlawLevel : MonoBehaviour
         SaveManager.SetMoney(0);
         SaveManager.SetHealth(_player.GetHealth());
         SaveManager.SetIsHavePositionMap(true);
-        
         AudioManager.Instance.PlayBackgroundMusic();
         SceneManager.LoadScene("MainMap");
     }
@@ -142,6 +189,18 @@ public class OutlawLevel : MonoBehaviour
         Debug.Log("SecondBoss: Start 2 Phase");
         AudioManager.Instance.PlayMusic("OutlawSecondPhase");
         
+        _boss.SetActiveNavMeshAgent(false);
+
+        foreach (var enemy in _enemySecondPhase)
+        {
+            if (!enemy.gameObject.activeSelf)
+            {
+                enemy.gameObject.SetActive(true);
+            }
+            
+            enemy.SetMovement(false);
+            enemy.gameObject.SetActive(false);
+        }
         foreach (var enemy in _enemies)
         {
             enemy.gameObject.SetActive(false);
@@ -150,6 +209,7 @@ public class OutlawLevel : MonoBehaviour
         _isStartSecondPhaseFight = true;
         _iconBoss.sprite = _iconSecondBoss;
 
+        _playableDirector.Play();
         StopMovement();
         
     }
@@ -179,6 +239,35 @@ public class OutlawLevel : MonoBehaviour
     void StopCutscene(PlayableDirector playableDirector)
     {
         _player.SetActiveDialogue(false);
+        _boss.SetActiveNavMeshAgent(true);
+        _healthBar.SetActive(true);
+
+        if (_enemies.Count > 0)
+        {
+            foreach (var enemy in _enemies)
+            {
+                if (enemy.gameObject.activeSelf)
+                {
+                    enemy.SetMovement(false);
+                }
+            }
+        }
+
+        if (_enemySecondPhase.Count > 0)
+        {
+            foreach (var enemy in _enemySecondPhase)
+            {
+                if (!enemy.gameObject.activeSelf)
+                {
+                    enemy.gameObject.SetActive(true);
+                }
+
+                enemy.SetMovement(true);
+            }
+        }
+        
+        _boss.gameObject.SetActive(true);
+        _boss.SetMovement(true);
     }
 
     void DeathOutlaw()
@@ -191,6 +280,11 @@ public class OutlawLevel : MonoBehaviour
         {
             StartSecondPhaseFight();
         }
+    }
+
+    void DeathBoss()
+    {
+        StartCoroutine(VictoryProcess());
     }
     private void SetHealthBar()
     {
@@ -209,9 +303,9 @@ public class OutlawLevel : MonoBehaviour
 
         else
         {
-            // TODO: Добавить изменение хп у босса
-            _healthBarBoss.fillAmount = 1f;
+            _healthBarBoss.fillAmount = _boss.Health/_boss.StartHealth;
         }
+        
         if (_healthBarBoss.fillAmount <= 0.5f && !_isStartSecondPhaseFight)
         {
             _healthBarBoss.fillAmount = 1f;
@@ -226,15 +320,36 @@ public class OutlawLevel : MonoBehaviour
         _finalReplicObject.SetActive(true);
         _player.SetActiveDialogue(true);
         
-        AudioManager.Instance.PlayBackgroundMusic();
-        yield return new WaitForSeconds(4);
+        yield return new WaitForSeconds(10);
         
-        ProcessEndLevel();
+        SaveManager.SetAmountGarbage(_player.GetAmountGarbage()+10);
+        SaveManager.SetAmountMedicine(_player.GetAmountMedicine()+5);
+        SaveManager.SetLevelGun(_player.GetLevelGun()+1);
+        SaveManager.SetMoney(_player.GetMoney()+13);
+        SaveManager.SetHealth(_player.GetHealth());
+        SaveManager.SetIsHavePositionMap(true);
+        VilliageLevel.IS_SECOND_PHASE_LEVEL = true;
+        SceneManager.LoadScene("Village");
     }
 
     private void DeathProcess()
     {
         StopMovement();
+
+        foreach (var enemy in _enemies)
+        {
+            enemy.SetMovement(false);
+        }
+
+        foreach (var enemy in _enemySecondPhase)
+        {
+            enemy.SetMovement(false);
+        }
+
+        if (_boss.gameObject.activeSelf)
+        {
+            _boss.SetMovement(false);
+        }
         _player.SetAnimation("isDeath", true); 
         AudioManager.Instance.PlaySoundDeath();
         _uiElementsDeath.StartScreenDeath();

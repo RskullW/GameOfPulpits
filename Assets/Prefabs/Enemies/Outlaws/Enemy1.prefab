@@ -70,7 +70,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TypeEnemy: 2
-  _Agent: {fileID: 8402701046879678688}
+  Agent: {fileID: 8402701046879678688}
   IsMovingArea: 0
   IsVisiblePlayer: 0
   IsAttack: 0
@@ -80,11 +80,14 @@ MonoBehaviour:
   AttackRange: 3
   Health: 100
   MinCooldownAttack: 6
-  MaxCooldownAttack: 12
+  MaxCooldownAttack: 10
+  MinCooldownBlock: 0
+  MaxCooldownBlock: 0
   WalkSpeed: 1
   RunSpeed: 2
   Damage: 10
   MovePoints: []
+  IsMovement: 0
 --- !u!65 &8402701046879678695
 BoxCollider:
   m_ObjectHideFlags: 0

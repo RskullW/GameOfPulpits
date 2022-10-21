@@ -28,6 +28,7 @@ public class EnemyEditor : Editor
         
         GUILayout.Space(20);
         _enemy.IsMovingArea = EditorGUILayout.Toggle("Is Moving Area", _enemy.IsMovingArea);
+        _enemy.IsMovement = EditorGUILayout.Toggle("Is Movement", _enemy.IsMovement);
         GUILayout.Space(10);
 
         if (_enemy.IsMovingArea)
@@ -85,8 +86,8 @@ public class EnemyEditor : Editor
         
         if (_enemy.TypeEnemy == TypeEnemy.Outlaw || _enemy.TypeEnemy == TypeEnemy.People)
         {
-            _enemy._Agent =
-                (NavMeshAgent)EditorGUILayout.ObjectField("Nav mesh agent", _enemy._Agent, typeof(NavMeshAgent), true);
+            _enemy.Agent =
+                (NavMeshAgent)EditorGUILayout.ObjectField("Nav mesh agent", _enemy.Agent, typeof(NavMeshAgent), true);
             _enemy.StoppingDistance = EditorGUILayout.FloatField("Stopping distance", _enemy.StoppingDistance);
             _enemy.RetreatDistance = EditorGUILayout.FloatField("Retreat distance", _enemy.RetreatDistance);
         }
@@ -103,6 +104,8 @@ public class EnemyEditor : Editor
         _enemy.MaxCooldownAttack = EditorGUILayout.FloatField("Maximum cooldown attack", _enemy.MaxCooldownAttack);
         if (_enemy.TypeEnemy == TypeEnemy.People)
         {
+            _enemy.Damage = EditorGUILayout.FloatField("Damage", _enemy.Damage);
+            _enemy.VisibleDistance = EditorGUILayout.FloatField("VisibleDistance", _enemy.VisibleDistance);
             _enemy.MinCooldownBlock = EditorGUILayout.FloatField("Minimal cooldown block", _enemy.MinCooldownBlock);
             _enemy.MaxCooldownBlock = EditorGUILayout.FloatField("Maximum cooldown block", _enemy.MaxCooldownBlock);
         }
