@@ -22,11 +22,14 @@ public class Enemy : MonoBehaviour
 
     public float StoppingDistance;
     public float RetreatDistance;
+    
     public GameObject _arrow;
     public float AttackRange;
     public float Health;
     public float MinCooldownAttack;
     public float MaxCooldownAttack;
+    public float MinCooldownBlock;
+    public float MaxCooldownBlock;
     public float WalkSpeed;
     public float RunSpeed;
     public float Damage;
@@ -35,31 +38,29 @@ public class Enemy : MonoBehaviour
     public List<GameObject> MovePoints;
 
     private bool _isMovement;
+    private bool _isBlocked;
     private Animator _animator;
     private Transform _playerTransform;
     private float _startHealth;
     private bool _isFirstVisiblePlayer;
     private float _cooldown;
-    
+
     void Start()
     {
         _animator = GetComponent<Animator>();
         IsAttack = false;
-        _isMovement = false;
+        _isMovement = true;
         _startHealth = Health;
         _playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
     }
     private void FixedUpdate()
     {
-        // TODO: удалить строку _isMovement = true после создания левел менеджера
-
-        if (TypeEnemy == TypeEnemy.Outlaw)
+        if (TypeEnemy == TypeEnemy.Outlaw || TypeEnemy == TypeEnemy.People)
         {
-            
             IsVisiblePlayer = true;
-            _isMovement = true;
         }
 
+        Debug.Log("IS MOVE: " + IsMovement);
         if (_isMovement)
         {
             MovementLogic();
@@ -154,6 +155,37 @@ public class Enemy : MonoBehaviour
 
     private void OutlawUpdate()
     {
+        if (Vector3.Distance(transform.position, _playerTransform.position) > StoppingDistance)
+        {
+            IsAttack = false;
+            _Agent.SetDestination(_playerTransform.position);
+        }
+
+        else if (Vector3.Distance(transform.position, _playerTransform.position) < RetreatDistance)
+        {
+            IsAttack = false;
+            Vector3 dirToPlayer = transform.position - _playerTransform.transform.position;
+            Vector3 newPos = transform.position + dirToPlayer;
+
+            _Agent.SetDestination(newPos);
+        }
+        
+        if (_cooldown <= 0)
+        {
+            IsAttack = true;
+            StartCoroutine(StartAttackOutlaw());
+            
+            _cooldown = UnityEngine.Random.Range(MinCooldownAttack, MaxCooldownAttack);
+        }
+
+        else
+        {
+            _cooldown-= Time.deltaTime;
+        }
+    }
+
+    private void PeopleUpdate()
+    {
         if (_isMovement && Vector3.Distance(transform.position, _playerTransform.position) > StoppingDistance)
         {
             IsAttack = false;
@@ -168,10 +200,8 @@ public class Enemy : MonoBehaviour
 
             _Agent.SetDestination(newPos);
         }
-
-        IsAttack = true;
-
-        if (_cooldown <= 0 && _isMovement)
+        
+        if (_cooldown <= 0 && _isMovement && !_isBlocked)
         {
             IsAttack = true;
             StartCoroutine(StartAttackOutlaw());
@@ -180,11 +210,10 @@ public class Enemy : MonoBehaviour
         }
 
         else
-        {
+        {   
             _cooldown-= Time.deltaTime;
         }
     }
-    
     private void AttackLogic()
     {
         if (_cooldown > 0f && IsAttack)

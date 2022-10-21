@@ -76,15 +76,21 @@ public class EnemyEditor : Editor
     {
         _enemy.TypeEnemy = (TypeEnemy)EditorGUILayout.EnumPopup("Type enemy", _enemy.TypeEnemy);
         _enemy.Health = EditorGUILayout.FloatField("Health", _enemy.Health);
-        
+
         if (_enemy.TypeEnemy == TypeEnemy.Outlaw)
         {
-            _enemy._arrow = (GameObject)EditorGUILayout.ObjectField("Arrow (Bullet)", _enemy._arrow, typeof(GameObject), true);
-            _enemy._Agent = (NavMeshAgent)EditorGUILayout.ObjectField("Nav mesh agent", _enemy._Agent, typeof(NavMeshAgent), true);
+            _enemy._arrow =
+                (GameObject)EditorGUILayout.ObjectField("Arrow (Bullet)", _enemy._arrow, typeof(GameObject), true);
+        }
+        
+        if (_enemy.TypeEnemy == TypeEnemy.Outlaw || _enemy.TypeEnemy == TypeEnemy.People)
+        {
+            _enemy._Agent =
+                (NavMeshAgent)EditorGUILayout.ObjectField("Nav mesh agent", _enemy._Agent, typeof(NavMeshAgent), true);
             _enemy.StoppingDistance = EditorGUILayout.FloatField("Stopping distance", _enemy.StoppingDistance);
             _enemy.RetreatDistance = EditorGUILayout.FloatField("Retreat distance", _enemy.RetreatDistance);
         }
-        
+
         else if (_enemy.TypeEnemy == TypeEnemy.Wolf)
         {
             _enemy.AttackRange = EditorGUILayout.FloatField("Attack range", _enemy.AttackRange);
@@ -92,8 +98,15 @@ public class EnemyEditor : Editor
             _enemy.RunSpeed = EditorGUILayout.FloatField("Run speed", _enemy.RunSpeed);
             _enemy.WalkSpeed = EditorGUILayout.FloatField("Walk speed", _enemy.WalkSpeed);
         }
+        
         _enemy.MinCooldownAttack = EditorGUILayout.FloatField("Minimal cooldown attack", _enemy.MinCooldownAttack);
         _enemy.MaxCooldownAttack = EditorGUILayout.FloatField("Maximum cooldown attack", _enemy.MaxCooldownAttack);
+        if (_enemy.TypeEnemy == TypeEnemy.People)
+        {
+            _enemy.MinCooldownBlock = EditorGUILayout.FloatField("Minimal cooldown block", _enemy.MinCooldownBlock);
+            _enemy.MaxCooldownBlock = EditorGUILayout.FloatField("Maximum cooldown block", _enemy.MaxCooldownBlock);
+        }
+
        
     }
 }

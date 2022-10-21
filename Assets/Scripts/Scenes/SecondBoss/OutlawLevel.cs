@@ -95,6 +95,12 @@ public class OutlawLevel : MonoBehaviour
         _player.SetActiveDialogue(false);
         _healthBar.SetActive(true);
 
+        foreach (var enemy in _enemies)
+        {
+            enemy.SetMovement(true);
+            enemy.gameObject.SetActive(false);
+        }
+        
         StartCoroutine(SpawnEnemies());
     }
     void StopMovement()
