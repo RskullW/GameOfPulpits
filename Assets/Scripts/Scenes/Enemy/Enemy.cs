@@ -49,10 +49,6 @@ public class Enemy : MonoBehaviour
         _startHealth = Health;
         _playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
     }
-    void StartWalk()
-    {
-        _animator.SetBool("Walk", true);
-    }
     private void FixedUpdate()
     {
         // TODO: удалить строку _isMovement = true после создания левел менеджера
@@ -158,30 +154,28 @@ public class Enemy : MonoBehaviour
 
     private void OutlawUpdate()
     {
-        Debug.Log("OutlawUpdate()");
-        if (Vector3.Distance(transform.position, _playerTransform.position) > StoppingDistance)
+        if (_isMovement && Vector3.Distance(transform.position, _playerTransform.position) > StoppingDistance)
         {
-            Debug.Log("OutlawUpdate.RunPlayer");
             IsAttack = false;
             _Agent.SetDestination(_playerTransform.position);
         }
 
-        else if (Vector3.Distance(transform.position, _playerTransform.position) < RetreatDistance)
+        else if ( _isMovement && Vector3.Distance(transform.position, _playerTransform.position) < RetreatDistance)
         {
             IsAttack = false;
-            Debug.Log("OutlawUpdate.RunAway");
             Vector3 dirToPlayer = transform.position - _playerTransform.transform.position;
             Vector3 newPos = transform.position + dirToPlayer;
-            
+
             _Agent.SetDestination(newPos);
         }
 
         IsAttack = true;
 
-        if (_cooldown <= 0)
+        if (_cooldown <= 0 && _isMovement)
         {
-            Instantiate(_arrow, _playerTransform.position, quaternion.Euler(90, 90, 0));
             IsAttack = true;
+            StartCoroutine(StartAttackOutlaw());
+            
             _cooldown = UnityEngine.Random.Range(MinCooldownAttack, MaxCooldownAttack);
         }
 
@@ -220,10 +214,56 @@ public class Enemy : MonoBehaviour
     public void SetHealth(float health)
     {
         Health = health;
-        
-        if (Health <= 0)
+
+        if (TypeEnemy == TypeEnemy.Outlaw)
         {
-            OnDied?.Invoke();    
+            if (!(Health <= 0)) return;
+            OnDied?.Invoke();
+            StartCoroutine(StartDieOutlaw());
         }
+
+        else if (TypeEnemy == TypeEnemy.Wolf && Health <= 0)
+        {
+            OnDied?.Invoke();
+        }
+    }
+
+    public void TakeDamage(float damage)
+    {
+        Health -= damage;
+
+        if (!(Health <= 0)) return;
+
+        if (TypeEnemy == TypeEnemy.Outlaw)
+        {
+            OnDied?.Invoke();
+            _isMovement = false;
+            StartCoroutine(StartDieOutlaw());
+        }
+        
+        else if (TypeEnemy == TypeEnemy.Wolf && Health<=0)
+        {
+            OnDied?.Invoke();
+        }
+    }
+
+    private IEnumerator StartDieOutlaw()
+    {
+        _animator.SetBool("OutlawDie", true);
+        
+        yield return new WaitForSeconds(4);
+        gameObject.SetActive(false);
+    }
+
+    private IEnumerator StartAttackOutlaw()
+    {
+        _animator.SetBool("OutlawRun", false);
+        _animator.SetBool("OutlawAttack", true);
+        yield return new WaitForSeconds(1);
+        Instantiate(_arrow, transform.position, quaternion.Euler(90, transform.eulerAngles.y, transform.eulerAngles.z));
+        AudioManager.Instance.PlaySound("OutlawAttack");
+        yield return new WaitForSeconds(0.1f);
+        _animator.SetBool("OutlawRun", true);
+        _animator.SetBool("OutlawAttack", false);
     }
 }

@@ -472,13 +472,19 @@ public class PlayerController : MonoBehaviour
 
         if (collider.tag == "Enemy" && _isAttack && _isCauseDamage)
         {
-            OnCauseDamage?.Invoke();
-
             if (_textsLogBar != null)
             {
                 SetLogsBar(GetDamage());
             }
+            
+            Enemy enemy = collider.gameObject.GetComponent<Enemy>();
 
+            if (enemy.TypeEnemy == TypeEnemy.Outlaw)
+            {
+                enemy.TakeDamage(GetDamage());
+            }
+
+            OnCauseDamage?.Invoke();
             _isCauseDamage = false;
         }
     }
@@ -617,6 +623,20 @@ public class PlayerController : MonoBehaviour
         _damage = damage;
     }
 
+    public void TakeDamage(float damage)
+    {
+        if (_isBlock)
+        {
+            damage /= 4;
+        }
+        
+        _health -= damage;
+        
+
+        _isCauseDamage = false;
+        SetLogsBar(damage);
+    }
+
     public void SetDefaultAnimation()
     {
         _animator.SetBool("isDeath", false);
@@ -648,4 +668,6 @@ public class PlayerController : MonoBehaviour
     {
         _animator.SetBool(name, isActive);
     }
+    
+    
 }

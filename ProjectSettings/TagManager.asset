@@ -13,6 +13,7 @@ TagManager:
   - Casle
   - Enemy
   - InHouse
+  - Border
   layers:
   - Default
   - TransparentFX

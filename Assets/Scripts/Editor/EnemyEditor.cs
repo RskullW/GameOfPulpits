@@ -76,8 +76,6 @@ public class EnemyEditor : Editor
     {
         _enemy.TypeEnemy = (TypeEnemy)EditorGUILayout.EnumPopup("Type enemy", _enemy.TypeEnemy);
         _enemy.Health = EditorGUILayout.FloatField("Health", _enemy.Health);
-        _enemy.Damage = EditorGUILayout.FloatField("Damage", _enemy.Damage);
-        _enemy.AttackRange = EditorGUILayout.FloatField("Attack range", _enemy.AttackRange);
         
         if (_enemy.TypeEnemy == TypeEnemy.Outlaw)
         {
@@ -86,9 +84,16 @@ public class EnemyEditor : Editor
             _enemy.StoppingDistance = EditorGUILayout.FloatField("Stopping distance", _enemy.StoppingDistance);
             _enemy.RetreatDistance = EditorGUILayout.FloatField("Retreat distance", _enemy.RetreatDistance);
         }
+        
+        else if (_enemy.TypeEnemy == TypeEnemy.Wolf)
+        {
+            _enemy.AttackRange = EditorGUILayout.FloatField("Attack range", _enemy.AttackRange);
+            _enemy.Damage = EditorGUILayout.FloatField("Damage", _enemy.Damage);
+            _enemy.RunSpeed = EditorGUILayout.FloatField("Run speed", _enemy.RunSpeed);
+            _enemy.WalkSpeed = EditorGUILayout.FloatField("Walk speed", _enemy.WalkSpeed);
+        }
         _enemy.MinCooldownAttack = EditorGUILayout.FloatField("Minimal cooldown attack", _enemy.MinCooldownAttack);
         _enemy.MaxCooldownAttack = EditorGUILayout.FloatField("Maximum cooldown attack", _enemy.MaxCooldownAttack);
-        _enemy.RunSpeed = EditorGUILayout.FloatField("Run speed", _enemy.RunSpeed);
-        _enemy.WalkSpeed = EditorGUILayout.FloatField("Walk speed", _enemy.WalkSpeed);
+       
     }
 }
