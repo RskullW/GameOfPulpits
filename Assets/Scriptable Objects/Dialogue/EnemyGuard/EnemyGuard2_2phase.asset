@@ -1,0 +1,42 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2bdf454f62302e49b78d138d10d5c05, type: 3}
+  m_Name: EnemyGuard2_2phase
+  m_EditorClassIdentifier: 
+  _englishText:
+  - '                            Hmm. I didn''t know you''d be back so soon. '
+  - '                             *said something to the guardsman to his right*'
+  - '                             The King will be waiting for you.'
+  - As soon as you walked forward, you heard the guards draw their weapons.
+  _russianText:
+  - "                         \u0425\u043C.. \u042F \u043D\u0435 \u0437\u043D\u0430\u043B,
+    \u0447\u0442\u043E \u0442\u044B \u0432\u0435\u0440\u043D\u0451\u0448\u044C\u0441\u044F
+    \u0442\u0430\u043A \u0441\u043A\u043E\u0440\u043E..."
+  - "                           * \u0441\u043A\u0430\u0437\u0430\u043B \u0447\u0442\u043E-\u0442\u043E
+    \u0448\u0435\u043F\u043E\u0442\u043E\u043C \u0433\u0432\u0430\u0440\u0434\u0435\u0439\u0446\u0443
+    \u0441\u043F\u0440\u0430\u0432\u0430*"
+  - "                           \u041A\u043E\u0440\u043E\u043B\u044C \u043E\u0436\u0438\u0434\u0430\u0435\u0442
+    \u0432\u0430\u0441."
+  - "\u041A\u0430\u043A \u0442\u043E\u043B\u044C\u043A\u043E \u0432\u044B \u043F\u0440\u043E\u0448\u043B\u0438
+    \u0432\u043F\u0435\u0440\u0435\u0434, \u0432\u044B \u0443\u0441\u043B\u044B\u0448\u0430\u043B\u0438,
+    \u043A\u0430\u043A \u0433\u0432\u0430\u0440\u0434\u0435\u0439\u0446\u044B \u0434\u043E\u0441\u0442\u0430\u043B\u0438
+    \u043C\u0435\u0447\u0438."
+  _englishChoises:
+  - 1. [Start the battle...]
+  _russianChoises:
+  - "1. [\u0410\u0442\u0430\u043A\u043E\u0432\u0430\u0442\u044C...]"
+  _nameLeftEnglish: GUARDSMAN
+  _nameRightEnglish: YOU
+  _nameLeftRussian: "\u0413\u0412\u0410\u0420\u0414\u0415\u0415\u0426"
+  _nameRightRussian: "\u0412\u042B"
+  _fontAssetEnglish: {fileID: 11400000, guid: 0a6b1e7175467b641950d1165b9d7270, type: 2}
+  _fontAssetRussian: {fileID: 11400000, guid: c0731d50d8a43c74182e43ad904222a5, type: 2}

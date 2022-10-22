@@ -52,7 +52,7 @@ public class DialogueManager : MonoBehaviour
             }
 
         }
-        
+
         for (int i = 0; i < _choises.Count; ++i)
         {
             _choises[i].text = _dialogues[0].EnglishChoise[i];
@@ -63,9 +63,7 @@ public class DialogueManager : MonoBehaviour
                 _choises[i].font = _dialogues[0].FontAssetRussian;
 
             }
-         }
-        
-        
+        }
     }
 
     void Start()
@@ -101,6 +99,11 @@ public class DialogueManager : MonoBehaviour
         {
             textMeshPro.gameObject.SetActive(false);
             textMeshPro.transform.parent.parent.gameObject.SetActive(false);
+        }
+        
+        foreach (var choise in _choises)
+        {
+            choise.gameObject.transform.parent.gameObject.SetActive(false);
         }
     }
     private void Update()
@@ -171,6 +174,18 @@ public class DialogueManager : MonoBehaviour
                 yield return new WaitForSeconds(_durationVisibleText);
             }
         }
+        
+        for (int index = 0; index < _dialogues[_numberDialogue].EnglishChoise.Count; ++index)
+        {
+            _choises[index].gameObject.transform.parent.gameObject.SetActive(true);
+            _choises[index].text = _dialogues[_numberDialogue].EnglishChoise[index];
+            
+            if (MenuManager.Language == Language.Rus)
+            {
+                _choises[index].text = _dialogues[_numberDialogue].RussianChoise[index];
+            }
+        }
+        
         _numbersOfDialogue[_numberDialogue] = true;
     }
 }

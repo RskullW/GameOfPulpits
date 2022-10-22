@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using Random = UnityEngine.Random;
 
-public class OutlawDialogue : DialogueManager
+public class EnemyGuardDialog : DialogueManager
 {
     public event Action OnEndDialogue;
     public event Action OnEndLevel;
@@ -14,6 +14,7 @@ public class OutlawDialogue : DialogueManager
     [SerializeField] private GameObject _canvas;
     private void Awake()
     {
+        SaveManager.SetPhase(1);
         foreach (var name in _nameLeft)
         {
             name.text = _dialogues[0].NameLeftEnglish;
@@ -42,7 +43,7 @@ public class OutlawDialogue : DialogueManager
 
         }
 
-        for (int i = 0; i < _choises.Count; ++i)
+        for (int i = 0; i < _dialogues[0].EnglishChoise.Count; ++i)
         {
             _choises[i].text = _dialogues[0].EnglishChoise[i];
 
@@ -77,56 +78,45 @@ public class OutlawDialogue : DialogueManager
             {
                 if (Input.GetKey(KeyCode.Alpha1))
                 {
-                    if (_numbersOfDialogue[^1])
+                    if (SaveManager.IsSecondPhase < 1)
                     {
-                        OnEndDialogue?.Invoke();
-                        _canvas.gameObject.SetActive(false);
-                        gameObject.SetActive(false);
-                        return;
-                    }
-                }
-
-                else if (Input.GetKey(KeyCode.Alpha2))
-                {
-                    if (_numbersOfDialogue[^1])
-                    {
-
-                        if (_playerController.GetMoney() > 0 || _playerController.GetAmountGarbage() > 0)
+                        if (_numbersOfDialogue[1])
                         {
-                            _playerController.SetMoney(0);
-                            _playerController.SetAmountGarbage(0);
-
-                            OnEndLevel?.Invoke();
+                            OnEndDialogue?.Invoke();
                             _canvas.gameObject.SetActive(false);
                             gameObject.SetActive(false);
                             return;
                         }
+                        
+                        HideText();
+                        StartCoroutine(StartVisibleText());
                     }
 
-                    HideText();
-                    StartCoroutine(StartVisibleText());
-                }
-
-                else if (Input.GetKey(KeyCode.Alpha3))
-                {
-                    if (_numbersOfDialogue[_numbersOfDialogue.Count - 1])
+                    else
                     {
-                        int chance = Random.Range(0, 100);
-
-                        if (chance <= 35)
+                        if (_numbersOfDialogue[1])
                         {
-                            OnEndLevel?.Invoke();
+                            OnEndDialogue?.Invoke();
+                            _canvas.gameObject.SetActive(false);
+                            gameObject.SetActive(false);
+                            return;
                         }
 
-                        Debug.Log("OutlawDialog: Chance = " + chance);
-
-                        _canvas.gameObject.SetActive(false);
-                        gameObject.SetActive(false);
-                        return;
+                        HideText();
+                        StartCoroutine(StartVisibleText());
                     }
+                }
 
-                    HideText();
-                    StartCoroutine(StartVisibleText());
+                if (Input.GetKey(KeyCode.Alpha2) && SaveManager.IsSecondPhase >= 1)
+                {
+                    if (_numberDialogue == 0)
+                    {
+                        _numberDialogue++;
+                        _numbersOfDialogue[_numberDialogue] = true;
+                        
+                        HideText();
+                        StartCoroutine(StartVisibleText());
+                    }
                 }
             }
         }
@@ -134,14 +124,45 @@ public class OutlawDialogue : DialogueManager
 
     private IEnumerator StartVisibleText()
     {
-        List<TextMeshProUGUI> _dialogue;
-        
-        switch (_numberDialogue)
+        List<TextMeshProUGUI> _dialogue = _firstDialogue;
+        int numberTemp = 0;
+
+        if (SaveManager.IsSecondPhase >= 1)
         {
-            case -1: _dialogue = _firstDialogue; break;
-            case 0: _dialogue = _secondDialogue; break;
-            default: _dialogue = _thirdDialogue; break;
+            switch (_numberDialogue)
+            {
+                case -1:
+                    _dialogue = _firstDialogue;
+                    numberTemp = 1;
+                    break;
+                case 0:
+                    _dialogue = _secondDialogue;
+                    numberTemp = 2;
+                    break;
+                case 1:
+                    _dialogue = _thirdDialogue;
+                    numberTemp = 3;
+                    break;
+                default: break;
+            }
         }
+
+        else
+        {
+            switch (_numberDialogue)
+            {
+                case -1:
+                    _dialogue = _firstDialogue;
+                    numberTemp = 0;
+                    break;
+                case 0:
+                    _dialogue = _secondDialogue;
+                    numberTemp = 2;
+                    break;
+                default: break;
+            }
+        }
+
 
         int indexText = -1;
         _numberDialogue++;
@@ -151,16 +172,16 @@ public class OutlawDialogue : DialogueManager
             indexText++;
 
             int index = 0;
-            string text = _dialogues[_numberDialogue].EnglishText[indexText];
+            string text = _dialogues[numberTemp].EnglishText[indexText];
 
             textMeshPro.transform.parent.parent.gameObject.SetActive(true);
             textMeshPro.gameObject.SetActive(true);
-            
-            
+
+
             if (MenuManager.Language == Language.Rus)
             {
-                text = _dialogues[_numberDialogue ].RussianText[indexText];
-                textMeshPro.font = _dialogues[_numberDialogue].FontAssetRussian;
+                text = _dialogues[numberTemp].RussianText[indexText];
+                textMeshPro.font = _dialogues[numberTemp].FontAssetRussian;
             }
 
             textMeshPro.text = "";
@@ -169,19 +190,21 @@ public class OutlawDialogue : DialogueManager
                 textMeshPro.text += text[index++];
                 yield return new WaitForSeconds(_durationVisibleText);
             }
+
         }
 
-        for (int index = 0; index < _dialogues[_numberDialogue].EnglishChoise.Count; ++index)
+        for (int index = 0; index < _dialogues[numberTemp].EnglishChoise.Count; ++index)
         {
             _choises[index].gameObject.transform.parent.gameObject.SetActive(true);
-            _choises[index].text = _dialogues[_numberDialogue].EnglishChoise[index];
-            
+            _choises[index].text = _dialogues[numberTemp].EnglishChoise[index];
+
             if (MenuManager.Language == Language.Rus)
             {
-                _choises[index].text = _dialogues[_numberDialogue].RussianChoise[index];
+                _choises[index].text = _dialogues[numberTemp].RussianChoise[index];
             }
         }
+
         _numbersOfDialogue[_numberDialogue] = true;
+
     }
-    
 }

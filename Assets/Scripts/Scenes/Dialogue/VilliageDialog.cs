@@ -160,6 +160,16 @@ public class VilliageDialog : DialogueManager
                 }
             }
 
+            for (int index = 0; index < _dialogues[_numberDialogue].EnglishChoise.Count; ++index)
+            {
+                _choises[index].gameObject.transform.parent.gameObject.SetActive(true);
+                _choises[index].text = _dialogues[_numberDialogue].EnglishChoise[index];
+            
+                if (MenuManager.Language == Language.Rus)
+                {
+                    _choises[index].text = _dialogues[_numberDialogue].RussianChoise[index];
+                }
+            }
             _numbersOfDialogue[_numberDialogue] = true;
         }
     }
