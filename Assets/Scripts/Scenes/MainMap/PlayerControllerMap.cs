@@ -14,6 +14,7 @@ public class PlayerControllerMap : PlayerController
     private bool _isPlayerCanMove;
     private bool _isTransformHouse;
     private bool _isTransformCastle;
+    private bool _isTransformVilliage;
     private SpriteRenderer _sprite;
 
     protected void Start()
@@ -100,6 +101,13 @@ public class PlayerControllerMap : PlayerController
                 SceneManager.LoadScene("DialogueGuard");
             }
         }
+        
+        else if (collider.gameObject.tag == "InSecondBoss")
+        {
+            OnShowMessage?.Invoke();
+            _isTransformVilliage = true;
+
+        }
     }
 
     protected void OnTriggerExit(Collider collider)
@@ -115,5 +123,12 @@ public class PlayerControllerMap : PlayerController
             OnHideMessage?.Invoke();
             _isTransformCastle = false;
         } 
+        
+        else if (collider.gameObject.tag == "InSecondBoss")
+        {
+            OnHideMessage?.Invoke();
+            _isTransformVilliage = true;
+
+        }
     }
 }

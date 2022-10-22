@@ -16,6 +16,9 @@ public class CourtyardLevelManager : MonoBehaviour
     [Space]
     [SerializeField] private GameObject _finalReplicObject;
     [SerializeField] private TextMeshProUGUI _finalText; 
+    [Space]
+    [SerializeField] private string _finalReplicsRussian;
+    [SerializeField] private string _finalReplicsEnglish;
     [Space] 
     [SerializeField] private EnemyGuardDialog _dialog;
     [SerializeField] private PlayerController _player;
@@ -24,7 +27,6 @@ public class CourtyardLevelManager : MonoBehaviour
     [Space] 
     
     private int _numberOfDieOutlaws;
-    private float _maxHealthOutlaws;
     private GameObject _healthBar;
     void Start()
     {
@@ -37,15 +39,23 @@ public class CourtyardLevelManager : MonoBehaviour
         
         _finalReplicObject.SetActive(false);
 
+        if (MenuManager.Language == Language.Eng)
+        {
+            _finalText.text = _finalReplicsEnglish;
+        }
+
+        else
+        {
+            _finalText.text = _finalReplicsRussian;
+        }
+
     }
 
     void InitializeConditions()
     {
-        _maxHealthOutlaws = 0f;
         foreach (var enemy in _enemies)
         {
             enemy.gameObject.SetActive(true);
-            _maxHealthOutlaws += enemy.Health;
             enemy.gameObject.SetActive(false);
         }
     }
@@ -53,7 +63,6 @@ public class CourtyardLevelManager : MonoBehaviour
     void InitializeEvents()
     {
         _dialog.OnEndDialogue += StartFirstPhase;
-        _dialog.OnEndLevel += ProcessEndLevel;
         _player.OnDie += DeathProcess;
 
         foreach (var enemy in _enemies)
@@ -61,10 +70,23 @@ public class CourtyardLevelManager : MonoBehaviour
             if (enemy.TypeEnemy == TypeEnemy.People)
             {
                 enemy.OnCauseDamage += () => _player.TakeDamage(enemy.Damage);
+                
+                if (enemy.TypeEnemy == TypeEnemy.Outlaw)
+                {
+                    enemy.OnDied += DeathOutlaw;
+                }
+            
+                else if (enemy.TypeEnemy == TypeEnemy.Wolf)
+                {
+                    enemy.OnDied += DeathWolf;
+                }
+            
+                else if (enemy.TypeEnemy == TypeEnemy.People)
+                {
+                    enemy.OnDied += DeathPeople;
+                }
             }
             
-            enemy.OnDied += DeathBoss;
-
         }
         
         _playableDirector.stopped += StopCutscene;
@@ -72,7 +94,6 @@ public class CourtyardLevelManager : MonoBehaviour
 
     void StartMovement()
     {
-
         foreach (var enemy in _enemies)
         {
             if (enemy.gameObject.activeSelf)
@@ -145,21 +166,6 @@ public class CourtyardLevelManager : MonoBehaviour
         foreach (var enemy in _enemies)
         {
             enemy.gameObject.SetActive(true);
-
-            if (enemy.TypeEnemy == TypeEnemy.Outlaw)
-            {
-                enemy.OnDied += DeathOutlaw;
-            }
-            
-            else if (enemy.TypeEnemy == TypeEnemy.Wolf)
-            {
-                enemy.OnDied += DeathWolf;
-            }
-            
-            else if (enemy.TypeEnemy == TypeEnemy.People)
-            {
-                enemy.OnDied += DeathPeople;
-            }
 
             yield return new WaitForSeconds(time);
             time -= 2f;
