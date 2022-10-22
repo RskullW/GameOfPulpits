@@ -44,7 +44,7 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] private Color _colorCausePlayer;
     [SerializeField] private Color _colorTakeDamagePlayer;
-    
+    [SerializeField] private Teleport[] _teleports;
     [Space]
     protected Position _position;
     protected Animator _animator;
@@ -56,12 +56,15 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] protected float _cooldownBlock;
     protected float _localCooldownBlock;
-    
+    // ТОЧКИ ПЕРЕМЕЩЕНИЯ В ДРУГИЕ ЗОНЫ
     protected bool _isSellerItems;
     protected bool _isSellerMedic;
     protected bool _isSellerGuns;
-    
-   
+    protected bool _isCastle;
+    protected bool _isSecondBoss;
+    protected bool _isCourtyard;
+
+
     protected bool _isCauseDamage;
     protected bool _isActiveDialogue;
     
@@ -77,7 +80,7 @@ public class PlayerController : MonoBehaviour
         _isAttack = false;
         _animator = GetComponent<Animator>();
 
-        _isShowMessage = _isSellerGuns = _isSellerItems = _isSellerMedic = false;
+        _isShowMessage = _isSecondBoss = _isCastle = _isSellerGuns = _isSellerItems = _isSellerMedic = false;
 
         if (SaveManager.IsHaveData || SaveManager.IsWasSave)
         {
@@ -366,6 +369,15 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    protected void SetSaveManager()
+    {
+        SaveManager.SetMoney(_money);
+        SaveManager.SetAmountMedicine(_amountOfMedicine);
+        SaveManager.SetAmountGarbage(_amountOfGarbage);
+        SaveManager.SetLevelGun(_levelGun);
+        SaveManager.SetHealth(_health);
+        
+    }
     protected void InputLogic()
     {
         if (_isShowMessage && Input.GetKey(KeyCode.E))
@@ -380,10 +392,41 @@ public class PlayerController : MonoBehaviour
                 OnSellerItems?.Invoke();
             }
 
-            else
+            else if (_isSellerMedic)
             {
                 OnSellerMedic?.Invoke();
             }
+            
+            else if (_isSecondBoss)
+            {
+                SetSaveManager();
+                SceneManager.LoadScene("SecondBoss");
+            }
+            
+            else if (_isCastle)
+            {
+                SetSaveManager();
+                SceneManager.LoadScene("FinalMap");   
+            }
+            
+            else if (_isCourtyard)
+            {
+                SetSaveManager();
+                SceneManager.LoadScene("Courtyard");
+            }
+
+            else
+            {
+                foreach (var teleport in _teleports)
+                {
+                    if (teleport.IsActive)
+                    {
+                        transform.position = teleport.Out.transform.position;
+                        break;
+                    }
+                }
+            }
+
         }
 
         if (_amountOfMedicine > 0 && Input.GetKey(KeyCode.Q) && _localCooldownUseHealth <= 0f)
@@ -471,6 +514,44 @@ public class PlayerController : MonoBehaviour
             }
         }
 
+        if (collider.tag == "InSecondBoss")
+        {
+            if (!_isShowMessage)
+            {
+                _isShowMessage = true;
+                _isSecondBoss = true;
+                OnMessageClick?.Invoke();
+            }
+        }
+
+        if (collider.tag == "TeleportIn")
+        {
+            if (!_isShowMessage)
+            {
+                _isShowMessage = true;
+
+                for (ushort i = 0; i < _teleports.Length; ++i)
+                {
+                    if (_teleports[i].Name == collider.name)
+                    {
+                        _teleports[i].IsActive = true;
+                    }
+                }
+                
+                OnMessageClick?.Invoke();
+            }
+        }
+
+        if (collider.tag == "InCourtyard")
+        {
+            if (!_isShowMessage)
+            {
+                _isShowMessage = true;
+                _isCourtyard = true;
+                OnMessageClick?.Invoke();
+            }
+        }
+        
         if (collider.tag == "Enemy" && _isAttack && _isCauseDamage)
         {
             Enemy enemy = collider.gameObject.GetComponent<Enemy>();
@@ -561,6 +642,44 @@ public class PlayerController : MonoBehaviour
             if (_isShowMessage)
             {
                 _isShowMessage = _isSellerGuns = _isSellerItems = _isSellerMedic = false;
+                OnMessageClick?.Invoke();
+            }
+        }
+        
+        if (collider.tag == "InSecondBoss")
+        {
+            if (_isShowMessage)
+            {
+                _isShowMessage = false;
+                _isSecondBoss = false;
+                OnMessageClick?.Invoke();
+            }
+        }
+        
+        if (collider.tag == "InCourtyard")
+        {
+            if (_isShowMessage)
+            {
+                _isShowMessage = false;
+                _isCourtyard = false;
+                OnMessageClick?.Invoke();
+            }
+        }
+        
+        if (collider.tag == "TeleportIn")
+        {
+            if (_isShowMessage)
+            {
+                _isShowMessage = false;
+
+                for (ushort i = 0; i < _teleports.Length; ++i)
+                {
+                    if (_teleports[i].Name == collider.name)
+                    {
+                        _teleports[i].IsActive = true;
+                    }
+                }
+                
                 OnMessageClick?.Invoke();
             }
         }

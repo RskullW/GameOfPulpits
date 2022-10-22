@@ -46,8 +46,8 @@ public class Enemy : MonoBehaviour
     private bool _isFirstVisiblePlayer;
     private float _cooldown;
     private float _cooldownBlock;
-    
-    
+    private ushort _indexMovePoints;
+
 
     void Start()
     {
@@ -55,7 +55,9 @@ public class Enemy : MonoBehaviour
         IsAttack = false;
         _startHealth = Health;
         _playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
+        _indexMovePoints = 0;
     }
+
     private void FixedUpdate()
     {
         if (TypeEnemy == TypeEnemy.Outlaw || TypeEnemy == TypeEnemy.People)
@@ -193,14 +195,30 @@ public class Enemy : MonoBehaviour
 
     private void PeopleUpdate()
     {
-        if (IsMovement && Vector3.Distance(transform.position, _playerTransform.position) > VisibleDistance)
+        if (Vector3.Distance(transform.position, _playerTransform.position) > VisibleDistance && IsMovingArea && !_isFirstVisiblePlayer) 
         {
-            transform.position = transform.position;
+            if (Agent.remainingDistance <= Agent.stoppingDistance)
+            {
+                if (_indexMovePoints == MovePoints.Count)
+                {
+                    _indexMovePoints = 0;
+                }
+
+                Agent.SetDestination(MovePoints[_indexMovePoints].transform.position);
+                _indexMovePoints++;
+            }
         }
-        
+
         else if (IsMovement && Vector3.Distance(transform.position, _playerTransform.position) > StoppingDistance 
-                       && Vector3.Distance(transform.position, _playerTransform.position) <= VisibleDistance)
+                            && (Vector3.Distance(transform.position, _playerTransform.position) <= VisibleDistance || _isFirstVisiblePlayer))
         {
+            IsVisiblePlayer = true;
+
+            if (!_isFirstVisiblePlayer)
+            {
+                _isFirstVisiblePlayer = true;
+                AudioManager.Instance.PlaySound("StartFight");
+            }
             Agent.SetDestination(_playerTransform.position);
 
             if (!_isBlocked)
@@ -208,7 +226,6 @@ public class Enemy : MonoBehaviour
                 _animator.SetBool("PeopleRun", true);
                 _animator.SetBool("PeopleAttack", false);
                 _animator.SetBool("PeopleBlock", false);
-
             }
         }
 
@@ -267,6 +284,7 @@ public class Enemy : MonoBehaviour
         {
             IsAttack = true;
             OnCauseDamage?.Invoke();
+            AudioManager.Instance.PlaySound("Attack2");
             _animator.SetBool("PeopleAttack", true);
             _animator.SetBool("PeopleRun", false);
             _animator.SetBool("PeopleBlock", false);

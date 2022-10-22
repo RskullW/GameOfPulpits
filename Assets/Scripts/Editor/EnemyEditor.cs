@@ -105,7 +105,7 @@ public class EnemyEditor : Editor
         if (_enemy.TypeEnemy == TypeEnemy.People)
         {
             _enemy.Damage = EditorGUILayout.FloatField("Damage", _enemy.Damage);
-            _enemy.VisibleDistance = EditorGUILayout.FloatField("VisibleDistance", _enemy.VisibleDistance);
+            _enemy.VisibleDistance = EditorGUILayout.FloatField("VisibleDistance", _enemy.VisibleDistance); 
             _enemy.MinCooldownBlock = EditorGUILayout.FloatField("Minimal cooldown block", _enemy.MinCooldownBlock);
             _enemy.MaxCooldownBlock = EditorGUILayout.FloatField("Maximum cooldown block", _enemy.MaxCooldownBlock);
         }

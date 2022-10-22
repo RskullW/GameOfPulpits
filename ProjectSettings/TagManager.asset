@@ -14,6 +14,10 @@ TagManager:
   - Enemy
   - InHouse
   - Border
+  - InCastle
+  - InSecondBoss
+  - InCourtyard
+  - TeleportIn
   layers:
   - Default
   - TransparentFX
