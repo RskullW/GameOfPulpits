@@ -18,6 +18,10 @@ TagManager:
   - InSecondBoss
   - InCourtyard
   - TeleportIn
+  - LayerGround
+  - LayerConcrete
+  - LayerDesert
+  - DialogGuardsman
   layers:
   - Default
   - TransparentFX

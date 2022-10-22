@@ -13,6 +13,7 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private Sound[] _backgroundSecondPhaseMusic;
     [SerializeField] private AudioSource _musicSource;
     [SerializeField] private AudioSource[] _sfxSource;
+    [SerializeField] private AudioSource _sourceWalk;
 
     private bool _isPlayBackgroundMusic;
     private bool _isPlaySecondPhaseMusicWolf;
@@ -106,6 +107,29 @@ public class AudioManager : MonoBehaviour
         
     }
 
+    public void PlaySoundWalk(string name)
+    {
+        if (_sourceWalk.isPlaying) return;
+        
+        Sound s = Array.Find(_sfxSounds, x => x.Name == name);
+        
+        if (s != null)
+        {
+            _sourceWalk.PlayOneShot(s.Clip);
+        }
+        else
+        {
+            Debug.LogError("Error. Sound not found");
+        }
+    }
+
+    public void StopSoundWalk()
+    {
+        if (_sourceWalk.isPlaying)
+        {
+            _sourceWalk.Stop();
+        }
+    }
     public void PlaySoundDeath()
     {
         if (_deathSounds != null && _deathSounds.Length > 0)

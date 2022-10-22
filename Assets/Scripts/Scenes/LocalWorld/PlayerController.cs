@@ -64,6 +64,8 @@ public class PlayerController : MonoBehaviour
     protected bool _isSecondBoss;
     protected bool _isCourtyard;
 
+    // ТИП ПОВЕРХНОСТИ
+    protected AreaLayer _areaLayer;
 
     protected bool _isCauseDamage;
     protected bool _isActiveDialogue;
@@ -113,6 +115,9 @@ public class PlayerController : MonoBehaviour
         {
             SetDefaultLogsBar();
         }
+        
+        _areaLayer = AreaLayer.zero;
+
     }
 
     protected void SetDefaultLogsBar()
@@ -412,7 +417,7 @@ public class PlayerController : MonoBehaviour
             else if (_isCourtyard)
             {
                 SetSaveManager();
-                SceneManager.LoadScene("Courtyard");
+                SceneManager.LoadScene("Courtyard Castle");
             }
 
             else
@@ -434,9 +439,7 @@ public class PlayerController : MonoBehaviour
             AudioManager.Instance.PlaySound("UseHealth");
 
             _amountOfMedicine -= 1;
-
             _health += _pointRecoveryHealth;
-
             if (_health > _maxHealth)
             {
                 _health = _maxHealth;
@@ -476,6 +479,25 @@ public class PlayerController : MonoBehaviour
 
             Vector3 movement = new Vector3(moveHorizontal, 0.0f, moveVertical);
             transform.Translate(movement * _playerSpeed * Time.fixedDeltaTime);
+
+            if (moveHorizontal!=0f || moveVertical!=0f)
+            {
+                switch (_areaLayer)
+                {
+                    case AreaLayer.concrete: AudioManager.Instance.PlaySoundWalk("RunConcrete");
+                        break;
+                    case AreaLayer.desert: AudioManager.Instance.PlaySoundWalk("RunDesert");
+                        break;
+                    case AreaLayer.ground: AudioManager.Instance.PlaySoundWalk("RunGround");
+                        break;
+                    default: break;
+                }
+            }
+
+            else
+            {
+                AudioManager.Instance.StopSoundWalk();
+            }
         }
     }
 
@@ -631,6 +653,21 @@ public class PlayerController : MonoBehaviour
             position.z += 2;
             SaveManager.LoadData(position, _money, _health, _levelGun, _amountOfGarbage, _amountOfMedicine);
             SceneManager.LoadScene("MainMap");
+        }
+        
+        else if (collider.gameObject.tag == "LayerGround")
+        {
+            _areaLayer = AreaLayer.ground;
+        }
+        
+        else if (collider.gameObject.tag == "LayerDesert")
+        {
+            _areaLayer = AreaLayer.desert;
+        }
+        
+        else if (collider.gameObject.tag == "LayerConcrete")
+        {
+            _areaLayer = AreaLayer.concrete;
         }
 
     }

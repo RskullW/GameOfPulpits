@@ -22,8 +22,10 @@ public class SaveManager : MonoBehaviour
     private static int _isSecondBoss;
     private static int _isThirdBoss;
     private static int _isFinalBoss;
+    private static int _isDialogGuardsman;
 
     public static int IsFirstBoss => _isFirstBoss;
+    public static int IsDialogGuardsman => _isDialogGuardsman;
     public static int IsSecondBoss => _isSecondBoss;
     public static int IsThirdBoss => _isThirdBoss;
     public static int IsFinalBoss => _isFinalBoss;
@@ -149,6 +151,7 @@ public class SaveManager : MonoBehaviour
         PlayerPrefs.SetInt("IsSecondBoss", _isSecondBoss);
         PlayerPrefs.SetInt("IsThirdBoss", _isThirdBoss);
         PlayerPrefs.SetInt("IsFinalBoss", _isFinalBoss);
+        PlayerPrefs.SetInt("IsDialogGuardsman", _isDialogGuardsman);
         
         PlayerPrefs.SetInt("IsSecondPhase", _isSecondPhase);
         
@@ -193,6 +196,9 @@ public class SaveManager : MonoBehaviour
         _isSecondBoss = PlayerPrefs.GetInt("IsSecondBoss");
         _isThirdBoss = PlayerPrefs.GetInt("IsThirdBoss");
         _isFinalBoss = PlayerPrefs.GetInt("IsFinalBoss");
+        _isDialogGuardsman = PlayerPrefs.GetInt("IsDialogGuardsman");
+
+        _isSecondPhase = PlayerPrefs.GetInt("IsSecondPhase");
         
         return true;
     }
@@ -212,7 +218,7 @@ public class SaveManager : MonoBehaviour
         _isHaveData = false;
         _isWasSave = false;
         
-        _isSecondPhase = _isFirstBoss = _isSecondBoss = _isThirdBoss = _isFinalBoss = 0;
+        _isDialogGuardsman = _isSecondPhase = _isFirstBoss = _isSecondBoss = _isThirdBoss = _isFinalBoss = 0;
 
         // LOCAL MAP
         PlayerPrefs.DeleteKey("Money");
@@ -243,7 +249,7 @@ public class SaveManager : MonoBehaviour
         PlayerPrefs.DeleteKey("MainMap");
         PlayerPrefs.DeleteKey("SecondPhaseOpenMap");
         
-        PlayerPrefs.DeleteKey("SecondPhase");
+        PlayerPrefs.DeleteKey("IsSecondPhase");
     }
 
     public static int GetStatsMissions(string name)
@@ -324,6 +330,11 @@ public class SaveManager : MonoBehaviour
     public static void SetInformationFirstBoss(int isFirstBoss = 1)
     {
         _isFirstBoss = isFirstBoss;
+    }
+    
+    public static void SetInformationDialogGuard(int value = 1)
+    {
+        _isDialogGuardsman = value;
     }
     public static bool GetInformationFirstBoss()
     {

@@ -13,6 +13,7 @@ public class PlayerControllerMap : PlayerController
     
     private bool _isPlayerCanMove;
     private bool _isTransformHouse;
+    private bool _isTransformCastle;
     private SpriteRenderer _sprite;
 
     protected void Start()
@@ -39,6 +40,12 @@ public class PlayerControllerMap : PlayerController
                 SaveManager.LoadMapPosition(transform.position);
                 SceneManager.LoadScene("Castle Player");
             }
+            
+            else if (_isTransformCastle)
+            {
+                SaveManager.LoadMapPosition(transform.position);
+                SceneManager.LoadScene("FinalMap");
+            }
         }
     }
     private void MovementLogic()
@@ -47,8 +54,10 @@ public class PlayerControllerMap : PlayerController
         transform.Translate(0, Input.GetAxis("Vertical") * _playerSpeed * Time.deltaTime, 0);
         transform.position += new Vector3(Input.GetAxis("Horizontal"), 0, 0) * _playerSpeed * Time.deltaTime;
 
-        _sprite.flipX = Input.GetAxis("Horizontal") < 0 ? false: true;
-
+        if (Input.GetAxis("Vertical") != 0f || Input.GetAxis("Horizontal") != 0f)
+        {
+            _sprite.flipX = Input.GetAxis("Horizontal") < 0 ? false : true;
+        }
     }
 
     public void SetPlayerCanMove(bool isPlayerCanMove)
@@ -74,6 +83,23 @@ public class PlayerControllerMap : PlayerController
             OnShowMessage?.Invoke();
             _isTransformHouse = true;
         }
+        
+        else if (collider.gameObject.tag == "InCastle" && _isPlayerCanMove)
+        {
+            OnShowMessage?.Invoke();
+            _isTransformCastle = true;
+
+        } 
+        
+        else if (collider.gameObject.tag == "DialogGuardsman")
+        {
+            if (SaveManager.IsDialogGuardsman != 1)
+            {
+                SaveManager.LoadMapPosition(transform.position);
+                SaveManager.SaveStatsMission("MainMap");
+                SceneManager.LoadScene("DialogueGuard");
+            }
+        }
     }
 
     protected void OnTriggerExit(Collider collider)
@@ -83,5 +109,11 @@ public class PlayerControllerMap : PlayerController
             OnHideMessage?.Invoke();
             _isTransformHouse = false;
         }
+        
+        else if (collider.gameObject.tag == "InCastle" && _isPlayerCanMove)
+        {
+            OnHideMessage?.Invoke();
+            _isTransformCastle = false;
+        } 
     }
 }

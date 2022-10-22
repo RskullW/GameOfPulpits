@@ -5,6 +5,7 @@ using UnityEngine.UIElements;
 
 public class FinalMapLevelManager : MonoBehaviour
 {
+    [SerializeField] private UIElementsDeath _uiElementsDeath;
     [SerializeField] private UIDocument _uiDocument;
     [SerializeField] private PlayerController _player;
     [SerializeField] private List<Enemy> _enemies;
@@ -27,6 +28,7 @@ public class FinalMapLevelManager : MonoBehaviour
     void InitializeEvents()
     {
         _player.OnMessageClick += ShowMessageClick;
+        _player.OnDie += DeathProcess;
     }
 
     void InitializeEnemies()
@@ -36,7 +38,43 @@ public class FinalMapLevelManager : MonoBehaviour
             enemy.OnCauseDamage += () => _player.TakeDamage(enemy.Damage);
         }
     }
-    
+
+    private void DeathProcess()
+    {
+        StopMovement();
+        _player.SetAnimation("isDeath", true); 
+        AudioManager.Instance.PlaySoundDeath();
+        _uiElementsDeath.StartScreenDeath();
+
+        if (!SaveManager.IsWasSave)
+        {
+            SaveManager.SetHaveData(false);
+            SaveManager.SetIsHavePositionMap(false);
+            SaveManager.SaveStatsMission("MainMap", 0);
+        }
+
+        else
+        {
+            SaveManager.SetHaveData(true);
+        }
+    }
+
+    private void StopMovement()
+    {
+        _player.SetActiveDialogue(true);
+        _player.DisableAnimations();
+        
+        if (_enemies.Count > 0)
+        {
+            foreach (var enemy in _enemies)
+            {
+                if (enemy.gameObject.activeSelf)
+                {
+                    enemy.SetMovement(false);
+                }
+            }
+        }
+    }
     private void ShowMessageClick()
     {
         
