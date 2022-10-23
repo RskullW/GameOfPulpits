@@ -13,17 +13,17 @@ MonoBehaviour:
   m_Name: GunDialog
   m_EditorClassIdentifier: 
   _englishText:
-  - '                                      That''s how it is. You and I used to be
-    on the same side for how many years I bought weapons, and now...'
-  - '          We''re still on the same side...'
+  - '                                         That''s how it is. You and I used to
+    be on the same side for how many years I bought weapons, and now...'
+  - '             We''re still on the same side...'
   _russianText:
-  - "                                 \u0412\u043E\u0442 \u0437\u043D\u0430\u0447\u0438\u0442
+  - "                                    \u0412\u043E\u0442 \u0437\u043D\u0430\u0447\u0438\u0442
     \u043A\u0430\u043A. \u0420\u0430\u043D\u044C\u0448\u0435 \u043C\u044B \u0441
     \u0442\u043E\u0431\u043E\u0439 \u0431\u044B\u043B\u0438 \u043D\u0430 \u043E\u0434\u043D\u043E\u0439
     \u0441\u0442\u043E\u0440\u043E\u043D\u0435, \u0441\u043A\u043E\u043B\u044C\u043A\u043E
     \u043B\u0435\u0442 \u043F\u043E\u043A\u0443\u043F\u0430\u043B \u043E\u0440\u0443\u0436\u0438\u0435,
     \u0430 \u0442\u0435\u043F\u0435\u0440\u044C..."
-  - "       \u041C\u044B \u0435\u0449\u0451 \u043D\u0430 \u043E\u0434\u043D\u043E\u0439
+  - "          \u041C\u044B \u0435\u0449\u0451 \u043D\u0430 \u043E\u0434\u043D\u043E\u0439
     \u0441\u0442\u043E\u0440\u043E\u043D\u0435... "
   _englishChoises:
   - 1. [Improve the weapon (-25 credits)]
