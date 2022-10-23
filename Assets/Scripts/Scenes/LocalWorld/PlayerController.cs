@@ -63,6 +63,7 @@ public class PlayerController : MonoBehaviour
     protected bool _isCastle;
     protected bool _isSecondBoss;
     protected bool _isCourtyard;
+    protected bool _isFinalBoss;
 
     // ТИП ПОВЕРХНОСТИ
     protected AreaLayer _areaLayer;
@@ -294,6 +295,10 @@ public class PlayerController : MonoBehaviour
                     _money -= 25;
                     _levelGun++;
                     OnSetMoney?.Invoke();
+                    if (_textLevelGun != null)
+                    {
+                        _textLevelGun.text = _levelGun.ToString();
+                    }
 
                     AudioManager.Instance.PlaySound("ImproveGun");
                 }
@@ -305,7 +310,10 @@ public class PlayerController : MonoBehaviour
                 {
                     _amountOfGarbage -= 10;
                     _levelGun++;
-                    OnSetGarbage?.Invoke();
+                    if (_textLevelGun != null)
+                    {
+                        _textLevelGun.text = _levelGun.ToString();
+                    }                    OnSetGarbage?.Invoke();
 
                     AudioManager.Instance.PlaySound("ImproveGun");
                 }
@@ -348,6 +356,10 @@ public class PlayerController : MonoBehaviour
                     _money -= 5;
                     _amountOfMedicine++;
                     OnSetMoney?.Invoke();
+                    if (_textMedicine != null)
+                    {
+                        _textMedicine.text = _amountOfMedicine.ToString();
+                    }
                     AudioManager.Instance.PlaySound("Money");
                     _localCooldownBuyItem = _cooldownBuyItem;
                 }
@@ -418,6 +430,12 @@ public class PlayerController : MonoBehaviour
             {
                 SetSaveManager();
                 SceneManager.LoadScene("Courtyard Castle");
+            }
+            
+            else if (_isFinalBoss)
+            {
+                SetSaveManager();
+                SceneManager.LoadScene("FinalBoss");
             }
 
             else
@@ -573,6 +591,16 @@ public class PlayerController : MonoBehaviour
                 OnMessageClick?.Invoke();
             }
         }
+
+        if (collider.tag == "InFinalBoss")
+        {
+            if (!_isShowMessage)
+            {
+                _isShowMessage = true;
+                _isFinalBoss = true;
+                OnMessageClick?.Invoke();
+            }
+        }
         
         if (collider.tag == "Enemy" && _isAttack && _isCauseDamage)
         {
@@ -669,6 +697,7 @@ public class PlayerController : MonoBehaviour
         {
             _areaLayer = AreaLayer.concrete;
         }
+        
 
     }
 
@@ -699,6 +728,16 @@ public class PlayerController : MonoBehaviour
             {
                 _isShowMessage = false;
                 _isCourtyard = false;
+                OnMessageClick?.Invoke();
+            }
+        }
+        
+        if (collider.tag == "InFinalBoss")
+        {
+            if (_isShowMessage)
+            {
+                _isShowMessage = false;
+                _isFinalBoss = false;
                 OnMessageClick?.Invoke();
             }
         }

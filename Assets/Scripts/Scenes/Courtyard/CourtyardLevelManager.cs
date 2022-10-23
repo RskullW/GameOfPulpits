@@ -13,6 +13,7 @@ using Image = UnityEngine.UI.Image;
 public class CourtyardLevelManager : MonoBehaviour
 {
     [SerializeField] private UIElementsDeath _uiElementsDeath;
+    [SerializeField] private UIDocument _helpMessageUIDocument;
     [Space]
     [SerializeField] private GameObject _finalReplicObject;
     [SerializeField] private TextMeshProUGUI _finalText; 
@@ -24,17 +25,18 @@ public class CourtyardLevelManager : MonoBehaviour
     [SerializeField] private PlayerController _player;
     [SerializeField] private PlayableDirector _playableDirector;
     [SerializeField] private List<Enemy> _enemies;
+    [SerializeField] private GameObject _border;
+    private Label _helpMessage;
+    private VisualElement _helpMessageClick;
     [Space] 
     
-    private int _numberOfDieOutlaws;
-    private GameObject _healthBar;
+    private int _numbersOfSpawnsEnemy;
+    private int _numbersOfDie;
     void Start()
     {
-        AudioManager.Instance.SetIsPlayBackgroundMusic(false);
-        AudioManager.Instance.PlayMusic("FightMusic2");
+        _numbersOfDie = _numbersOfSpawnsEnemy = 0;
         
         InitializeEvents();
-        InitializeConditions();
         StopMovement();
         
         _finalReplicObject.SetActive(false);
@@ -48,47 +50,63 @@ public class CourtyardLevelManager : MonoBehaviour
         {
             _finalText.text = _finalReplicsRussian;
         }
-
-    }
-
-    void InitializeConditions()
-    {
-        foreach (var enemy in _enemies)
+        
+        if (_helpMessageUIDocument != null)
         {
-            enemy.gameObject.SetActive(true);
-            enemy.gameObject.SetActive(false);
+            _helpMessage = _helpMessageUIDocument.rootVisualElement.Q<Label>("HelpMessageLabel");
+            _helpMessageClick = _helpMessageUIDocument.rootVisualElement.Q<VisualElement>("HelpMessageClick");
+            SetLanguageLabel();
+        }
+        
+    }
+    
+    private void ShowMessageClick()
+    {
+        
+        bool visible = _helpMessageClick.visible;
+        
+        _helpMessage.visible = _helpMessageClick.visible = !visible;
+        _helpMessage.SetEnabled(!visible);
+        _helpMessageClick.SetEnabled(!visible);
+        
+        Debug.Log("Show Message: " + _helpMessageClick.visible);
+    }
+    
+    private void SetLanguageLabel()
+    {
+        _helpMessage.text = "Click 'E'";
+
+        if (MenuManager.Language == Language.Rus)
+        {
+            _helpMessage.text = "Нажмите 'E'";
         }
     }
-
     void InitializeEvents()
     {
         _dialog.OnEndDialogue += StartFirstPhase;
         _player.OnDie += DeathProcess;
+        _player.OnMessageClick += ShowMessageClick;
+        _player.OnSellerGun += ShowMessageClick;
+        _player.OnSellerItems += ShowMessageClick;
+        _player.OnSellerMedic += ShowMessageClick;
 
         foreach (var enemy in _enemies)
         {
+            enemy.OnCauseDamage += () => _player.TakeDamage(enemy.Damage);
+
             if (enemy.TypeEnemy == TypeEnemy.People)
             {
-                enemy.OnCauseDamage += () => _player.TakeDamage(enemy.Damage);
-                
-                if (enemy.TypeEnemy == TypeEnemy.Outlaw)
-                {
-                    enemy.OnDied += DeathOutlaw;
-                }
-            
-                else if (enemy.TypeEnemy == TypeEnemy.Wolf)
-                {
-                    enemy.OnDied += DeathWolf;
-                }
-            
-                else if (enemy.TypeEnemy == TypeEnemy.People)
-                {
-                    enemy.OnDied += DeathPeople;
-                }
+                enemy.OnDied += DeathPeople;
             }
-            
+
+            else if (enemy.TypeEnemy == TypeEnemy.Outlaw)
+            {
+                enemy.OnDied += DeathOutlaw;
+            }
+
+
         }
-        
+
         _playableDirector.stopped += StopCutscene;
     }
 
@@ -104,21 +122,17 @@ public class CourtyardLevelManager : MonoBehaviour
         }
 
         _player.SetActiveDialogue(false);
-        _healthBar.SetActive(true);
     }
 
     void StartFirstPhase()
     {
         _player.SetActiveDialogue(false);
-        _healthBar.SetActive(true);
 
-        foreach (var enemy in _enemies)
-        {
-            enemy.SetMovement(true);
-            enemy.gameObject.SetActive(false);
-        }
+        _enemies[_numbersOfSpawnsEnemy].SetMovement(true);
+        _enemies[_numbersOfSpawnsEnemy++].gameObject.SetActive(true);
         
-        StartCoroutine(SpawnEnemies());
+        _enemies[_numbersOfSpawnsEnemy].SetMovement(true);
+        _enemies[_numbersOfSpawnsEnemy++].gameObject.SetActive(true);
     }
     
     void StopMovement()
@@ -138,99 +152,75 @@ public class CourtyardLevelManager : MonoBehaviour
         }
     }
 
-    void ProcessEndLevel()
-    {
-        SaveManager.SetAmountGarbage(0);
-        
-        SaveManager.SetMoney(0);
-        SaveManager.SetHealth(_player.GetHealth());
-        SaveManager.SetIsHavePositionMap(true);
-        AudioManager.Instance.PlayBackgroundMusic();
-        SceneManager.LoadScene("MainMap");
-    }
-    
-    void StartSecondPhaseFight()
-    {
-        
-        Debug.Log("Courtyard: Start 2 Phase");
-        AudioManager.Instance.PlayMusic("OutlawSecondPhase");
-
-        _playableDirector.Play();
-        StopMovement();
-        
-    }
-
-    IEnumerator SpawnEnemies()
-    {
-        float time = 10;
-        foreach (var enemy in _enemies)
-        {
-            enemy.gameObject.SetActive(true);
-
-            yield return new WaitForSeconds(time);
-            time -= 2f;
-
-            if (time <= 0f)
-            {
-                time = 2f;
-            }
-        }
-    }
     void StopCutscene(PlayableDirector playableDirector)
     {
-        _player.SetActiveDialogue(false);
-        _healthBar.SetActive(true);
-
-        if (_enemies.Count > 0)
-        {
-            foreach (var enemy in _enemies)
-            {
-                if (enemy.gameObject.activeSelf)
-                {
-                    enemy.SetMovement(false);
-                }
-            }
-        }
+        _dialog.StartDialog();
+        _playableDirector.gameObject.SetActive(false);
     }
 
     void DeathOutlaw()
     {
         int number = Random.Range(1, 4);
         AudioManager.Instance.PlaySound("OutlawDeath" + number);
-    }
-    
-    void DeathWolf()
-    {
-        int number = Random.Range(1, 4);
-        AudioManager.Instance.PlaySound("WolfDie" + number);
+        _numbersOfDie++;
+
+        if (_numbersOfDie % 2 == 0 && _numbersOfDie <=6)
+        {
+            _enemies[_numbersOfSpawnsEnemy].SetMovement(true);
+            _enemies[_numbersOfSpawnsEnemy++].gameObject.SetActive(true);
+            _enemies[_numbersOfSpawnsEnemy].SetMovement(true);
+            _enemies[_numbersOfSpawnsEnemy++].gameObject.SetActive(true);
+
+            if (_numbersOfDie == 6)
+            {
+                _enemies[_numbersOfSpawnsEnemy].SetMovement(true);
+                _enemies[_numbersOfSpawnsEnemy++].gameObject.SetActive(true);
+            }
+        }
+
+        if (_numbersOfDie == 9)
+        {
+            StartCoroutine(VictoryProcess());
+        }
     }
     
     void DeathPeople()
     {
         int number = Random.Range(1, 3);
         AudioManager.Instance.PlaySound("OutlawDeath" + number);
-    }
+        _numbersOfDie++;
+        
+        if (_numbersOfDie % 2 == 0 && _numbersOfDie <=6)
+        {
+            _enemies[_numbersOfSpawnsEnemy].SetMovement(true);
+            _enemies[_numbersOfSpawnsEnemy++].gameObject.SetActive(true);
+            _enemies[_numbersOfSpawnsEnemy].SetMovement(true);
+            _enemies[_numbersOfSpawnsEnemy++].gameObject.SetActive(true);
 
-    void DeathBoss()
-    {
-        StartCoroutine(VictoryProcess());
-    }
+            if (_numbersOfDie == 6)
+            {
+                _enemies[_numbersOfSpawnsEnemy].SetMovement(true);
+                _enemies[_numbersOfSpawnsEnemy++].gameObject.SetActive(true);
+            }
+        }
 
+        if (_numbersOfDie == 9)
+        {
+            StartCoroutine(VictoryProcess());
+        }
+    }
+    
     private IEnumerator VictoryProcess()
     {
         _finalReplicObject.SetActive(true);
         _player.SetActiveDialogue(true);
-        
+        AudioManager.Instance.PlaySecondPhaseBackgroundMusic();
+
         yield return new WaitForSeconds(10);
         
-        SaveManager.SetAmountGarbage(_player.GetAmountGarbage()+10);
-        SaveManager.SetAmountMedicine(_player.GetAmountMedicine()+5);
-        SaveManager.SetLevelGun(_player.GetLevelGun()+1);
-        SaveManager.SetMoney(_player.GetMoney()+13);
-        SaveManager.SetHealth(_player.GetHealth());
-        SaveManager.SetIsHavePositionMap(true);
-        VilliageLevel.IS_SECOND_PHASE_LEVEL = true;
-        SceneManager.LoadScene("Village");
+        _finalReplicObject.SetActive(false);
+        _player.SetActiveDialogue(false);
+        _border.gameObject.SetActive(false);
     }
 
     private void DeathProcess()
@@ -259,4 +249,6 @@ public class CourtyardLevelManager : MonoBehaviour
         }
         
     }
+    
+
 }

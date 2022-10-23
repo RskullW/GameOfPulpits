@@ -29,4 +29,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/FinalMap/FinalMap.unity
     guid: 0556bdf627e79b547b1fe8311a8ff2f9
+  - enabled: 1
+    path: Assets/Scenes/Courtyard Castle/Courtyard Castle.unity
+    guid: 48436642763a99b4fb652e1ed40a1661
+  - enabled: 1
+    path: Assets/Scenes/FinalBoss/FinalBoss.unity
+    guid: 4886cce432270d44d9b6912abd2b1528
   m_configObjects: {}

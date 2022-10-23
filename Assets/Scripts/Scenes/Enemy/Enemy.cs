@@ -338,6 +338,7 @@ public class Enemy : MonoBehaviour
         else if (TypeEnemy == TypeEnemy.People && Health <= 0)
         {
             OnDied?.Invoke();
+            SetMovement(false);
             StartCoroutine(StartDiePeople());
         }
         

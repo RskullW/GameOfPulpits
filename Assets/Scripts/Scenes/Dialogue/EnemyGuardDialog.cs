@@ -14,7 +14,6 @@ public class EnemyGuardDialog : DialogueManager
     [SerializeField] private GameObject _canvas;
     private void Awake()
     {
-        SaveManager.SetPhase(1);
         foreach (var name in _nameLeft)
         {
             name.text = _dialogues[0].NameLeftEnglish;
@@ -54,12 +53,14 @@ public class EnemyGuardDialog : DialogueManager
 
             }
         }
+        
+        _canvas.gameObject.SetActive(false);
     }
 
-    void Start()
+    public void StartDialog()
     {
         _numberDialogue = -1;
-        
+        _canvas.gameObject.SetActive(true);
         HideText();
         StartCoroutine(StartVisibleText());
     }
@@ -78,33 +79,17 @@ public class EnemyGuardDialog : DialogueManager
             {
                 if (Input.GetKey(KeyCode.Alpha1))
                 {
-                    if (SaveManager.IsSecondPhase < 1)
+
+                    if (_numbersOfDialogue[1])
                     {
-                        if (_numbersOfDialogue[1])
-                        {
-                            OnEndDialogue?.Invoke();
-                            _canvas.gameObject.SetActive(false);
-                            gameObject.SetActive(false);
-                            return;
-                        }
-                        
-                        HideText();
-                        StartCoroutine(StartVisibleText());
+                        OnEndDialogue?.Invoke();
+                        _canvas.gameObject.SetActive(false);
+                        gameObject.SetActive(false);
+                        return;
                     }
 
-                    else
-                    {
-                        if (_numbersOfDialogue[1])
-                        {
-                            OnEndDialogue?.Invoke();
-                            _canvas.gameObject.SetActive(false);
-                            gameObject.SetActive(false);
-                            return;
-                        }
-
-                        HideText();
-                        StartCoroutine(StartVisibleText());
-                    }
+                    HideText();
+                    StartCoroutine(StartVisibleText());
                 }
 
                 if (Input.GetKey(KeyCode.Alpha2) && SaveManager.IsSecondPhase >= 1)
@@ -167,27 +152,33 @@ public class EnemyGuardDialog : DialogueManager
         int indexText = -1;
         _numberDialogue++;
 
-        foreach (var textMeshPro in _dialogue)
+        for (int i = 0; i < _dialogue.Count; ++i)
         {
             indexText++;
 
             int index = 0;
             string text = _dialogues[numberTemp].EnglishText[indexText];
 
-            textMeshPro.transform.parent.parent.gameObject.SetActive(true);
-            textMeshPro.gameObject.SetActive(true);
+            _dialogue[i].transform.parent.parent.gameObject.SetActive(true);
+            _dialogue[i].gameObject.SetActive(true);
 
 
             if (MenuManager.Language == Language.Rus)
             {
                 text = _dialogues[numberTemp].RussianText[indexText];
-                textMeshPro.font = _dialogues[numberTemp].FontAssetRussian;
+                _dialogue[i].font = _dialogues[numberTemp].FontAssetRussian;
             }
 
-            textMeshPro.text = "";
-            while (textMeshPro.text != text)
+            _dialogue[i].text = "";
+
+            while (_dialogue[i].text != text)
             {
-                textMeshPro.text += text[index++];
+                if ((i + 1 == _dialogue.Count - 1) && (_numberDialogue > 0) && index == 10)
+                {
+                    AudioManager.Instance.PlayMusic("CourtyardFight");
+                }
+                
+                _dialogue[i].text += text[index++];
                 yield return new WaitForSeconds(_durationVisibleText);
             }
 
