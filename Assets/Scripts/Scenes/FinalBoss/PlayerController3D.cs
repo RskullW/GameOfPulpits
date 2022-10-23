@@ -10,8 +10,11 @@ public class PlayerController3D : MonoBehaviour
     [SerializeField] private bool _isMovement;
     [SerializeField] private float _speed;
     [SerializeField] private float _runSpeed;
+    [SerializeField] private float _health;
+    [SerializeField] private float _damage;
+    [SerializeField] private float _amountOfMedicine;
+    [SerializeField] private float _levelGun;
     [SerializeField] private Animator _animator;
-
     [SerializeField] private float _cooldownAttack;
     private float _localCooldownAttack;
     private bool _isAttack;
@@ -100,8 +103,9 @@ public class PlayerController3D : MonoBehaviour
             SetAnimation("isAttack", true);
         }
 
-        else
+        else if (_isAttack)
         {
+            ResetAnimation();
             _localCooldownAttack -= Time.deltaTime;
 
             if (_localCooldownAttack <= 0f)
@@ -150,6 +154,16 @@ public class PlayerController3D : MonoBehaviour
     public bool GetMovement()
     {
         return _isMovement;
+    }
+
+    public void TakeDamage(float damage)
+    {
+        _health -= damage;
+    }
+
+    public float GetDamage()
+    {
+        return _damage;
     }
     
 }

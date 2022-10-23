@@ -23,6 +23,7 @@ TagManager:
   - LayerDesert
   - DialogGuardsman
   - InFinalBoss
+  - Tip
   layers:
   - Default
   - TransparentFX

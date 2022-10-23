@@ -17,7 +17,7 @@ public class CameraFollow : MonoBehaviour
         float mouseY = Input.GetAxis("Mouse Y") * _mouseSensY * Time.deltaTime;
 
         _xRotation -= mouseY;
-        _xRotation = Mathf.Clamp(_xRotation, -20, 20f);
+        _xRotation = Mathf.Clamp(_xRotation, -20, 10f);
         transform.localRotation = Quaternion.Euler(_xRotation,0f,0f);
         _target.Rotate(Vector3.up*mouseX);
         
