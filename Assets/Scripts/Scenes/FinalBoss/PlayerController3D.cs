@@ -134,6 +134,14 @@ public class PlayerController3D : MonoBehaviour
     {
         // RUN
 
+        if (Input.GetKey(KeyCode.I))
+        {
+            if (_interface != null)
+            {
+                _interface.SetActive(!_interface.activeSelf);
+            }
+        }
+        
         if (Input.GetKeyDown(KeyCode.LeftShift))
         {
             _isRun = true;

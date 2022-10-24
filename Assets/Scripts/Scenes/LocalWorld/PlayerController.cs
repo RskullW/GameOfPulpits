@@ -496,6 +496,15 @@ public class PlayerController : MonoBehaviour
                 _circleFill.fillAmount = _localCooldownUseHealth / _cooldownUseHealth;
             }
         }
+
+        if (Input.GetKey(KeyCode.I))
+        {
+            if (_interface != null)
+            {
+                _interface.SetActive(!_interface.activeSelf);
+            }
+        }
+
     }
 
     protected void MovementLogic()

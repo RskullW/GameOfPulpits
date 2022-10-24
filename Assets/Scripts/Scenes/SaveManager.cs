@@ -217,7 +217,7 @@ public class SaveManager : MonoBehaviour
     {
         _isHaveData = false;
         _isWasSave = false;
-        
+        _isHavePositionMap = false;
         _isDialogGuardsman = _isSecondPhase = _isFirstBoss = _isSecondBoss = _isThirdBoss = _isFinalBoss = 0;
 
         // LOCAL MAP
