@@ -113,12 +113,40 @@ public class GuardDialog : DialogueManager
             _isSwap = true;
             _animator.SetTrigger("Play");
             AudioManager.Instance.PlaySound("Swap");
+            
+            foreach (var name in _nameLeft)
+            {
+                name.text = _dialogues[3].NameLeftEnglish;
 
+                if (MenuManager.Language == Language.Rus)
+                {
+                    name.text = _dialogues[3].NameLeftRussian;
+                    name.font = _dialogues[3].FontAssetRussian;
+                    _nameDialogue.font = _dialogues[3].FontAssetRussian;
+                }
+
+                _nameDialogue.text = name.text;
+                name.text += ":";
+            }
+
+            foreach (var name in _nameRight)
+            {
+                name.text = _dialogues[3].NameRightEnglish;
+
+                if (MenuManager.Language == Language.Rus)
+                {
+                    name.text = _dialogues[3].NameRightRussian;
+                    name.font = _dialogues[3].FontAssetRussian;
+
+                }
+
+            }
+            
             _nameDialogue.text = _dialogues[^1].NameLeftEnglish;
 
             if (MenuManager.Language == Language.Rus)
             {
-                _nameDialogue.text = _dialogues[^1].NameRightEnglish;
+                _nameDialogue.text = _dialogues[^1].NameLeftRussian;
             }
 
             yield return new WaitForSeconds(1);

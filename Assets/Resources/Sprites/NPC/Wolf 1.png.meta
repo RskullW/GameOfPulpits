@@ -66,7 +66,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 2048
+    maxTextureSize: 1024
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
@@ -630,7 +630,6 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Wolf 1_10: -2108444298
       Wolf 1_16: 1983312409
       Wolf 1_7: 1851943630
       Wolf 1_8: -1735719163
@@ -652,6 +651,7 @@ TextureImporter:
       Wolf 1_12: 451924373
       Wolf 1_4: -1872590391
       Wolf 1_19: -241105285
+      Wolf 1_10: -2108444298
       Wolf 1_1: 821355882
       Wolf 1_0: -1519113699
   spritePackingTag: 

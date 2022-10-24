@@ -175,6 +175,8 @@ public class EnemyGuardDialog : DialogueManager
             {
                 if ((i + 1 == _dialogue.Count - 1) && (_numberDialogue > 0) && index == 10)
                 {
+                    AudioManager.Instance.SetIsPlayBackgroundSecondPhaseMusic(false);
+                    AudioManager.Instance.SetIsPlayBackgroundMusic(false);
                     AudioManager.Instance.PlayMusic("CourtyardFight");
                 }
                 

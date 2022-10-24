@@ -33,7 +33,6 @@ public class DialogueManager : MonoBehaviour
             {
                 name.text = _dialogues[0].NameLeftRussian;
                 name.font = _dialogues[0].FontAssetRussian;
-                _nameDialogue.font = _dialogues[0].FontAssetRussian;
             }
             
             _nameDialogue.text = name.text;
@@ -155,11 +154,10 @@ public class DialogueManager : MonoBehaviour
 
             textMeshPro.font = _dialogues[_numberDialogue].FontAssetEnglish;
             _nameDialogue.text = _dialogues[_numberDialogue].NameLeftEnglish;
-            _nameDialogue.font = _dialogues[_numberDialogue].FontAssetEnglish;
             
             if (MenuManager.Language == Language.Rus)
             {
-                _nameDialogue.text = _dialogues[_numberDialogue].NameLeftEnglish;
+                _nameDialogue.text = _dialogues[_numberDialogue].NameLeftRussian;
                 _nameDialogue.font = _dialogues[_numberDialogue].FontAssetRussian;
                 
                 text = _dialogues[_numberDialogue].RussianText[indexText];

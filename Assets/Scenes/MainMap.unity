@@ -867,8 +867,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8b30af83ad76df4da6ed668a3752389, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxHealth: 0
-  _health: 0
+  _maxHealth: 100
+  _health: 100
   _money: 0
   _amountOfMedicine: 0
   _levelGun: 0
@@ -21379,13 +21379,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1062890663}
   m_LocalRotation: {x: 0, y: 0, z: 0.12757632, w: 0.9918288}
-  m_LocalPosition: {x: -49.6, y: 20.999996, z: -5.7900004}
+  m_LocalPosition: {x: -24.12, y: 11.86, z: -5.79}
   m_LocalScale: {x: 1.307577, y: 1.3075774, z: 0.8551847}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 138711745}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 358}
+  m_LocalEulerAnglesHint: {x: 1, y: 8, z: 359}
 --- !u!95 &1062890667
 Animator:
   serializedVersion: 4
@@ -21425,6 +21425,8 @@ PlayableDirector:
     value: {fileID: 1062890667}
   - key: {fileID: 0}
     value: {fileID: 0}
+  - key: {fileID: -2618804876935656183, guid: 74f6423fba803d147afa979410c71979, type: 2}
+    value: {fileID: 1062890667}
   m_ExposedReferences:
     m_References: []
 --- !u!1 &1091701354
@@ -26760,7 +26762,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1250986380
 Transform:
   m_ObjectHideFlags: 0
@@ -28498,7 +28500,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1675809498
 Transform:
   m_ObjectHideFlags: 0
@@ -28571,7 +28573,7 @@ MonoBehaviour:
   _mainCamera: {fileID: 1062890665}
   _firstCutscene: {fileID: 1062890668}
   _secondCutscene: {fileID: 86161387}
-  _cameraPosition: {x: 7.383589, y: 3.447959, z: -5.5270166}
+  _cameraPosition: {x: 7.110295, y: 3.532636, z: -5.5270166}
   _orthographicSizeCamera: 0.99
   _objectsFirstPhase: {fileID: 1250986379}
   _objectsSecondPhase: {fileID: 1675809497}

@@ -36,6 +36,6 @@ EditorBuildSettings:
     path: Assets/Scenes/FinalBoss/FinalBoss.unity
     guid: 4886cce432270d44d9b6912abd2b1528
   - enabled: 1
-    path: Assets/Scenes/DialogueKing 1.unity
+    path: Assets/Scenes/DialogueKing.unity
     guid: 9655c901386a75047a9ffc28dd898ee7
   m_configObjects: {}

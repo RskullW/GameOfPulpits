@@ -66,7 +66,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 2048
+    maxTextureSize: 1024
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
@@ -1153,23 +1153,23 @@ TextureImporter:
       OutlawSprites_111: 258107351
       OutlawSprites_45: -951234633
       OutlawSprites_48: -693121741
+      OutlawSprites_153: -1086929224
+      OutlawSprites_38: -102294888
       OutlawSprites_90: 1053547504
-      OutlawSprites_22: 1660456530
       OutlawSprites_124: -544065427
+      OutlawSprites_22: 1660456530
+      OutlawSprites_21: 5164936
       OutlawSprites_20: -308301499
       OutlawSprites_46: -2106299597
-      OutlawSprites_21: 5164936
-      OutlawSprites_9: -980978129
-      OutlawSprites_141: -661636136
-      OutlawSprites_3: 1422425852
-      OutlawSprites_121: -1279413988
-      OutlawSprites_15: -1144091020
       OutlawSprites_44: -1835397451
-      OutlawSprites_153: -1086929224
-      OutlawSprites_41: 892013100
       OutlawSprites_152: 1228417705
+      OutlawSprites_9: -980978129
+      OutlawSprites_121: -1279413988
+      OutlawSprites_3: 1422425852
+      OutlawSprites_41: 892013100
+      OutlawSprites_15: -1144091020
+      OutlawSprites_141: -661636136
       OutlawSprites_130: 537482546
-      OutlawSprites_38: -102294888
       OutlawSprites_98: -2012011276
       OutlawSprites_125: 897211318
       OutlawSprites_5: -347495053
@@ -1199,8 +1199,8 @@ TextureImporter:
       OutlawSprites_51: -1799346257
       OutlawSprites_29: 541011448
       OutlawSprites_12: 1967895628
-      OutlawSprites_26: -1193574331
       OutlawSprites_139: -1701203194
+      OutlawSprites_26: -1193574331
       OutlawSprites_24: -578757650
       OutlawSprites_131: -843344483
       OutlawSprites_133: 1137394285

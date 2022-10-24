@@ -71,7 +71,7 @@ MonoBehaviour:
   _nameLeftEnglish: KING DAIMON II
   _nameRightEnglish: 'YOU:'
   _nameLeftRussian: "\u041A\u041E\u0420\u041E\u041B\u042C \u0414\u0415\u0419\u041C\u041E\u041D
-    2"
+    II"
   _nameRightRussian: "\u0412\u042B:"
   _fontAssetEnglish: {fileID: 11400000, guid: 0a6b1e7175467b641950d1165b9d7270, type: 2}
   _fontAssetRussian: {fileID: 11400000, guid: c0731d50d8a43c74182e43ad904222a5, type: 2}

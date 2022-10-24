@@ -281,6 +281,11 @@ public class AudioManager : MonoBehaviour
         }
         
     }
+
+    public bool GetBackgroundSecondPhaseMusic()
+    {
+        return _isPlayBackgroundSecondPhaseMusic;
+    }
     public bool GetBackgroundMusic()
     {
         return _isPlayBackgroundMusic;

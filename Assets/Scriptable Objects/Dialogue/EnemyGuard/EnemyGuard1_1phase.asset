@@ -15,7 +15,7 @@ MonoBehaviour:
   _englishText:
   - '                             Who are you, what do you need?'
   _russianText:
-  - "                  \u042D\u0439! \u0422\u044B \u043A\u0442\u043E \u0442\u0430\u043A\u043E\u0439?
+  - "                     \u042D\u0439! \u0422\u044B \u043A\u0442\u043E \u0442\u0430\u043A\u043E\u0439?
     \u0427\u0442\u043E \u0442\u0435\u0431\u0435 \u043D\u0443\u0436\u043D\u043E?"
   _englishChoises:
   - 1. I was sent by King Aegon I

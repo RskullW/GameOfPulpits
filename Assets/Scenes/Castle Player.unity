@@ -15943,10 +15943,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _maxHealth: 100
   _health: 100
-  _money: 8
-  _amountOfMedicine: 2
+  _money: 7
+  _amountOfMedicine: 3
   _levelGun: 0
-  _amountOfGarbage: 10
+  _amountOfGarbage: 6
   _durationCooldown: 1.2
   _playerSpeed: 1.82
   _damage: 10

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -90,7 +91,7 @@ public class GameManagerMap : MonoBehaviour
         if (!AudioManager.Instance.GetBackgroundMusic() && !AudioManager.Instance.GetActiveMusic())
         {
             Debug.Log("GameManagerMap.StartMusic()");
-            if (SaveManager.IsSecondPhase == 1)
+            if (SaveManager.IsSecondPhase >= 1 && !AudioManager.Instance.GetBackgroundSecondPhaseMusic())
             {
                 AudioManager.Instance.PlaySecondPhaseBackgroundMusic();
             }
@@ -98,6 +99,14 @@ public class GameManagerMap : MonoBehaviour
             else
             {
                 AudioManager.Instance.PlayBackgroundMusic();
+            }
+        }
+        
+        else 
+        {
+            if (SaveManager.IsSecondPhase >= 1 && !AudioManager.Instance.GetBackgroundSecondPhaseMusic())
+            {
+                AudioManager.Instance.PlaySecondPhaseBackgroundMusic();
             }
         }
     }
@@ -110,11 +119,11 @@ public class GameManagerMap : MonoBehaviour
         _isFirstOpenMap = SaveManager.GetStatsMissions("MainMap");
         
         Debug.Log("GameManagerMap.SpawnPlayer._isFirstOpenMap = " + _isFirstOpenMap);
+        Debug.Log("GameManagerMap.SpawnPlayer.IsSecondPhase = " + SaveManager.IsSecondPhase);
         
         if (_isFirstOpenMap != 0) {
             _firstCutscene.Stop();
-
-            if (SaveManager.IsSecondPhase == 0)
+            if (SaveManager.IsSecondPhase != 1)
             {
                 Play();
             }
@@ -164,6 +173,7 @@ public class GameManagerMap : MonoBehaviour
     {
         if (_firstCutscene == aDirector)
         {
+            
             Play();
         }
     }
@@ -183,6 +193,11 @@ public class GameManagerMap : MonoBehaviour
         _playerControllerMap.SetPlayerCanMove(true);
         _mainCamera.transform.position = _cameraPosition;
         _mainCamera.orthographicSize = _orthographicSizeCamera;
+
+        if (SaveManager.IsSecondPhase>=1)
+        {
+            _mainCamera.transform.localPosition = new Vector3(-1.14548707f, -0.526100218f, -5.79999971f);
+        }
             
         if ((SaveManager.IsHavePositionMap && SaveManager.IsHaveData) || SaveManager.IsSecondPhase != 0)
         {
@@ -202,7 +217,7 @@ public class GameManagerMap : MonoBehaviour
 
         if (SaveManager.IsSecondPhase >= 1)
         {
-            SaveManager.SaveStatsMission("IsSecondPhase");
+            SaveManager.SaveStatsMission("IsSecondPhase", 2);
         }
         SaveManager.SaveLevel();
 
@@ -282,4 +297,5 @@ public class GameManagerMap : MonoBehaviour
         AudioManager.Instance.StopMusic();
         SceneManager.LoadScene("MainMenu");
     }
+    
 }

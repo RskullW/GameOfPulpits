@@ -48,6 +48,12 @@ public class PlayerControllerMap : PlayerController
                 SaveManager.LoadMapPosition(transform.position);
                 SceneManager.LoadScene("FinalMap");
             }
+            
+            else if (_isTransformVilliage)
+            {
+                SaveManager.LoadMapPosition(transform.position);
+                SceneManager.LoadScene("Village");
+            }
         }
     }
     private void MovementLogic()

@@ -521,6 +521,7 @@ public class PlayerController : MonoBehaviour
                         break;
                     default: break;
                 }
+                Debug.Log("AREALAYER");
             }
 
             else
