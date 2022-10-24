@@ -1,6 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.Playables;
+using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 using Cursor = UnityEngine.Cursor;
 
@@ -10,6 +13,10 @@ public class FinalBossLevelManager : MonoBehaviour
     [SerializeField] private PlayerController3D _player;
     [SerializeField] private Enemy3D _enemy;
     [SerializeField] private KingDialog _dialog;
+    [SerializeField] private PlayableDirector _playableDirector;
+    [SerializeField] private TextMeshProUGUI _textMeshPro;
+    [SerializeField] private string _finalTextInRussian;
+    [SerializeField] private string _finalTextInEnglish;
     void Start()
     {
         Cursor.visible = false;
@@ -29,6 +36,7 @@ public class FinalBossLevelManager : MonoBehaviour
         _enemy.OnDeath += VictoryProcess;
         _player.OnDeath += DeathProcess;
         _dialog.OnEndDialogue += StartFight;
+        _playableDirector.stopped += StopCutscene;
     }
 
     private void StartFight()
@@ -46,6 +54,7 @@ public class FinalBossLevelManager : MonoBehaviour
 
     private void StopMovement()
     {
+        _player.SetActiveDialog(true);
         _player.SetMovement(false);
         _enemy.SetMovement(false);
     }
@@ -53,7 +62,21 @@ public class FinalBossLevelManager : MonoBehaviour
     {
         // AUDIOMANAGER DEATH
         _enemy.gameObject.SetActive(false);
-        Debug.Log("Victory");
+        AudioManager.Instance.PlaySoundDeath();
+        StopMovement();
+
+        if (MenuManager.Language == Language.Eng)
+        {
+            _textMeshPro.text = _finalTextInEnglish;
+        }
+
+        else
+        {
+            _textMeshPro.text = _finalTextInRussian;
+        }
+        
+        _playableDirector.Play();
+        AudioManager.Instance.PlayMusic("Titles");
     }
 
     private void DeathProcess()
@@ -61,5 +84,12 @@ public class FinalBossLevelManager : MonoBehaviour
         _enemy.SetMovement(false);
         _player.SetMovement(false);
         _uiElementsDeath.StartScreenDeath();
+    }
+
+
+    private void StopCutscene(PlayableDirector playableDirector)
+    {
+        AudioManager.Instance.StopMusic();
+        SceneManager.LoadScene("MainMenu");
     }
 }

@@ -3268,6 +3268,7 @@ MonoBehaviour:
   _mouseSensX: 100
   _mouseSensY: 100
   _target: {fileID: 1697381566}
+  _playerController3D: {fileID: 1697381564}
 --- !u!81 &346015738
 AudioListener:
   m_ObjectHideFlags: 0
@@ -5242,6 +5243,27 @@ MonoBehaviour:
   _player: {fileID: 1697381564}
   _enemy: {fileID: 954325978}
   _dialog: {fileID: 308764303}
+  _playableDirector: {fileID: 1089126055}
+  _textMeshPro: {fileID: 2048721872}
+  _finalTextInRussian: "\u041F\u043E\u0441\u043B\u0435 \u0441\u043C\u0435\u0440\u0442\u0438
+    \u043A\u043E\u0440\u043E\u043B\u044F \u0414\u0435\u0439\u043C\u043E\u043D\u0430
+    II \u0432\u043E \u0432\u0441\u0451\u043C \u043A\u043E\u0440\u043E\u043B\u0435\u0432\u0441\u0442\u0432\u0435
+    \u043D\u0430\u0447\u0430\u043B\u0430\u0441\u044C \u043E\u0436\u0435\u0441\u0442\u043E\u0447\u0435\u043D\u043D\u0430\u044F
+    \u0431\u043E\u0440\u044C\u0431\u0430 \u0437\u0430 \u0432\u043B\u0430\u0441\u0442\u044C.
+    \u041A\u043E\u0440\u043E\u043B\u0435\u0432\u0441\u0442\u0432\u0430 \u0421\u0435\u0432\u0435\u0440\u0430
+    \u0438 \u042E\u0433\u0430 \u0432\u0441\u0451-\u0442\u0430\u043A\u0438 \u043D\u0430\u0447\u0430\u043B\u0438
+    \u0432\u043E\u0439\u043D\u0443, \u043F\u043E\u0434\u0435\u043B\u0438\u0432\u0448\u0438\u0441\u044C
+    \u043D\u0430 \u0447\u0435\u0440\u043D\u044B\u0445 \u0438 \u0437\u0435\u043B\u0435\u043D\u044B\u0445.
+    \u0421\u044D\u0440 \u041A\u0440\u0438\u0441\u0442\u0435\u043D\u0441\u0435\u043D
+    \u0431\u044B\u043B \u043A\u0430\u0437\u043D\u0451\u043D \u0437\u0430 \u0438\u0437\u043C\u0435\u043D\u0443
+    \u0438 \u0443\u0431\u0438\u0439\u0441\u0442\u0432\u043E \u043A\u043E\u0440\u043E\u043B\u044F.
+    \u0412 \u0438\u0441\u0442\u043E\u0440\u0438\u0438 \u043E\u043D \u0441\u043E\u0445\u0440\u0430\u043D\u0438\u043B\u0441\u044F
+    \u043A\u0430\u043A \u0443\u0431\u0438\u0439\u0446\u0430 \u043A\u043E\u0440\u043E\u043B\u0435\u0439."
+  _finalTextInEnglish: After the death of King Damon II, a fierce struggle for power
+    began throughout the kingdom. The kingdoms of the North and South still started
+    a war, divided into black and green. Sir Christensen was executed for treason
+    and the murder of the king. In history, he has been preserved as a killer of
+    kings.
 --- !u!4 &586173650
 Transform:
   m_ObjectHideFlags: 0
@@ -10257,7 +10279,7 @@ PlayableDirector:
   m_Enabled: 1
   serializedVersion: 3
   m_PlayableAsset: {fileID: 11400000, guid: de32c4deb7355d641836cecc69ad20bf, type: 2}
-  m_InitialState: 1
+  m_InitialState: 0
   m_WrapMode: 2
   m_DirectorUpdateMode: 1
   m_InitialTime: 0
@@ -18237,18 +18259,18 @@ MonoBehaviour:
       m_Calls: []
   m_text: After the death of King Damon II, a fierce struggle for power began throughout
     the kingdom. The kingdoms of the North and South still started a war, divided
-    into black and white. Sir Christensen was executed for treason and the murder
+    into black and green. Sir Christensen was executed for treason and the murder
     of the king. In history, he has been preserved as a killer of kings.
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 854e3101fe4d3a040bd0610fa45468dc, type: 2}
-  m_sharedMaterial: {fileID: -7235326384417294620, guid: 854e3101fe4d3a040bd0610fa45468dc, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
+  m_sharedMaterial: {fileID: 2164040, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 0}
+    rgba: 10461087
+  m_fontColor: {r: 0.6226415, g: 0.6226415, b: 0.6226415, a: 0}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
