@@ -42,19 +42,7 @@ public class Tip : MonoBehaviour
         {
             if ((other.gameObject.tag == "Player" || other.gameObject.tag == "Tip")  && _enemy.IsAttack && !_isAttack)
             {
-                var damage = _enemy.GetDamage();
-
-                _isAttack = true;
-
-               
-                if (_player.IsDefend)
-                {
-                    damage /= 4;
-                }
-
-                _player.TakeDamage(damage);
-                
-                Debug.Log("Enemy caused damage player:" + _player.GetDamage());
+                _player.TakeDamage(_enemy.GetDamage());
             }
 
             else if (!_enemy.IsAttack)

@@ -7,7 +7,6 @@ using UnityEngine.UIElements;
 [RequireComponent(typeof(UIDocument))]
 public class UIElementsDeath : MonoBehaviour
 {
-    [SerializeField] private PlayerController _playerController;
     [SerializeField] private string _textInRussian;
     [SerializeField] private string _textInEnglish;
     

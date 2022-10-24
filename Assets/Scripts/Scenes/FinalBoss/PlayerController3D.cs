@@ -1,22 +1,39 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UIElements;
+using Image = UnityEngine.UI.Image;
 
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(Animator))]
 public class PlayerController3D : MonoBehaviour
 {
+    public event Action OnDeath;
     [SerializeField] private bool _isMovement;
     [SerializeField] private float _speed;
     [SerializeField] private float _runSpeed;
+    [SerializeField] private float _maxHealth;
     [SerializeField] private float _health;
     [SerializeField] private float _damage;
     [SerializeField] private float _amountOfMedicine;
     [SerializeField] private float _levelGun;
     [SerializeField] private Animator _animator;
     [SerializeField] private float _cooldownAttack;
-    private float _localCooldownAttack;
+    [SerializeField] private float _cooldownUseHealth;
+
+    [SerializeField] private float _pointRecoveryHealth;
+    // INTERFACE
+    [SerializeField] private GameObject _interface;
+    [SerializeField] private Image _healthBarPlayer;
+    [SerializeField] protected Image _circleFill;
+    [SerializeField] private TextMeshProUGUI _textMedicine;
+    [SerializeField] private TextMeshProUGUI _textLevelGun;
+    
+    [SerializeField] private Color _colorCausePlayer;
+    [SerializeField] private Color _colorCauseEnemy;
+    
     private bool _isAttack;
     private bool _isDefend;
     private bool _isDeath;
@@ -24,7 +41,11 @@ public class PlayerController3D : MonoBehaviour
     private bool _isRun;
     private bool _isWalk;
     private bool _isIdle;
+    private bool _isActiveDialog;
     
+    private float _localCooldownUseHealth;
+    private float _localCooldownAttack;
+
     public bool IsAttack => _isAttack;
     public bool IsDefend => _isDefend;
     public bool IsDeath => _isDeath;
@@ -33,13 +54,37 @@ public class PlayerController3D : MonoBehaviour
     public bool IsWalk => _isWalk;
     public bool IsIdle => _isIdle;
     
-    private Rigidbody _rigidbody;
     void Start()
     {
         _animator = GetComponent<Animator>();
-        _rigidbody = GetComponent<Rigidbody>();
-    }
+        
+        if (SaveManager.IsHaveData || SaveManager.IsWasSave)
+        {
+            _levelGun = SaveManager.LevelGun;
+            _amountOfMedicine = SaveManager.AmountOfMedicine;
+            _health = SaveManager.Health;
+        }
 
+        if (_textLevelGun != null)
+        {
+            _textLevelGun.text = _levelGun.ToString();
+        }
+        
+        if (_textMedicine != null)
+        {
+            _textMedicine.text = _amountOfMedicine.ToString();
+        }
+        
+        if (_health <= 0)
+        {
+            _health = 20f;
+        }
+
+        _healthBarPlayer.fillAmount = _health / _maxHealth;
+
+
+    }
+    
     // Update is called once per frame
     void Update()
     {
@@ -49,10 +94,10 @@ public class PlayerController3D : MonoBehaviour
             InputLogic();
         }
     }
-
+    
     private void MovementLogic()
     {
-        if (_isDefend || _isAttack)
+        if (_isDefend)
         {
             return;
         }
@@ -63,6 +108,7 @@ public class PlayerController3D : MonoBehaviour
         if (Input.GetAxis("Horizontal") == 0 && Input.GetAxis("Vertical") == 0)
         {
             SetAnimation("isIdle", true);
+            AudioManager.Instance.StopSoundWalk();
         }
 
         else if (IsRun)
@@ -70,6 +116,7 @@ public class PlayerController3D : MonoBehaviour
             h *= _runSpeed;
             v *= _runSpeed;
             SetAnimation("isRun", true);
+            AudioManager.Instance.PlaySoundWalk("RunConcrete");
         }
 
         else
@@ -77,6 +124,7 @@ public class PlayerController3D : MonoBehaviour
             h *= _speed;
             v *= _speed;
             SetAnimation("isWalk", true);
+            AudioManager.Instance.PlaySoundWalk("RunConcrete");
         }
 
         transform.Translate(h, 0, v);
@@ -101,11 +149,12 @@ public class PlayerController3D : MonoBehaviour
             _isAttack = true;
             _localCooldownAttack = _cooldownAttack;
             SetAnimation("isAttack", true);
+            
+            AudioManager.Instance.PlaySound("Attack4");
         }
 
         else if (_isAttack)
         {
-            ResetAnimation();
             _localCooldownAttack -= Time.deltaTime;
 
             if (_localCooldownAttack <= 0f)
@@ -114,7 +163,7 @@ public class PlayerController3D : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.Mouse1))
+        if (Input.GetKeyDown(KeyCode.Mouse1) && !_isAttack)
         {
             _isDefend = true;
             SetAnimation("isDefend", true);
@@ -123,6 +172,42 @@ public class PlayerController3D : MonoBehaviour
         else if (Input.GetKeyUp(KeyCode.Mouse1))
         {
             _isDefend = false;
+        }
+        
+        if (_amountOfMedicine > 0 && Input.GetKey(KeyCode.Q) && _localCooldownUseHealth <= 0f)
+        {
+            AudioManager.Instance.PlaySound("UseHealth");
+
+            _amountOfMedicine -= 1;
+            _health += _pointRecoveryHealth;
+            _healthBarPlayer.fillAmount = _health / _maxHealth;
+
+            if (_health > _maxHealth)
+            {
+                _health = _maxHealth;
+            }
+
+            _localCooldownUseHealth = _cooldownUseHealth;
+
+            if (_textMedicine != null)
+            {
+                _textMedicine.text = _amountOfMedicine.ToString();
+
+            }
+
+            if (_circleFill != null)
+            {
+                _circleFill.fillAmount = 1f;
+            }
+        }
+
+        if (_localCooldownUseHealth > 0f)
+        {
+            _localCooldownUseHealth -= Time.deltaTime;
+            if (_circleFill != null)
+            {
+                _circleFill.fillAmount = _localCooldownUseHealth / _cooldownUseHealth;
+            }
         }
     }
 
@@ -151,6 +236,25 @@ public class PlayerController3D : MonoBehaviour
         _isMovement = value;
     }
 
+    public void SetActiveDialog(bool value)
+    {
+        _isActiveDialog = value;
+
+        if (_interface != null)
+        {
+            if (_isActiveDialog)
+            {
+                SetMovement(false);
+                _interface.gameObject.SetActive(false);
+            }
+
+            else
+            {
+                _interface.gameObject.SetActive(true);
+            }
+        }
+    }
+
     public bool GetMovement()
     {
         return _isMovement;
@@ -158,12 +262,44 @@ public class PlayerController3D : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
-        _health -= damage;
+        if (!_isDeath)
+        {
+            if (_isDefend)
+            {
+                damage /= 4;
+            }
+
+            Debug.Log("Enemy caused damage player:" + damage);
+
+            _health -= damage;
+
+            _healthBarPlayer.fillAmount = _health / _maxHealth;
+
+            if (_health <= 0f)
+            {
+                _isDeath = true;
+
+                SetMovement(false);
+                SetAnimation("isDeath", true);
+                OnDeath?.Invoke();
+                AudioManager.Instance.PlaySoundDeath();
+            }
+
+            else
+            {
+                if (!_isDefend)
+                {
+                    SetAnimation("isGetHit", true);
+                }
+
+                AudioManager.Instance.PlaySound("TakeDamage");
+            }
+        }
     }
 
     public float GetDamage()
     {
         return _damage;
     }
-    
+
 }
