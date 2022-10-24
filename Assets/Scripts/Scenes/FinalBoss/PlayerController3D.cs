@@ -299,7 +299,7 @@ public class PlayerController3D : MonoBehaviour
 
     public float GetDamage()
     {
-        return _damage;
+        return (_levelGun<=0)? _damage:_damage + _damage*(_levelGun*0.5f);
     }
 
 }
