@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Playables;
+using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
 public class GameManagerMap : MonoBehaviour
 {
     private int _isFirstOpenMap;
 
-    [SerializeField] private Missions _missions;
+    [SerializeField] private UIDocument _uiDocumentPause;
     [SerializeField] private UIDocument _interfaceUIDocument;
     [SerializeField] private PlayerControllerMap _playerControllerMap;
     [SerializeField] private Camera _mainCamera;
@@ -21,14 +22,19 @@ public class GameManagerMap : MonoBehaviour
     [Space]
     [SerializeField] private GameObject _objectsFirstPhase;
     [SerializeField] private GameObject _objectsSecondPhase;
+    
+    private VisualElement _pause;
+    private Button _pauseContinue;
+    private Button _pauseSave;
+    private Button _pauseExit;
+
 
     private Vector3 _horsePosition;
     private Label[] _creditsLabel;
     private Label[] _garbagesLabel;
     
-    private Label _questLabel;
-    private Label _missionLabel;
     private Button _saveButton;
+    private Button _pauseButton;
     
     private Label _helpMessage;
     private VisualElement _helpMessageClick;
@@ -38,6 +44,7 @@ public class GameManagerMap : MonoBehaviour
 
         SpawnPlayer(); 
         InitializeEvent();
+        InitializePause();
         StartMusic();
 
         if (SaveManager.IsSecondPhase >= 1)
@@ -119,6 +126,7 @@ public class GameManagerMap : MonoBehaviour
         _secondCutscene.stopped += OnStopSecondCutscene;
         _playerControllerMap.OnHideMessage += HideMessage;
         _playerControllerMap.OnShowMessage += ShowMessage;
+        _playerControllerMap.OnPause += ShowPause;
     }
 
     void InitializeUIElements()
@@ -142,10 +150,10 @@ public class GameManagerMap : MonoBehaviour
             tempGarbage /= 10;
         }
         
-        _questLabel = root.Q<Label>("QuestLabel");
-        _missionLabel = root.Q<Label>("MissionLabel");
         _saveButton = root.Q<Button>("SaveButton");         
+        _pauseButton = root.Q<Button>("PauseButton");         
         _saveButton.clicked += Save;
+        _pauseButton.clicked += ShowPause;
 
         _helpMessage = root.Q<Label>("HelpMessageLabel");
         _helpMessageClick = root.Q<VisualElement>("HelpMessageClick");
@@ -183,23 +191,6 @@ public class GameManagerMap : MonoBehaviour
 
         InitializeUIElements();
         SetLanguageLabel();
-        SetMission((int)Missions.NumberMissions);
-    }
-    
-    private void SetMission(int numberMissions)
-    {
-
-        Missions.SetNumberMission((uint)numberMissions);
-       
-        _questLabel.text = _missions.EnglishQuest;
-        _missionLabel.text = _missions.EnglishMissions[numberMissions];
-        
-        if (MenuManager.Language == Language.Rus)
-        {
-            _questLabel.text = _missions.RussianQuest;
-            _missionLabel.text = _missions.RussianMissions[numberMissions];
-        }
-        
     }
 
     private void Save()
@@ -242,5 +233,53 @@ public class GameManagerMap : MonoBehaviour
         _helpMessage.visible = _helpMessageClick.visible = false;
         _helpMessage.SetEnabled(false);
         _helpMessageClick.SetEnabled(false);
+    }
+    
+    private void InitializePause()
+    {
+        var root = _uiDocumentPause.rootVisualElement;
+        _pause = root.Q<VisualElement>("Pause");
+        _pauseContinue = root.Q<Button>("ContinueButton");
+        _pauseSave = root.Q<Button>("SaveButton");
+        _pauseExit = root.Q<Button>("ExitButton");
+
+        SetLanguagePause();
+
+        _pauseContinue.clicked += HidePause;
+        _pauseExit.clicked += ExitButton;
+        _pauseSave.clicked += Save;
+
+        _pause.style.opacity = 0f;
+        _pause.SetEnabled(false);
+    }
+
+    private void SetLanguagePause()
+    {
+        _pauseContinue.style.backgroundImage =
+            new StyleBackground(ResourcesLoad.GetSprite("Continue" + MenuManager.Language));
+        _pauseExit.style.backgroundImage =
+            new StyleBackground(ResourcesLoad.GetSprite("ExitMenu" + MenuManager.Language));
+        _pauseSave.style.backgroundImage = new StyleBackground(ResourcesLoad.GetSprite("Save" + MenuManager.Language));
+    }
+
+    private void ShowPause()
+    {
+        _pause.SetEnabled(true);
+        _pause.style.opacity = 1f;
+        _playerControllerMap.SetActiveDialogue(true);
+    }
+
+    private void HidePause()
+    {
+        _pause.style.opacity = 0f;
+        _pause.SetEnabled(false);
+        _playerControllerMap.SetActiveDialogue(false);
+    }
+    
+
+    private void ExitButton()
+    {
+        AudioManager.Instance.StopMusic();
+        SceneManager.LoadScene("MainMenu");
     }
 }

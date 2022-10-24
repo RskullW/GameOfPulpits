@@ -31,6 +31,7 @@ public class ResourcesLoad : MonoBehaviour
         _sprites["BackRus"] = Resources.Load<Sprite>("Sprites/rus/Buttons/back");
         _sprites["LoadGameRus"] = Resources.Load<Sprite>("Sprites/rus/Buttons/load");
         _sprites["ExitMenuRus"] = Resources.Load<Sprite>("Sprites/rus/Buttons/exitMenu");
+        _sprites["SaveRus"] = Resources.Load<Sprite>("Sprites/rus/Buttons/save");
         
         _sprites["StartEng"] = Resources.Load<Sprite>("Sprites/eng/Buttons/start");
         _sprites["ContinueEng"] = Resources.Load<Sprite>("Sprites/eng/Buttons/continue");
@@ -41,6 +42,7 @@ public class ResourcesLoad : MonoBehaviour
         _sprites["BackEng"] = Resources.Load<Sprite>("Sprites/eng/Buttons/back");
         _sprites["LoadGameEng"] = Resources.Load<Sprite>("Sprites/eng/Buttons/load");
         _sprites["ExitMenuEng"] = Resources.Load<Sprite>("Sprites/eng/Buttons/exitMenu");
+        _sprites["SaveEng"] = Resources.Load<Sprite>("Sprites/eng/Buttons/save");
 
         IS_LOADED_SPRITES = true;
     }

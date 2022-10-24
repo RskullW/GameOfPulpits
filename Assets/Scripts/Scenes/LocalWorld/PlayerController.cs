@@ -4,12 +4,14 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
+using UnityEngine.UIElements;
+using Image = UnityEngine.UI.Image;
 
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerController : MonoBehaviour
 {
+    public event Action OnPause;
     public event Action OnDie;
     public event Action OnCauseDamage;
     public event Action OnSetMoney;
@@ -120,7 +122,7 @@ public class PlayerController : MonoBehaviour
         _areaLayer = AreaLayer.zero;
 
     }
-
+    
     protected void SetDefaultLogsBar()
     {
 
@@ -376,6 +378,15 @@ public class PlayerController : MonoBehaviour
             {
                 _isActiveDialogue = false;
                 OnCloseDialogWithSellers?.Invoke();
+            }
+        }
+
+        if (Input.GetKey(KeyCode.Escape))
+        {
+            if (SceneManager.GetActiveScene().name == "Castle Player" ||
+                SceneManager.GetActiveScene().name == "MainMap")
+            {
+                OnPause?.Invoke();
             }
         }
 

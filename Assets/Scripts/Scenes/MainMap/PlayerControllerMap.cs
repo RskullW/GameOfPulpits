@@ -9,6 +9,7 @@ public class PlayerControllerMap : PlayerController
 {
 
     public event Action OnHideMessage;
+    public event Action OnPause;
     public event Action OnShowMessage;
     
     private bool _isPlayerCanMove;
@@ -58,6 +59,11 @@ public class PlayerControllerMap : PlayerController
         if (Input.GetAxis("Vertical") != 0f || Input.GetAxis("Horizontal") != 0f)
         {
             _sprite.flipX = Input.GetAxis("Horizontal") < 0 ? false : true;
+        }
+
+        if (Input.GetKey(KeyCode.Escape))
+        {
+            OnPause?.Invoke();
         }
     }
 
