@@ -14489,7 +14489,7 @@ MonoBehaviour:
   _amountOfMedicine: 3
   _levelGun: 2
   _animator: {fileID: 1697381565}
-  _cooldownAttack: 2
+  _cooldownAttack: 1.43
   _cooldownUseHealth: 2
   _pointRecoveryHealth: 50
   _interface: {fileID: 4544948106356934853}
