@@ -21,3 +21,6 @@ Game Of Pulpits is a course project of the 2nd year of the D.F. Ustinov BSTU Uni
 
 Before launching the game, it is recommended to watch the announcement and the story trailer.
 The author's corporate email: akovtun@rskullw.xyz
+
+# Download
+Link: https://drive.google.com/file/d/1swu4SGkxa5cSkZ9nHpN20Zp8bu_LkDwg/view?usp=sharing
