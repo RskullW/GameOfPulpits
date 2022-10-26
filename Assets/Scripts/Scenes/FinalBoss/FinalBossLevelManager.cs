@@ -76,6 +76,8 @@ public class FinalBossLevelManager : MonoBehaviour
         }
         
         _playableDirector.Play();
+        AudioManager.Instance.StopMusic();
+        AudioManager.Instance.SetIsPlayBackgroundSecondPhaseMusic(false);
         AudioManager.Instance.PlayMusic("Titles");
     }
 

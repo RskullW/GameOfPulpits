@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 using UnityEngine.Video;
+using Cursor = UnityEngine.Cursor;
 
 public class MenuManager : MonoBehaviour
 {
@@ -28,6 +29,14 @@ public class MenuManager : MonoBehaviour
         {
             _intro.Stop();
             StartMenu();
+        }
+    }
+
+    void Start()
+    {
+        if (!Cursor.visible)
+        {
+            Cursor.visible = true;
         }
     }
 
