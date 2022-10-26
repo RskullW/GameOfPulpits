@@ -19,7 +19,8 @@ public class GuardDialog : DialogueManager
     {
 
         _isSwap = false;
-        
+        _startDuration = _durationVisibleText;
+
         foreach (var name in _nameLeft)
         {
             name.text = _dialogues[0].NameLeftEnglish;
@@ -81,6 +82,8 @@ public class GuardDialog : DialogueManager
 
             if (_numbersOfDialogue[_numberDialogue])
             {
+                _durationVisibleText = _startDuration;
+
                 if (Input.GetKey(KeyCode.Alpha1))
                 {
                     HideText();
@@ -102,6 +105,11 @@ public class GuardDialog : DialogueManager
                         StartCoroutine(StartVisibleText());
                     }
                 }
+            }
+            
+            else if (Input.GetKey(KeyCode.Space))
+            {
+                _durationVisibleText = 0f;
             }
         }
     }
@@ -159,7 +167,7 @@ public class GuardDialog : DialogueManager
     private IEnumerator StartVisibleText()
     {
         List<TextMeshProUGUI> _dialogue;
-
+        
         switch (_numberDialogue)
         {
             case -1:

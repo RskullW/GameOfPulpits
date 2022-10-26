@@ -264,7 +264,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '          Thank you, sir. It''s a great honor for me. I won''t stain my
+  m_text: '         Thank you, sir. It''s a great honor for me. I won''t stain my
     white cloak!'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 854e3101fe4d3a040bd0610fa45468dc, type: 2}
@@ -328,7 +328,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: -114.86952, y: 0.9281121, z: -161.36223, w: -48.780632}
+  m_margin: {x: -104.577286, y: -3.1974292, z: -161.36223, w: -48.780632}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -533,7 +533,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0.5999993, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &358055087
@@ -594,10 +594,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'YOU: '
+  m_text: 'YOU:'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 0a6b1e7175467b641950d1165b9d7270, type: 2}
-  m_sharedMaterial: {fileID: 9205102746807259384, guid: 0a6b1e7175467b641950d1165b9d7270, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 854e3101fe4d3a040bd0610fa45468dc, type: 2}
+  m_sharedMaterial: {fileID: -7235326384417294620, guid: 854e3101fe4d3a040bd0610fa45468dc, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -731,8 +731,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'YOU:'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 0a6b1e7175467b641950d1165b9d7270, type: 2}
-  m_sharedMaterial: {fileID: 9205102746807259384, guid: 0a6b1e7175467b641950d1165b9d7270, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 854e3101fe4d3a040bd0610fa45468dc, type: 2}
+  m_sharedMaterial: {fileID: -7235326384417294620, guid: 854e3101fe4d3a040bd0610fa45468dc, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -840,7 +840,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -27.2}
+  m_AnchoredPosition: {x: 0.5999993, y: -26.2}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &380923790
@@ -1076,7 +1076,7 @@ RectTransform:
   m_GameObject: {fileID: 455827040}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.22169352, y: 0.5903934, z: 0.43431023}
+  m_LocalScale: {x: 0.22169353, y: 0.56079537, z: 0.43431032}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 690422130}
@@ -1084,7 +1084,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 3.1733477, y: 31.256199}
+  m_AnchoredPosition: {x: 3.1733496, y: 32.608932}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &455827042
@@ -1107,7 +1107,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '                        Our world should not see another war, so the only
+  m_text: '                       Our world should not see another war, so the only
     option to escape from it is negotiations and the rejection of competitive independence.
     Tell them my words [*sends a letter*]. The way there will not be easy, and be
     ready for an adventure.'
@@ -1173,7 +1173,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: -131.97937, y: 0.9281121, z: -89.7522, w: 6.1773663}
+  m_margin: {x: -122.944016, y: 0.9281121, z: -107.28645, w: -106.542694}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -1221,7 +1221,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -27.2}
+  m_AnchoredPosition: {x: 0.6, y: -23.8}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &470070268
@@ -1282,7 +1282,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Your Majesty...
+  m_text: ' Your Majesty...'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 854e3101fe4d3a040bd0610fa45468dc, type: 2}
   m_sharedMaterial: {fileID: -7235326384417294620, guid: 854e3101fe4d3a040bd0610fa45468dc, type: 2}
@@ -1345,7 +1345,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: -57.35344, y: 0.9281121, z: -89.7522, w: 6.1773663}
+  m_margin: {x: -63.09871, y: 0.9281121, z: -89.7522, w: 6.1773663}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -1386,7 +1386,7 @@ RectTransform:
   m_GameObject: {fileID: 550386921}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.22169352, y: 0.44371748, z: 0.43431014}
+  m_LocalScale: {x: 0.22169353, y: 0.6045698, z: 0.4343102}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1310241768}
@@ -1394,7 +1394,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -20.973347, y: 30.421427}
+  m_AnchoredPosition: {x: -20.973345, y: 31.482164}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &550386923
@@ -1419,8 +1419,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'KING AEGON I:'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 0a6b1e7175467b641950d1165b9d7270, type: 2}
-  m_sharedMaterial: {fileID: 9205102746807259384, guid: 0a6b1e7175467b641950d1165b9d7270, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 854e3101fe4d3a040bd0610fa45468dc, type: 2}
+  m_sharedMaterial: {fileID: -7235326384417294620, guid: 854e3101fe4d3a040bd0610fa45468dc, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1480,7 +1480,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 51.40835, w: 23.811474}
+  m_margin: {x: -18.238182, y: 0, z: 9.551826, w: 23.811474}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -1656,7 +1656,7 @@ RectTransform:
   m_GameObject: {fileID: 690422129}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.38787088, y: 0.19519913, z: 0.25754002}
+  m_LocalScale: {x: 0.38787088, y: 0.20550148, z: 0.25754002}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 939372497}
@@ -1666,7 +1666,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 3.2, y: -2.6}
+  m_AnchoredPosition: {x: 3.2, y: -3.2}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &690422131
@@ -1778,7 +1778,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 15.7, y: -42.5}
+  m_AnchoredPosition: {x: 15.4, y: -42.5}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &734076191
@@ -1839,9 +1839,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "                        You, as a person from a poor family, have proved
-    yourself in a few years. It's time to give you a\r                           
-    chance - I'm appointing you a royal guardsman"
+  m_text: '                       You, as a person from a poor family, have proved
+    yourself in a few years. It''s time to give you a chance - I''m appointing you
+    a royal guardsman'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 854e3101fe4d3a040bd0610fa45468dc, type: 2}
   m_sharedMaterial: {fileID: -7235326384417294620, guid: 854e3101fe4d3a040bd0610fa45468dc, type: 2}
@@ -1904,7 +1904,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: -134.20662, y: 0.9281121, z: -136.24054, w: -87.03858}
+  m_margin: {x: -137.58876, y: 0.9281121, z: -136.24054, w: -82.26893}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -1982,7 +1982,7 @@ RectTransform:
   m_GameObject: {fileID: 939372496}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.22169352, y: 0.5903934, z: 0.43431023}
+  m_LocalScale: {x: 0.22169353, y: 0.56079537, z: 0.43431032}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 690422130}
@@ -1990,7 +1990,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -22, y: 31.256199}
+  m_AnchoredPosition: {x: -23.000004, y: 32.608932}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &939372498
@@ -2015,8 +2015,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'KING AEGON I:'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 0a6b1e7175467b641950d1165b9d7270, type: 2}
-  m_sharedMaterial: {fileID: 9205102746807259384, guid: 0a6b1e7175467b641950d1165b9d7270, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 854e3101fe4d3a040bd0610fa45468dc, type: 2}
+  m_sharedMaterial: {fileID: -7235326384417294620, guid: 854e3101fe4d3a040bd0610fa45468dc, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2076,7 +2076,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 51.40835, w: 23.811474}
+  m_margin: {x: -4.46875, y: 0, z: 24.293224, w: 23.811474}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -2300,7 +2300,7 @@ RectTransform:
   m_GameObject: {fileID: 1200311985}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.2637522, y: 0.12524375, z: 0.25754}
+  m_LocalScale: {x: 0.2637522, y: 0.09605695, z: 0.25754}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1450871793}
@@ -2310,7 +2310,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 12.7, y: -4.2}
+  m_AnchoredPosition: {x: 12.7, y: -2.71}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1200311987
@@ -2386,7 +2386,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -26.600002, y: 23.34483}
+  m_AnchoredPosition: {x: -27.537502, y: 23.34483}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1210592855
@@ -2411,8 +2411,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'KING AEGON I:'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 0a6b1e7175467b641950d1165b9d7270, type: 2}
-  m_sharedMaterial: {fileID: 9205102746807259384, guid: 0a6b1e7175467b641950d1165b9d7270, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 854e3101fe4d3a040bd0610fa45468dc, type: 2}
+  m_sharedMaterial: {fileID: -7235326384417294620, guid: 854e3101fe4d3a040bd0610fa45468dc, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2472,7 +2472,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 51.40835, w: 23.811474}
+  m_margin: {x: 0, y: 0, z: 2.3301888, w: 23.811474}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -2513,7 +2513,7 @@ RectTransform:
   m_GameObject: {fileID: 1256426214}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.22169352, y: 0.44371748, z: 0.43431014}
+  m_LocalScale: {x: 0.22169353, y: 0.6045698, z: 0.4343102}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1310241768}
@@ -2521,7 +2521,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 4.199997, y: 30.421427}
+  m_AnchoredPosition: {x: 4.1999917, y: 31.482164}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1256426216
@@ -2552,7 +2552,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '                        No, you''re going alone. This mission is strictly
+  m_text: '                       No, you''re going alone. This mission is strictly
     secret, even my right hand does not know about these intentions. I believe that
     dark times are coming in the kingdom, and the elite and the Dean House kingdom
     are somehow involved in this.'
@@ -2618,7 +2618,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: -131.97937, y: 0.9281121, z: -89.7522, w: 6.1773663}
+  m_margin: {x: -131.97937, y: 0.9281121, z: -97.67174, w: -150.07892}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -2659,7 +2659,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -26.599998, y: -15}
+  m_AnchoredPosition: {x: -26.137497, y: -15}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1301224913
@@ -2684,8 +2684,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'KING AEGON I:'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 0a6b1e7175467b641950d1165b9d7270, type: 2}
-  m_sharedMaterial: {fileID: 9205102746807259384, guid: 0a6b1e7175467b641950d1165b9d7270, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 854e3101fe4d3a040bd0610fa45468dc, type: 2}
+  m_sharedMaterial: {fileID: -7235326384417294620, guid: 854e3101fe4d3a040bd0610fa45468dc, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2745,7 +2745,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 51.40835, w: 23.811474}
+  m_margin: {x: -6.5272446, y: 0, z: 22.790607, w: 23.811474}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -2786,7 +2786,7 @@ RectTransform:
   m_GameObject: {fileID: 1310241767}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.38787088, y: 0.2597244, z: 0.25754002}
+  m_LocalScale: {x: 0.38787088, y: 0.19062194, z: 0.25754002}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 550386922}
@@ -2796,7 +2796,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 3.2, y: -4.4}
+  m_AnchoredPosition: {x: 3.2, y: -2.5}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1310241769
@@ -2980,7 +2980,7 @@ RectTransform:
   m_GameObject: {fileID: 1450871792}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.32601985, y: 0.9201598, z: 0.43431017}
+  m_LocalScale: {x: 0.3260199, y: 1.1997494, z: 0.43431014}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1200311986}
@@ -2988,7 +2988,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -17.1, y: 25.01375}
+  m_AnchoredPosition: {x: -17.099995, y: 17.102545}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1450871794
@@ -3013,8 +3013,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'YOU: '
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 0a6b1e7175467b641950d1165b9d7270, type: 2}
-  m_sharedMaterial: {fileID: 9205102746807259384, guid: 0a6b1e7175467b641950d1165b9d7270, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 854e3101fe4d3a040bd0610fa45468dc, type: 2}
+  m_sharedMaterial: {fileID: -7235326384417294620, guid: 854e3101fe4d3a040bd0610fa45468dc, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -3074,7 +3074,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 51.40835, w: 23.811474}
+  m_margin: {x: 8.245148, y: 0, z: 51.40835, w: 23.811474}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -3115,7 +3115,7 @@ RectTransform:
   m_GameObject: {fileID: 1460928925}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.32601985, y: 0.9201598, z: 0.43431017}
+  m_LocalScale: {x: 0.3260199, y: 1.1997494, z: 0.43431014}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1200311986}
@@ -3123,7 +3123,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -26.439651, y: 24.838112}
+  m_AnchoredPosition: {x: -26.439621, y: 16.873526}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1460928927
@@ -3164,7 +3164,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4291555071
+    rgba: 4291231710
   m_fontColor: {r: 0.87058824, g: 1, b: 0.7764706, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -3218,7 +3218,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 28.348381, y: 0.9281121, z: -136.24054, w: -49.485657}
+  m_margin: {x: 38.107483, y: 0.9281121, z: -136.24054, w: -49.485657}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -3457,10 +3457,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "                         Come back with the news as soon as possible.
-    Just don't forget to take off your armor so that you won't be noticed. Si piL
-    ze al\u2019ak 9 pizho dhe li\u2019vas [Translate: And may the 9 gods save your
-    body and soul.]"
+  m_text: "                       Come back with the news as soon as possible. Just
+    don't forget to take off your armor so that you won't be noticed. Si piL ze al\u2019ak
+    9 pizho dhe li\u2019vas [Translate: And may the 9 gods save your body and soul.]"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 854e3101fe4d3a040bd0610fa45468dc, type: 2}
   m_sharedMaterial: {fileID: -7235326384417294620, guid: 854e3101fe4d3a040bd0610fa45468dc, type: 2}
@@ -3523,7 +3522,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: -131.97937, y: 0.9281121, z: -89.7522, w: 6.1773663}
+  m_margin: {x: -124.19708, y: 0.9281121, z: -103.88042, w: -106.89406}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -3589,8 +3588,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'KING AEGON I:'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 0a6b1e7175467b641950d1165b9d7270, type: 2}
-  m_sharedMaterial: {fileID: 9205102746807259384, guid: 0a6b1e7175467b641950d1165b9d7270, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 854e3101fe4d3a040bd0610fa45468dc, type: 2}
+  m_sharedMaterial: {fileID: -7235326384417294620, guid: 854e3101fe4d3a040bd0610fa45468dc, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -3650,7 +3649,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 51.40835, w: 23.811474}
+  m_margin: {x: -12.15107, y: 0, z: 27.324562, w: 23.811474}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -3834,7 +3833,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -3, y: -15}
+  m_AnchoredPosition: {x: 2.3, y: -15}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1662232328
@@ -3857,7 +3856,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '                           Sir Christensen, greetings.'
+  m_text: '                      Sir Christensen, greetings.'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 854e3101fe4d3a040bd0610fa45468dc, type: 2}
   m_sharedMaterial: {fileID: -7235326384417294620, guid: 854e3101fe4d3a040bd0610fa45468dc, type: 2}
@@ -3920,7 +3919,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: -131.97937, y: 0.9281121, z: -89.7522, w: 6.1773663}
+  m_margin: {x: -131.97937, y: 0.9281121, z: -128.23817, w: 6.1773663}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -4324,7 +4323,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0.6, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &4622559572437085863
@@ -4487,10 +4486,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '                        Sir Christensen, these are hard times and you
-    are the only hope. You''re the best squire I know. And unfortunately, I have
-    to do it... You should head to the "Dean House" and try to find a diplomatic
-    solution to the crisis that is happening between our kingdoms.'
+  m_text: '                        Our world should not see another war, so the only
+    option to escape from it is negotiations and the rejection of competitive independence.
+    Tell them my words [*sends a letter*]. The way there will not be easy, and be
+    ready for an adventure.'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 854e3101fe4d3a040bd0610fa45468dc, type: 2}
   m_sharedMaterial: {fileID: -7235326384417294620, guid: 854e3101fe4d3a040bd0610fa45468dc, type: 2}
@@ -4553,7 +4552,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: -131.97937, y: 0.9281121, z: -89.7522, w: 6.1773663}
+  m_margin: {x: -120.04042, y: 0.9281121, z: -89.7522, w: -146.20448}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -4581,8 +4580,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'KING AEGON I:'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 0a6b1e7175467b641950d1165b9d7270, type: 2}
-  m_sharedMaterial: {fileID: 9205102746807259384, guid: 0a6b1e7175467b641950d1165b9d7270, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 854e3101fe4d3a040bd0610fa45468dc, type: 2}
+  m_sharedMaterial: {fileID: -7235326384417294620, guid: 854e3101fe4d3a040bd0610fa45468dc, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -4642,7 +4641,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 51.40835, w: 23.811474}
+  m_margin: {x: 0, y: 0, z: -8.096535, w: 23.811474}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -4665,7 +4664,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -20.973347, y: 30.421427}
+  m_AnchoredPosition: {x: -21.973347, y: 30.421427}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4622559573986506087
@@ -4712,7 +4711,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 15.7, y: -42.5}
+  m_AnchoredPosition: {x: 15.2, y: -43.3}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &5011725992119335422
@@ -4779,7 +4778,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4291555071
+    rgba: 4291231710
   m_fontColor: {r: 0.87058824, g: 1, b: 0.7764706, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -4991,10 +4990,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'YOU: '
+  m_text: 'YOU:'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 0a6b1e7175467b641950d1165b9d7270, type: 2}
-  m_sharedMaterial: {fileID: 9205102746807259384, guid: 0a6b1e7175467b641950d1165b9d7270, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 854e3101fe4d3a040bd0610fa45468dc, type: 2}
+  m_sharedMaterial: {fileID: -7235326384417294620, guid: 854e3101fe4d3a040bd0610fa45468dc, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

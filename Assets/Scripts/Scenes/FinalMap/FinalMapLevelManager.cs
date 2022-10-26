@@ -27,7 +27,8 @@ public class FinalMapLevelManager : MonoBehaviour
     
     void InitializeEvents()
     {
-        _player.OnMessageClick += ShowMessageClick;
+        _player.OnShowMessageClick += ShowMessageClick;
+        _player.OnHideMessageClick += HideMessageClick;
         _player.OnDie += DeathProcess;
     }
 
@@ -78,13 +79,16 @@ public class FinalMapLevelManager : MonoBehaviour
     private void ShowMessageClick()
     {
         
-        bool visible = _helpMessageClick.visible;
-        
-        _helpMessage.visible = _helpMessageClick.visible = !visible;
-        _helpMessage.SetEnabled(!visible);
-        _helpMessageClick.SetEnabled(!visible);
-        
-        Debug.Log("Show Message: " + _helpMessageClick.visible);
+        _helpMessage.visible = _helpMessageClick.visible = true;
+        _helpMessage.SetEnabled(true);
+        _helpMessageClick.SetEnabled(true);
+    }
+
+    protected void HideMessageClick()
+    {
+        _helpMessage.visible = _helpMessageClick.visible = false;
+        _helpMessage.SetEnabled(false);
+        _helpMessageClick.SetEnabled(false);
     }
     
     private void SetLanguageLabel()

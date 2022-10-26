@@ -13,17 +13,17 @@ MonoBehaviour:
   m_Name: StartDialogue3
   m_EditorClassIdentifier: 
   _englishText:
-  - '                        No, you''re going alone. This mission is strictly secret,
+  - '                       No, you''re going alone. This mission is strictly secret,
     even my right hand does not know about these intentions. I believe that dark
     times are coming in the kingdom, and the elite and the Dean House kingdom are
     somehow involved in this.'
-  - "                         Come back with the news as soon as possible. Just don't
+  - "                       Come back with the news as soon as possible. Just don't
     forget to take off your armor so that you won't be noticed. Si piL ze al\u2019ak
     9 pizho dhe li\u2019vas [Translate: And may the 9 gods save your body and soul.]"
   - "        Delayvis silp\u2019s 9 a al\u2019ak [Translate: In the name of the 9
     gods]"
   _russianText:
-  - "                       \u041D\u0435\u0442, \u0442\u044B \u043F\u043E\u0439\u0434\u0435\u0448\u044C
+  - "                                   \u041D\u0435\u0442, \u0442\u044B \u043F\u043E\u0439\u0434\u0435\u0448\u044C
     \u043E\u0434\u0438\u043D. \u042D\u0442\u0430                         \u043C\u0438\u0441\u0441\u0438\u044F
     \u0441\u0442\u0440\u043E\u0433\u043E \u0441\u0435\u043A\u0440\u0435\u0442\u043D\u0430,
     \u0434\u0430\u0436\u0435 \u043C\u043E\u0439 \u0434\u0435\u0441\u043D\u0438\u0446\u0430
@@ -34,8 +34,8 @@ MonoBehaviour:
     \u0438 \u044D\u043B\u0438\u0442\u0430, \u0438 \u043A\u043E\u0440\u043E\u043B\u0435\u0432\u0441\u0442\u0432\u043E
     \u201C\u0414\u043E\u043C \u0414\u0435\u043A\u0430\u043D\u0430\u0442\u201D \u043A\u0430\u043A-\u0442\u043E
     \u0437\u0430\u043C\u0435\u0448\u0435\u043D\u044B \u0432 \u044D\u0442\u043E\u043C."
-  - "                       \u0412\u043E\u0437\u0432\u0440\u0430\u0449\u0430\u0439\u0442\u0435\u0441\u044C
-    \u0441 \u043D\u043E\u0432\u043E\u0441\u0442\u044F\u043C\u0438 \u043A\u0430\u043A                        
+  - "                                  \u0412\u043E\u0437\u0432\u0440\u0430\u0449\u0430\u0439\u0442\u0435\u0441\u044C
+    \u0441 \u043D\u043E\u0432\u043E\u0441\u0442\u044F\u043C\u0438 \u043A\u0430\u043A
     \u043C\u043E\u0436\u043D\u043E \u0441\u043A\u043E\u0440\u0435\u0435. \u0422\u043E\u043B\u044C\u043A\u043E
     \u043D\u0435 \u0437\u0430\u0431\u0443\u0434\u044C\u0442\u0435 \u0441\u043D\u044F\u0442\u044C
     \u0441\u0432\u043E\u0438 \u0434\u043E\u0441\u043F\u0435\u0445\u0438, \u0447\u0442\u043E\u0431\u044B
@@ -43,7 +43,7 @@ MonoBehaviour:
     Si piL ze al'ak 9 pizho dhe li'vas  [\u041F\u0435\u0440\u0435\u0432\u043E\u0434:
     \u0418 \u043F\u0443\u0441\u0442\u044C 9 \u0431\u043E\u0433\u043E\u0432 \u0441\u043F\u0430\u0441\u0443\u0442
     \u0432\u0430\u0448\u0435 \u0442\u0435\u043B\u043E \u0438 \u0434\u0443\u0448\u0443.]"
-  - "        Delayvis silp\u2019s 9 a al\u2019ak  [\u041F\u0435\u0440\u0435\u0432\u043E\u0434:
+  - "       Delayvis silp\u2019s 9 a al\u2019ak  [\u041F\u0435\u0440\u0435\u0432\u043E\u0434:
     \u0412\u043E \u0438\u043C\u044F 9 \u0411\u043E\u0433\u043E\u0432]"
   _englishChoises:
   - 1. [Continue...]

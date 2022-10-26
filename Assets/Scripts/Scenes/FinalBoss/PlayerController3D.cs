@@ -126,10 +126,10 @@ public class PlayerController3D : MonoBehaviour
             SetAnimation("isWalk", true);
             AudioManager.Instance.PlaySoundWalk("RunConcrete");
         }
-
+        
         transform.Translate(h, 0, v);
     }
-    
+
     private void InputLogic()
     {
         // RUN
@@ -309,5 +309,6 @@ public class PlayerController3D : MonoBehaviour
     {
         return (_levelGun<=0)? _damage:_damage + _damage*(_levelGun*0.5f);
     }
+    
 
 }

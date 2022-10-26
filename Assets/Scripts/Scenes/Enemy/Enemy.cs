@@ -392,7 +392,8 @@ public class Enemy : MonoBehaviour
         _animator.SetBool("PeopleAttack", false);
         _animator.SetBool("PeopleBlock", false);
         _animator.SetBool("PeopleDie", true);
-
+        IsMovement = false;
+        
         yield return new WaitForSeconds(4);
         gameObject.SetActive(false);
     }

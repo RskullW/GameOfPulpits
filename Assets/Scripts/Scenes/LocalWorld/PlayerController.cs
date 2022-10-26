@@ -11,6 +11,8 @@ using Image = UnityEngine.UI.Image;
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerController : MonoBehaviour
 {
+    public event Action OnShowMessageClick;
+    public event Action OnHideMessageClick;
     public event Action OnPause;
     public event Action OnDie;
     public event Action OnCauseDamage;
@@ -20,7 +22,6 @@ public class PlayerController : MonoBehaviour
     public event Action OnSellerMedic;
     public event Action OnSellerItems;
     public event Action OnCloseDialogWithSellers;
-    public event Action OnMessageClick;
 
     [SerializeField] protected float _maxHealth;
     [SerializeField] protected float _health;
@@ -571,7 +572,7 @@ public class PlayerController : MonoBehaviour
                 }
 
                 _isShowMessage = true;
-                OnMessageClick?.Invoke();
+                OnShowMessageClick?.Invoke();
             }
         }
 
@@ -581,7 +582,7 @@ public class PlayerController : MonoBehaviour
             {
                 _isShowMessage = true;
                 _isSecondBoss = true;
-                OnMessageClick?.Invoke();
+                OnShowMessageClick?.Invoke();
             }
         }
 
@@ -599,7 +600,7 @@ public class PlayerController : MonoBehaviour
                     }
                 }
                 
-                OnMessageClick?.Invoke();
+                OnShowMessageClick?.Invoke();
             }
         }
 
@@ -609,7 +610,7 @@ public class PlayerController : MonoBehaviour
             {
                 _isShowMessage = true;
                 _isCourtyard = true;
-                OnMessageClick?.Invoke();
+                OnShowMessageClick?.Invoke();
             }
         }
 
@@ -619,7 +620,7 @@ public class PlayerController : MonoBehaviour
             {
                 _isShowMessage = true;
                 _isFinalBoss = true;
-                OnMessageClick?.Invoke();
+                OnShowMessageClick?.Invoke();
             }
         }
         
@@ -729,7 +730,7 @@ public class PlayerController : MonoBehaviour
             if (_isShowMessage)
             {
                 _isShowMessage = _isSellerGuns = _isSellerItems = _isSellerMedic = false;
-                OnMessageClick?.Invoke();
+                OnHideMessageClick?.Invoke();
             }
         }
         
@@ -739,7 +740,7 @@ public class PlayerController : MonoBehaviour
             {
                 _isShowMessage = false;
                 _isSecondBoss = false;
-                OnMessageClick?.Invoke();
+                OnHideMessageClick?.Invoke();
             }
         }
         
@@ -749,7 +750,7 @@ public class PlayerController : MonoBehaviour
             {
                 _isShowMessage = false;
                 _isCourtyard = false;
-                OnMessageClick?.Invoke();
+                OnHideMessageClick?.Invoke();
             }
         }
         
@@ -759,7 +760,7 @@ public class PlayerController : MonoBehaviour
             {
                 _isShowMessage = false;
                 _isFinalBoss = false;
-                OnMessageClick?.Invoke();
+                OnHideMessageClick?.Invoke();
             }
         }
         
@@ -777,7 +778,7 @@ public class PlayerController : MonoBehaviour
                     }
                 }
                 
-                OnMessageClick?.Invoke();
+                OnHideMessageClick?.Invoke();
             }
         }
     }

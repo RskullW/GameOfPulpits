@@ -14,6 +14,8 @@ public class EnemyGuardDialog : DialogueManager
     [SerializeField] private GameObject _canvas;
     private void Awake()
     {
+        _startDuration = _durationVisibleText;
+
         foreach (var name in _nameLeft)
         {
             name.text = _dialogues[0].NameLeftEnglish;
@@ -77,6 +79,8 @@ public class EnemyGuardDialog : DialogueManager
 
             if (_numbersOfDialogue[_numberDialogue])
             {
+                _durationVisibleText = _startDuration;
+
                 if (Input.GetKey(KeyCode.Alpha1))
                 {
 
@@ -104,6 +108,11 @@ public class EnemyGuardDialog : DialogueManager
                     }
                 }
             }
+            
+            else if (Input.GetKey(KeyCode.Space))
+            {
+                _durationVisibleText = 0f;
+            }
         }
     }
 
@@ -111,7 +120,7 @@ public class EnemyGuardDialog : DialogueManager
     {
         List<TextMeshProUGUI> _dialogue = _firstDialogue;
         int numberTemp = 0;
-
+        
         if (SaveManager.IsSecondPhase >= 1)
         {
             switch (_numberDialogue)
@@ -179,7 +188,7 @@ public class EnemyGuardDialog : DialogueManager
                     AudioManager.Instance.SetIsPlayBackgroundMusic(false);
                     AudioManager.Instance.PlayMusic("CourtyardFight");
                 }
-                
+
                 _dialogue[i].text += text[index++];
                 yield return new WaitForSeconds(_durationVisibleText);
             }

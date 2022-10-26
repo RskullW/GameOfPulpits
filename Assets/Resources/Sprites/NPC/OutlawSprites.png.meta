@@ -66,7 +66,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 2048
+    maxTextureSize: 1024
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
@@ -1162,13 +1162,13 @@ TextureImporter:
       OutlawSprites_20: -308301499
       OutlawSprites_46: -2106299597
       OutlawSprites_44: -1835397451
-      OutlawSprites_152: 1228417705
-      OutlawSprites_141: -661636136
-      OutlawSprites_121: -1279413988
       OutlawSprites_9: -980978129
-      OutlawSprites_15: -1144091020
-      OutlawSprites_41: 892013100
+      OutlawSprites_141: -661636136
+      OutlawSprites_152: 1228417705
       OutlawSprites_3: 1422425852
+      OutlawSprites_15: -1144091020
+      OutlawSprites_121: -1279413988
+      OutlawSprites_41: 892013100
       OutlawSprites_130: 537482546
       OutlawSprites_98: -2012011276
       OutlawSprites_125: 897211318

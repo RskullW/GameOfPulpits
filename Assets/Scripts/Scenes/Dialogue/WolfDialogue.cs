@@ -13,6 +13,8 @@ public class WolfDialogue : DialogueManager
     [SerializeField] private GameObject _canvas;
     private void Awake()
     {
+        _startDuration = _durationVisibleText;
+
         foreach (var name in _nameLeft)
         {
             name.text = _dialogues[0].NameLeftEnglish;
@@ -73,6 +75,8 @@ public class WolfDialogue : DialogueManager
 
             if (_numbersOfDialogue[_numberDialogue])
             {
+                _durationVisibleText = _startDuration;
+
                 if (Input.GetKey(KeyCode.Alpha1))
                 {
                     if (_numbersOfDialogue[_numbersOfDialogue.Count-1])
@@ -95,18 +99,28 @@ public class WolfDialogue : DialogueManager
                         if (chance <= 15)
                         {
                             OnEndLevel?.Invoke();
+                            _canvas.gameObject.SetActive(false);
+                            gameObject.SetActive(false);
                         }
                         
-                        Debug.Log("Chance = " + chance);
-
-                        _canvas.gameObject.SetActive(false);
-                        gameObject.SetActive(false);
+                        else
+                        {
+                            OnEndDialogue?.Invoke();
+                            _canvas.gameObject.SetActive(false);
+                            gameObject.SetActive(false);
+                        }
+                        
                         return;
                     }
 
                     HideText();
                     StartCoroutine(StartVisibleText());
                 }
+            }
+            
+            else if (Input.GetKey(KeyCode.Space))
+            {
+                _durationVisibleText = 0f;
             }
         }
     }

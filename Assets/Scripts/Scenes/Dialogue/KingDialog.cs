@@ -12,6 +12,8 @@ public class KingDialog : DialogueManager
     [SerializeField] private GameObject _canvas;
     private void Awake()
     {
+        _startDuration = _durationVisibleText;
+
         foreach (var name in _nameLeft)
         {
             name.text = _dialogues[0].NameLeftEnglish;
@@ -83,6 +85,7 @@ public class KingDialog : DialogueManager
 
             if (_numbersOfDialogue[_numberDialogue])
             {
+                _durationVisibleText = _startDuration;
                 if (Input.GetKey(KeyCode.Alpha1))
                 {
                     
@@ -91,6 +94,11 @@ public class KingDialog : DialogueManager
                         gameObject.SetActive(false);
                         return;
                 }
+            }
+            
+            else if (Input.GetKey(KeyCode.Space))
+            {
+                _durationVisibleText = 0f;
             }
         }
     }

@@ -15,7 +15,8 @@ public class VilliageDialog : DialogueManager
     {
 
         _isStartSecondPhase = false;
-        
+        _startDuration = _durationVisibleText;
+
         foreach (var name in _nameLeft)
         {
             name.text = _dialogues[0].NameLeftEnglish;
@@ -85,6 +86,8 @@ public class VilliageDialog : DialogueManager
 
             if (_numbersOfDialogue[_numberDialogue])
             {
+                _durationVisibleText = _startDuration;
+
                 if (Input.GetKey(KeyCode.Alpha1))
                 {
                     if (_numbersOfDialogue[0] && _numberDialogue == 0)
@@ -104,6 +107,12 @@ public class VilliageDialog : DialogueManager
                     StartCoroutine(StartVisibleText());
                 }
                 
+            }
+            
+            else if (Input.GetKey(KeyCode.Space))
+            {
+                
+                _durationVisibleText = 0f;
             }
         }
     }

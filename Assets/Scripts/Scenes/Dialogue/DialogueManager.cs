@@ -22,9 +22,12 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] protected TextMeshProUGUI _nameDialogue;
     
     protected short _numberDialogue;
+    protected float _startDuration;
 
     private void Awake()
     {
+
+        _startDuration = _durationVisibleText;
         foreach (var name in _nameLeft)
         {
             name.text = _dialogues[0].NameLeftEnglish;
@@ -112,6 +115,7 @@ public class DialogueManager : MonoBehaviour
 
             if (_numbersOfDialogue[_numberDialogue])
             {
+                _durationVisibleText = _startDuration;
                 if (Input.GetKey(KeyCode.Alpha1))
                 {
                     if (_numbersOfDialogue[^1])
@@ -123,6 +127,11 @@ public class DialogueManager : MonoBehaviour
                     HideText();
                     StartCoroutine(StartVisibleText());
                 }
+            }
+            
+            else if (Input.GetKey(KeyCode.Space))
+            {
+                _durationVisibleText = 0f;
             }
         }
     }
@@ -141,7 +150,7 @@ public class DialogueManager : MonoBehaviour
 
         int indexText = -1;
         _numberDialogue++;
-        
+
         foreach (var textMeshPro in _dialogue)
         {
             indexText++;
@@ -164,7 +173,6 @@ public class DialogueManager : MonoBehaviour
                 textMeshPro.font = _dialogues[_numberDialogue].FontAssetRussian;
           
             }
-
             textMeshPro.text = "";
             while (textMeshPro.text != text)
             {

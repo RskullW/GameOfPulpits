@@ -14,6 +14,8 @@ public class OutlawDialogue : DialogueManager
     [SerializeField] private GameObject _canvas;
     private void Awake()
     {
+        _startDuration = _durationVisibleText;
+
         foreach (var name in _nameLeft)
         {
             name.text = _dialogues[0].NameLeftEnglish;
@@ -75,6 +77,8 @@ public class OutlawDialogue : DialogueManager
 
             if (_numbersOfDialogue[_numberDialogue])
             {
+                _durationVisibleText = _startDuration;
+
                 if (Input.GetKey(KeyCode.Alpha1))
                 {
                     if (_numbersOfDialogue[^1])
@@ -90,13 +94,20 @@ public class OutlawDialogue : DialogueManager
                 {
                     if (_numbersOfDialogue[^1])
                     {
-
                         if (_playerController.GetMoney() > 0 || _playerController.GetAmountGarbage() > 0)
                         {
                             _playerController.SetMoney(0);
                             _playerController.SetAmountGarbage(0);
 
                             OnEndLevel?.Invoke();
+                            _canvas.gameObject.SetActive(false);
+                            gameObject.SetActive(false);
+                            return;
+                        }
+
+                        else
+                        {
+                            OnEndDialogue?.Invoke();
                             _canvas.gameObject.SetActive(false);
                             gameObject.SetActive(false);
                             return;
@@ -112,22 +123,34 @@ public class OutlawDialogue : DialogueManager
                     if (_numbersOfDialogue[_numbersOfDialogue.Count - 1])
                     {
                         int chance = Random.Range(0, 100);
+                        Debug.Log("OutlawDialog: Chance = " + chance);
 
                         if (chance <= 35)
                         {
                             OnEndLevel?.Invoke();
+                            _canvas.gameObject.SetActive(false);
+                            gameObject.SetActive(false);
                         }
 
-                        Debug.Log("OutlawDialog: Chance = " + chance);
-
-                        _canvas.gameObject.SetActive(false);
-                        gameObject.SetActive(false);
+                        else
+                        {
+                            OnEndDialogue?.Invoke();
+                            _canvas.gameObject.SetActive(false);
+                            gameObject.SetActive(false);
+                        }
+                        
                         return;
                     }
 
                     HideText();
                     StartCoroutine(StartVisibleText());
                 }
+            }
+            
+            else if (Input.GetKey(KeyCode.Space))
+            {
+                
+                _durationVisibleText = 0f;
             }
         }
     }

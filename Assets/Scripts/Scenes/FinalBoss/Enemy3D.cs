@@ -14,6 +14,8 @@ public class Enemy3D : MonoBehaviour
     
     [SerializeField] private float _health;
     [SerializeField] private float _damage;
+    [SerializeField] protected float _walkSpeed;
+    [SerializeField] private float _runSpeed;
     [SerializeField] private float _cooldownAttack;
     [SerializeField] private float _attackDistance;
     [SerializeField] private float _runDistance;
@@ -49,6 +51,8 @@ public class Enemy3D : MonoBehaviour
         _maxHealth = _health;
         _healthBarEnemy.fillAmount = _health / _maxHealth;
         _localCooldownUseMedic = 0f;
+
+        _agent.speed = _walkSpeed;
     }
 
     // Update is called once per frame
@@ -130,7 +134,12 @@ public class Enemy3D : MonoBehaviour
         {
             ResetAction();
             _isIdle = true;
-            
+
+            if (Math.Abs(_agent.speed - _walkSpeed) > 0.0001f)
+            {
+                _agent.speed = _walkSpeed;
+            }
+
             SetAnimation("isWalk", true);
             _agent.SetDestination(_playerTransform.position);
         }
@@ -140,6 +149,11 @@ public class Enemy3D : MonoBehaviour
         {
             ResetAction();
             _isRun = true;
+            if (Math.Abs(_agent.speed - _runSpeed) > 0.0001f)
+            {
+                _agent.speed = _runSpeed;
+            }
+            
             SetAnimation("isRun", true);
             _agent.SetDestination(_playerTransform.position);
 

@@ -63,13 +63,16 @@ public class CourtyardLevelManager : MonoBehaviour
     private void ShowMessageClick()
     {
         
-        bool visible = _helpMessageClick.visible;
-        
-        _helpMessage.visible = _helpMessageClick.visible = !visible;
-        _helpMessage.SetEnabled(!visible);
-        _helpMessageClick.SetEnabled(!visible);
-        
-        Debug.Log("Show Message: " + _helpMessageClick.visible);
+        _helpMessage.visible = _helpMessageClick.visible = true;
+        _helpMessage.SetEnabled(true);
+        _helpMessageClick.SetEnabled(true);
+    }
+
+    protected void HideMessageClick()
+    {
+        _helpMessage.visible = _helpMessageClick.visible = false;
+        _helpMessage.SetEnabled(false);
+        _helpMessageClick.SetEnabled(false);
     }
     
     private void SetLanguageLabel()
@@ -85,7 +88,8 @@ public class CourtyardLevelManager : MonoBehaviour
     {
         _dialog.OnEndDialogue += StartFirstPhase;
         _player.OnDie += DeathProcess;
-        _player.OnMessageClick += ShowMessageClick;
+        _player.OnShowMessageClick += ShowMessageClick;
+        _player.OnHideMessageClick += HideMessageClick;
         _player.OnSellerGun += ShowMessageClick;
         _player.OnSellerItems += ShowMessageClick;
         _player.OnSellerMedic += ShowMessageClick;

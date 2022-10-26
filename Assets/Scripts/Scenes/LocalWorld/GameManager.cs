@@ -61,7 +61,8 @@ public class GameManager : MonoBehaviour
 
     private void InitializeEvent()
     {
-        _playerController.OnMessageClick += ShowMessageClick;
+        _playerController.OnShowMessageClick += ShowMessageClick;
+        _playerController.OnHideMessageClick += HideMessageClick;
         _playerController.OnSetMoney += SetMoneyLabelInterface;
         _playerController.OnSetGarbage += SetAmountGarbagePlayerControllerEvent;
         _playerController.OnPause += ShowPause;
@@ -108,12 +109,17 @@ public class GameManager : MonoBehaviour
 
     private void ShowMessageClick()
     {
+        
+        _helpMessage.visible = _helpMessageClick.visible = true;
+        _helpMessage.SetEnabled(true);
+        _helpMessageClick.SetEnabled(true);
+    }
 
-        bool visible = _helpMessageClick.visible;
-
-        _helpMessage.visible = _helpMessageClick.visible = !visible;
-        _helpMessage.SetEnabled(!visible);
-        _helpMessageClick.SetEnabled(!visible);
+    protected void HideMessageClick()
+    {
+        _helpMessage.visible = _helpMessageClick.visible = false;
+        _helpMessage.SetEnabled(false);
+        _helpMessageClick.SetEnabled(false);
     }
 
     public void SetAmountGarbagePlayerControllerEvent()
